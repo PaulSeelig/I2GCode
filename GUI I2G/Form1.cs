@@ -1,8 +1,8 @@
 namespace GUI_I2G
 {
-    public partial class Form1 : Form
+    public partial class I2Gcode : Form
     {
-        public Form1()
+        public I2Gcode()
         {
             InitializeComponent();
         }
