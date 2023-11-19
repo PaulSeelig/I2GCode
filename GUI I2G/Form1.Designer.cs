@@ -28,35 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            pictureBox1 = new PictureBox();
+            genButton = new Button();
+            displayBox = new PictureBox();
             label1 = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
             textBox3 = new TextBox();
             label2 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)displayBox).BeginInit();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.BackColor = SystemColors.MenuHighlight;
-            button1.Location = new Point(87, 335);
-            button1.Name = "button1";
-            button1.Size = new Size(193, 60);
-            button1.TabIndex = 0;
-            button1.Text = "G- Code generieren";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            genButton.BackColor = SystemColors.MenuHighlight;
+            genButton.Location = new Point(87, 335);
+            genButton.Name = "button1";
+            genButton.Size = new Size(193, 60);
+            genButton.TabIndex = 0;
+            genButton.Text = "G- Code generieren";
+            genButton.UseVisualStyleBackColor = false;
+            genButton.Click += button1_Click;
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = SystemColors.GradientInactiveCaption;
-            pictureBox1.Location = new Point(12, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(776, 154);
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
+            displayBox.BackColor = SystemColors.GradientInactiveCaption;
+            displayBox.Location = new Point(12, 12);
+            displayBox.Name = "pictureBox1";
+            displayBox.Size = new Size(776, 154);
+            displayBox.TabIndex = 1;
+            displayBox.TabStop = false;
             // 
             // label1
             // 
@@ -107,19 +107,19 @@
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(label1);
-            Controls.Add(pictureBox1);
-            Controls.Add(button1);
+            Controls.Add(displayBox);
+            Controls.Add(genButton);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)displayBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
-        private PictureBox pictureBox1;
+        private Button genButton;
+        private PictureBox displayBox;
         private Label label1;
         private TextBox textBox1;
         private TextBox textBox2;

@@ -34,26 +34,7 @@ namespace GUI_I2G
         }
     }
 
-    class Vector : Conture
-    {
-        public double Length { get; set; }
+    
 
-        public Vector(Point start, Point end) 
-        {
-            StartPoint = start;  
-            EndPoint = end;
-        }
-    }
-
-    class Curve : Conture 
-    {
-        public double Radius { get; set; }
-
-        public Curve(Point start, Point end, double radius)
-        {
-            StartPoint = start;
-            EndPoint = end;
-            Radius = radius;
-        }
-    }
+ 
 }
