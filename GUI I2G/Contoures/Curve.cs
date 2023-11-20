@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GUI_I2G
+namespace GUI_I2G.Contures
 {
-    internal class Curve : Conture
+    internal class Curve : Contour
     {
         public double Radius { get; set; }
 

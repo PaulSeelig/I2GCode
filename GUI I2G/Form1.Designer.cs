@@ -41,10 +41,9 @@
             // genButton
             // 
             genButton.BackColor = SystemColors.MenuHighlight;
-            genButton.Location = new Point(76, 251);
-            genButton.Margin = new Padding(3, 2, 3, 2);
+            genButton.Location = new Point(87, 335);
             genButton.Name = "genButton";
-            genButton.Size = new Size(169, 45);
+            genButton.Size = new Size(193, 60);
             genButton.TabIndex = 0;
             genButton.Text = "G- Code generieren";
             genButton.UseVisualStyleBackColor = false;
@@ -53,60 +52,56 @@
             // displayBox
             // 
             displayBox.BackColor = SystemColors.GradientInactiveCaption;
-            displayBox.Location = new Point(10, 9);
-            displayBox.Margin = new Padding(3, 2, 3, 2);
+            displayBox.Location = new Point(11, 12);
             displayBox.Name = "displayBox";
-            displayBox.Size = new Size(679, 116);
+            displayBox.Size = new Size(776, 155);
             displayBox.TabIndex = 1;
             displayBox.TabStop = false;
             // 
             // Instructions
             // 
             Instructions.AutoSize = true;
-            Instructions.Location = new Point(241, 98);
+            Instructions.Location = new Point(275, 131);
             Instructions.Name = "Instructions";
-            Instructions.Size = new Size(194, 15);
+            Instructions.Size = new Size(247, 20);
             Instructions.TabIndex = 2;
             Instructions.Text = "Bild hier via Drag n Drop hochladen";
             // 
             // Xcordfield
             // 
-            Xcordfield.Location = new Point(136, 162);
-            Xcordfield.Margin = new Padding(3, 2, 3, 2);
+            Xcordfield.Location = new Point(155, 216);
             Xcordfield.Name = "Xcordfield";
-            Xcordfield.Size = new Size(110, 23);
+            Xcordfield.Size = new Size(125, 27);
             Xcordfield.TabIndex = 3;
             // 
             // TBDycord
             // 
-            TBDycord.Location = new Point(136, 187);
-            TBDycord.Margin = new Padding(3, 2, 3, 2);
+            TBDycord.Location = new Point(155, 249);
             TBDycord.Name = "TBDycord";
-            TBDycord.Size = new Size(110, 23);
+            TBDycord.Size = new Size(125, 27);
             TBDycord.TabIndex = 4;
             // 
             // TBDzcord
             // 
-            TBDzcord.Location = new Point(136, 212);
-            TBDzcord.Margin = new Padding(3, 2, 3, 2);
+            TBDzcord.Location = new Point(155, 283);
             TBDzcord.Name = "TBDzcord";
-            TBDzcord.Size = new Size(110, 23);
+            TBDzcord.Size = new Size(125, 27);
             TBDzcord.TabIndex = 5;
             // 
             // Xlabel
             // 
             Xlabel.AutoSize = true;
-            Xlabel.Location = new Point(37, 162);
+            Xlabel.Location = new Point(42, 216);
             Xlabel.Name = "Xlabel";
-            Xlabel.Size = new Size(69, 15);
+            Xlabel.Size = new Size(88, 20);
             Xlabel.TabIndex = 6;
             Xlabel.Text = "X- Startwert";
             // 
             // I2Gcode
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 338);
+            ClientSize = new Size(677, 465);
             Controls.Add(Xlabel);
             Controls.Add(TBDzcord);
             Controls.Add(TBDycord);
@@ -114,7 +109,6 @@
             Controls.Add(Instructions);
             Controls.Add(displayBox);
             Controls.Add(genButton);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "I2Gcode";
             Text = "I2G-code";
             ((System.ComponentModel.ISupportInitialize)displayBox).EndInit();
