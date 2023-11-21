@@ -10,7 +10,7 @@ namespace GUI_I2G
     {
         public static double DepthEngraving {  get; set; }
 
-        public static double[] Eckpunkte { get; private set; }
+        public static double[]? Eckpunkte { get; private set; }
 
         public static double TableWidth { get; set; }
        

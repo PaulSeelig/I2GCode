@@ -12,23 +12,26 @@ namespace GUI_I2G.GCode
         
         public  static GCode GenerateGCode(Contour[] ContourImage)
         {
-            GCode gcode = new GCode { AllContours = ContourImage }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
+            GCode gcode = new GCode { AllContours = Contour.ContourGroup(ContourImage) }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
 
-            List<string> GLinesList = new List<string> { Start(ContourImage[0].StartPoint)};
-            
-            foreach (Contour contour in ContourImage) 
+            List<string> GLinesList = new List<string> { Start(ContourImage[0].StartPoint)}; //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
+            foreach (Contour[] CGroup in gcode.AllContours)
             {
-                if(contour != null&& ContourImage.Length > 0) 
+                foreach (Contour contour in CGroup)
                 {
-                    if (contour is Curve) 
+                    if (contour != null && ContourImage.Length > 0)
                     {
-                        GLinesList.Add(MoveInCurve(contour));
-                    }
-                    if (contour is Vector)
-                    {
-                        GLinesList.Add(MoveInLine(contour));
+                        if (contour is Curve)
+                        {
+                            GLinesList.Add(MoveInCurve(contour));
+                        }
+                        if (contour is Vector)
+                        {
+                            GLinesList.Add(MoveInLine(contour));
+                        }
                     }
                 }
+                GLinesList.Add(MoveTo());
             }
             GLinesList.Add(End(ContourImage[ContourImage.Length-1].EndPoint));
             gcode.GCodeLines = GLinesList.ToArray();

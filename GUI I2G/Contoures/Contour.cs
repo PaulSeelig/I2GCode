@@ -22,6 +22,11 @@ namespace GUI_I2G.Contures
 
             return result;
         }
+
+        public static List <Contour[]> ContourGroup(Contour[] CList) // The GCodeGenerator has to know, which Contoures in the Array belong together
+        {
+            return new List <Contour[]>();
+        }
         public static void WriteOutContures(Contour[] contures)
         {
             foreach (Contour conture in contures)
