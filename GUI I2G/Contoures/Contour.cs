@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GUI_I2G.Contures
 {
-    public abstract class Contour
+    public abstract class Contour//wieso abstract (macht man doch nur wenn man auch abstract Methoden benutzt?(außerdem haben wir das damals schon abgequatscht?))
     {
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
