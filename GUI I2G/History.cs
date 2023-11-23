@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_I2G.GCodeclasses;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;

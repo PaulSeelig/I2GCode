@@ -1,4 +1,4 @@
-﻿using GUI_I2G.GCode;
+﻿using GUI_I2G.GCodeclasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,16 @@ namespace GUI_I2G.Contures
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
 
+        public Contour Reversed()
+        {
+            (EndPoint, StartPoint) = (StartPoint, EndPoint); //changes the start and end- point with each other; important for open Contours ContourGroup.Start != ContourGroup.End;
+            return this;
+        }
         public static Contour[] ContourExtractor(Image image)
+        {
+            return ContourExtractor();
+        }
+        public static Contour[] ContourExtractor() //DummyFunktion
         {
             //bloss beispielhaft
             Contour[] result = new Contour[3];
