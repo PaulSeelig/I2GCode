@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GUI_I2G.GCodeclasses
 {
-    internal class GCode
+    public class GCode
     {
         public string[]? GCodeLines { get; set; }
 
