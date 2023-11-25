@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_I2G
 {
-    internal class Parameter
+    public class Parameter
     {
         public static double DepthEngraving {  get; set; }
 
