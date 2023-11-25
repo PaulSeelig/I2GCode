@@ -12,7 +12,7 @@ using System.Text.Json;
 namespace GUI_I2G
 {
     [Serializable]
-    internal class HistoryEntry
+    public class HistoryEntry
     {
         //An Object to save all the data, to serialize and deserialize using json
 
