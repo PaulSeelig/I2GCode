@@ -17,7 +17,7 @@ namespace GUI_I2G
         //An Object to save all the data, to serialize and deserialize using json
 
         //Project relevant date:
-        public string ProjectName { get; private set; } = DateTime.Now.ToString();
+        public string ProjectName { get; private set; } = DateTime.Now.ToString(); //if not named set to current date
         //Might be needed in front end
         //public static string GCodeSavePath { get; private set; } = @".\HistoryEntries\";
 
