@@ -10,7 +10,7 @@ namespace GUI_I2G.GCodeclasses
     public abstract class IGCCommandlib
     {
         static public double Z() => Parameter.DepthEngraving;
-        static public string Start() => "%";
+        static public List<string> Start() => new () { "%", "G21 G90 G95" };
 
         static public string CutPath(Contour c) => c is Curve? CutInCurve(c) : CutInLine(c);
 
@@ -20,7 +20,7 @@ namespace GUI_I2G.GCodeclasses
 
         static public string CutInCurve(Contour c) => "";
 
-        static public string End() => "%";
+        static public string End() => "G28%";
 
         static public string CoolTime(double t) => "";
 

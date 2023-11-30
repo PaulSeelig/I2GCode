@@ -1,9 +1,7 @@
-﻿
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using GUI_I2G.GUI_I2G.GCodeclasses;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace GCode_Test
+namespace UnitTestProject1
 {
     [TestClass]
     public class UnitTest1
@@ -11,7 +9,6 @@ namespace GCode_Test
         [TestMethod]
         public void TestMethod1()
         {
-            GCode_Test 
         }
     }
 }

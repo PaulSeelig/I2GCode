@@ -8,6 +8,7 @@ namespace GUI_I2G
 {
     public class Parameter
     {
+        public static double Milingheight{ get; set; }
         public static double DepthEngraving {  get; set; }
 
         public static double[]? Eckpunkte { get; private set; }
