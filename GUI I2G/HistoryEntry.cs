@@ -16,26 +16,27 @@ namespace GUI_I2G
     {
         //An Object to save all the data, to serialize and deserialize using json
 
-        //Project relevant date:
-        public string ProjectName { get; private set; } = DateTime.Now.ToString(); //if not named set to current date
+        public string projectName { get; private set; } = DateTime.Now.ToString(); //if not named set to current date
         //Might be needed in front end
         //public static string GCodeSavePath { get; private set; } = @".\HistoryEntries\";
 
-        public Parameter Parameter { get; private set; }
+        public DateTime lastOpened {  get; private set; }
 
-        public GCode Gcodes { get; private set; }
+        public Parameter parameter { get; private set; }
 
-        public Image? Image { get; private set; }
+        public string gcodePath { get; private set; }
+
+        public string imagePath { get; private set; }
 
         //DO we safe the contours aswell?
 
         //creating an instance of the historyentry with all the Data inside
-        public HistoryEntry(string projectname, Parameter parameter, GCode gcode, Image image)
+        public HistoryEntry(string projectname, Parameter parameter, string gcodePath, string imagePath)
         {
-            ProjectName = projectname;
-            Parameter = parameter;
-            Gcodes = gcode;
-            Image = image;
+            this.projectName = projectname;
+            this.parameter = parameter;
+            this.gcodePath = gcodePath;
+            this.imagePath = imagePath;
         }
     }
 }
