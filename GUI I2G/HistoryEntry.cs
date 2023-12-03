@@ -1,4 +1,4 @@
-﻿using GUI_I2G.GCodeclasses;
+﻿using GUI_I2G;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace GUI_I2G
         //Might be needed in front end
         //public static string GCodeSavePath { get; private set; } = @".\HistoryEntries\";
 
-        public DateTime lastOpened {  get; private set; }
+        public DateTime lastOpened {  get; set; } //updated after every openeing
 
         public Parameter parameter { get; private set; }
 
@@ -36,6 +36,7 @@ namespace GUI_I2G
             this.projectName = projectname;
             this.parameter = parameter;
             this.gcodePath = gcodePath;
+            this.lastOpened = DateTime.Today;
             this.imagePath = imagePath;
         }
     }
