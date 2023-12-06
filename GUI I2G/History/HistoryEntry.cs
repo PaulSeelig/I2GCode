@@ -15,12 +15,20 @@ namespace GUI_I2G
     public class HistoryEntry
     {
         //An Object to save all the data, to serialize and deserialize using json
-
-        public string projectName { get; private set; } = DateTime.Now.ToString(); //if not named set to current date
+        private string projectName;
+        public string projectName 
+        { 
+            get
+            {
+                lastOpened = DateTime.Today;
+                return projectName;
+            };
+            private set => projectName = value; 
+        } = DateTime.Now.ToString(); //if not named set to current date
         //Might be needed in front end
         //public static string GCodeSavePath { get; private set; } = @".\HistoryEntries\";
 
-        public DateTime lastOpened {  get; set; } //updated after every openeing
+        public DateTime lastOpened {  get; private set; } //updated after every openeing
 
         public Parameter parameter { get; private set; }
 
