@@ -1,6 +1,7 @@
 ﻿using System;
 using GUI_I2G;
 using System.Text.Json;
+using System.Collections.Generic;
 
 public class History : IHistorySafe
 {
@@ -11,10 +12,13 @@ public class History : IHistorySafe
 	private string jsonFilePath; //needs to designate a default don't know how yet
 
 	//Methods:
-
-	public List<HistoryEntry> GetEntries()
+	/// <summary>
+	/// returns the history entry with the given Project Name
+	/// </summary>
+	/// <param name="projectName"> the name required for the search </param>
+	public HistoryEntry GetEntries(string projectName)
 	{ 
-		return history; 
+		return (from entry in history where entry.projectName == projectName select entry).FirstOrDefault();
 	}
 
     /// <summary>
