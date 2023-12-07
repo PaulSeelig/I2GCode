@@ -22,7 +22,7 @@ namespace GUI_I2G
             {
                 lastOpened = DateTime.Today;
                 return projectName;
-            };
+            }
             private set => projectName = value; 
         } = DateTime.Now.ToString(); //if not named set to current date
         //Might be needed in front end

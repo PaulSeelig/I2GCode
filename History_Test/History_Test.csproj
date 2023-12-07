@@ -15,7 +15,6 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
     <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
-	 <ProjectReference Include="C:\Users\Paul\source\repos\g-image2code\GUI I2G\GUI_I2G.csproj" />
   </ItemGroup>
 
 </Project>
