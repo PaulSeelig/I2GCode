@@ -17,4 +17,8 @@
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GUI I2G\GUI_I2G.csproj" />
+  </ItemGroup>
+
 </Project>

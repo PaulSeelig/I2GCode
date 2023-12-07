@@ -5,6 +5,7 @@ namespace History_Test
         [SetUp]
         public void Setup()
         {
+            //Arrange
         }
 
         [Test]
