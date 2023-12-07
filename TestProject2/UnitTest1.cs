@@ -1,7 +1,4 @@
-using GUI_I2G.Contures;
-using System.Drawing;
-using GUI_I2G.GCodeclasses;
-namespace History_Test
+namespace TestProject2
 {
     public class Tests
     {
