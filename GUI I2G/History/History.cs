@@ -18,7 +18,7 @@ public class History : IHistorySafe
 	/// <param name="projectName"> the name required for the search </param>
 	public HistoryEntry GetEntries(string projectName)
 	{ 
-		return (from entry in history where entry.projectName == projectName select entry).FirstOrDefault();
+		return (from entry in history where entry.ProjectName == projectName select entry).FirstOrDefault();
 	}
 
     /// <summary>
