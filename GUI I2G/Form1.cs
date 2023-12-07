@@ -11,5 +11,15 @@ namespace GUI_I2G
         {
 
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void I2Gcode_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
