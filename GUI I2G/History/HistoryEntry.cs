@@ -39,7 +39,7 @@ namespace GUI_I2G
 
         public void UpdateLastOpened()
         {
-            lastOpened = DateTime.Today;
+            lastOpened = DateTime.Now;
         }
         //creating an instance of the historyentry with all the Data inside
         /// <summary>
@@ -54,7 +54,7 @@ namespace GUI_I2G
             this.projectName = projectname;
             this.parameter = parameter;
             this.gcodePath = gcodePath;
-            this.lastOpened = DateTime.Today;
+            this.lastOpened = DateTime.Now;
             this.imagePath = imagePath;
         }
     }

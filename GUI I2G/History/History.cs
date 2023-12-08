@@ -2,6 +2,7 @@
 using GUI_I2G;
 using System.Text.Json;
 using System.Collections.Generic;
+using System.CodeDom;
 
 public class History : IHistorySafe
 {
@@ -14,7 +15,7 @@ public class History : IHistorySafe
 	/// returns the history entry with the given Project Name
 	/// </summary>
 	/// <param name="projectName"> the name required for the search </param>
-	public HistoryEntry GetEntries(string projectName)
+	public HistoryEntry GetEntry(string projectName)
 	{ 
 		return (from entry in history where entry.projectName == projectName select entry).FirstOrDefault();
 	}
@@ -25,9 +26,30 @@ public class History : IHistorySafe
 	/// <returns>List sorted by LastOpened</returns>
     public List<HistoryEntry> GetHistoryByLast()
     {
-        return history.OrderBy(entry => entry.lastOpened).ToList();
+        return history.OrderByDescending(entry => entry.lastOpened).ToList();
     }
 
+	public int GetHistoryCount()
+	{
+		return history.Count;
+	}
+
+    /// <summary>
+    /// Updates an existing history entry.
+    /// </summary>
+    /// <param name="updatedEntry">The updated history entry.</param>
+    public void SaveChangesToProject(HistoryEntry updatedEntry)
+    {
+        // Find the index of the entry in the list
+        int index = history.FindIndex(entry => entry.projectName == updatedEntry.projectName);
+
+        // If the entry is found, update it
+        if (index != -1)
+        {
+            history[index] = updatedEntry;
+        }
+
+    }
 
     /// <summary>
     /// Adds a History object to the List and calls Save function (could change)
