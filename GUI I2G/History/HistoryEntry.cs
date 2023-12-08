@@ -20,7 +20,6 @@ namespace GUI_I2G
         { 
             get
             {
-                lastOpened = DateTime.Today;
                 return privprojectName;
             }
             private set => privprojectName = value; 
@@ -38,7 +37,18 @@ namespace GUI_I2G
 
         //DO we safe the contours aswell?
 
+        public void UpdateLastOpened()
+        {
+            lastOpened = DateTime.Today;
+        }
         //creating an instance of the historyentry with all the Data inside
+        /// <summary>
+        /// Creates the History entry object setting lastOpened to today automatically
+        /// </summary>
+        /// <param name="projectname"></param>
+        /// <param name="parameter"></param>
+        /// <param name="gcodePath"></param>
+        /// <param name="imagePath"></param>
         public HistoryEntry(string projectname, Parameter parameter, string gcodePath, string imagePath)
         {
             this.projectName = projectname;

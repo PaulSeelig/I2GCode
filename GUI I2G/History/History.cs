@@ -9,8 +9,6 @@ public class History : IHistorySafe
 	//private so only inhouse methods can access it
 	private List<HistoryEntry> history = new List<HistoryEntry> ();
 
-	private string jsonFilePath; //needs to designate a default don't know how yet
-
 	//Methods:
 	/// <summary>
 	/// returns the history entry with the given Project Name
@@ -21,27 +19,34 @@ public class History : IHistorySafe
 		return (from entry in history where entry.projectName == projectName select entry).FirstOrDefault();
 	}
 
+	/// <summary>
+	/// A method that hopefully returns the list sorted by LastOpened
+	/// </summary>
+	/// <returns>List sorted by LastOpened</returns>
+    public List<HistoryEntry> GetHistoryByLast()
+    {
+        return history.OrderBy(entry => entry.lastOpened).ToList();
+    }
+
+
     /// <summary>
     /// Adds a History object to the List and calls Save function (could change)
     /// </summary>
     /// <param name="entry">The history entry to be added.</param>
     public void SaveGcodeProject(HistoryEntry entry)
 	{
+		entry.UpdateLastOpened();
 		history.Add(entry);
-		SaveHistoryToFile();
 	}
 
     /// <summary>
-    /// Saves the List of HistoryEntries to a jsonfile
-    /// </summary>
-    public void SaveHistoryToFile()
+	/// saves all Entries to the designated filepath
+	/// </summary>
+	/// <param name="jsonFilePath"></param>
+    public void SaveHistoryToFile(string jsonFilePath)
 	{
         string json = JsonSerializer.Serialize(history);
 		File.WriteAllText(json, jsonFilePath);
     }
 
-	public History(string filePath)
-	{
-		jsonFilePath = filePath;
-	}
 }
