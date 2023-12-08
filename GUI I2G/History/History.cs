@@ -29,6 +29,10 @@ public class History : IHistorySafe
         return history.OrderByDescending(entry => entry.lastOpened).ToList();
     }
 
+	/// <summary>
+	/// just a test method
+	/// </summary>
+	/// <returns>Count of History elements</returns>
 	public int GetHistoryCount()
 	{
 		return history.Count;
@@ -46,6 +50,7 @@ public class History : IHistorySafe
         // If the entry is found, update it
         if (index != -1)
         {
+			updatedEntry.UpdateLastOpened();
             history[index] = updatedEntry;
         }
 
@@ -68,7 +73,17 @@ public class History : IHistorySafe
     public void SaveHistoryToFile(string jsonFilePath)
 	{
         string json = JsonSerializer.Serialize(history);
-		File.WriteAllText(json, jsonFilePath);
+		File.WriteAllText(jsonFilePath, json);
     }
 
+	/// <summary>
+	/// Needs to be called with the start of Programm,
+	/// creates the History List from safefile
+	/// </summary>
+	/// <param name="jsonFilePath"></param>
+	public void OpenHistoryfromFile(string jsonFilePath)
+	{
+		string json = File.ReadAllText(jsonFilePath);
+        history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
+	}
 }

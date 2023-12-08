@@ -54,7 +54,7 @@ namespace History_Test
         }
 
         [Test]
-        public void GetHistory_OrderByLastOpened()
+        public void GetHistory_OrderByLastOpened_SaveCHanges()
         {
             //Act
             HistoryEntry entry = history.GetEntry("Stecker");
@@ -63,7 +63,24 @@ namespace History_Test
 
             //Assert
             Assert.That(history.GetHistoryCount(), Is.EqualTo(entries.Count));
-            Assert.IsTrue(history.GetEntry("Knopf") == entries[0]);
+            Assert.IsTrue(history.GetEntry("Stecker") == entries[0]);
+        }
+
+        /// <summary>
+        /// if this test fails its because the filepath is not user specific. 
+        /// idk how to do that over git
+        /// </summary>
+        [Test]
+        public void SaveProject_TestingCount()
+        {
+            //Assemble
+            string jsonFilePath = @"C:\Users\Paul\source\repos\g-image2code\History.json";
+            //Act
+            history.SaveHistoryToFile(jsonFilePath);
+            history.OpenHistoryfromFile(jsonFilePath);
+
+            //Assert
+            Assert.IsTrue(history.GetHistoryCount() == 5);
         }
 
     }
