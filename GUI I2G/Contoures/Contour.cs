@@ -12,11 +12,18 @@ namespace GUI_I2G.Contures
     {
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
+        public double EndDepth { get; set; } // I'll need this   
         public abstract double Length { get; set; }
 
 
-        
-        
+        /// <summary>
+        /// Tests if the maschine can continue in rounds, or rather has to make an one eighty
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        public static bool IsClosed(Contour[] c) => c[0].StartPoint == c[^1].EndPoint; 
+
+       
         /// <summary>
         /// The first Contour(s) are not finished (or all when the milingtool is to short) after the first go, so in order to finish it, this function reverse the toolpath
         /// </summary>
