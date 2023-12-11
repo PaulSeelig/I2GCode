@@ -12,6 +12,7 @@ namespace GUI_I2G.GCodeclasses
 {
     public class GCodeGenerator : IGCCommandlib
     {
+        private static Parameter? parameter { get; set; } //this might be stupid but hey not the hardest fix
 
         /// <summary>
         /// Generates GCode.string[]  with a given List<Contour[]>
@@ -40,20 +41,20 @@ namespace GUI_I2G.GCodeclasses
         public static void GeneratePerRound(in List<string> GLinesList, Contour[] CGroup, double currentMileDepth = 0.0 )
         {
             double startDepth = currentMileDepth;
-            double wantedDepth = currentMileDepth + Parameter.CutDepthPerRound;
+            double wantedDepth = currentMileDepth + parameter.CutDepthPerRound;
 
             for (int j = 0; j < CGroup.Length; j++)// jede einzelne zusammenhängende Contourgroup wird contour für Contour durchgegangen
             {
 
-                if (currentMileDepth + CGroup[j].Length * Parameter.DDFactor < Parameter.CuttingDepth)
+                if (currentMileDepth + CGroup[j].Length * parameter.DDFactor < parameter.CuttingDepth)
                 {
-                    currentMileDepth += CGroup[j].Length * Parameter.DDFactor;
+                    currentMileDepth += CGroup[j].Length * parameter.DDFactor;
                     CGroup[j].EndDepth = currentMileDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                 }
-                else if (currentMileDepth != Parameter.CutDepthPerRound)
+                else if (currentMileDepth != parameter.CutDepthPerRound)
                 {
-                    currentMileDepth = Parameter.CutDepthPerRound;
+                    currentMileDepth = parameter.CutDepthPerRound;
                     CGroup[j].EndDepth = currentMileDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                     if (!Contour.IsClosed(CGroup)) // if IsOpen() because !
@@ -76,16 +77,16 @@ namespace GUI_I2G.GCodeclasses
             }
 
 
-            if (currentMileDepth <= Parameter.CuttingDepth + 1) // the Function should just repeat, if the overall progress is unfinished
+            if (currentMileDepth <= parameter.CuttingDepth + 1) // the Function should just repeat, if the overall progress is unfinished
             {
                 if (currentMileDepth == wantedDepth || Contour.IsClosed(CGroup)) // The currentMileDepth should not be increased, if a open ContourGroup Length is too short for the wantedDepth to be reached
                 {
-                    if (currentMileDepth + Parameter.CutDepthPerRound <= Parameter.CuttingDepth + 1)
+                    if (currentMileDepth + parameter.CutDepthPerRound <= parameter.CuttingDepth + 1)
                     {
-                        currentMileDepth += Parameter.CutDepthPerRound;
+                        currentMileDepth += parameter.CutDepthPerRound;
                     }
                     else
-                        currentMileDepth = Parameter.CuttingDepth;
+                        currentMileDepth = parameter.CuttingDepth;
                 }
                 if (Contour.IsClosed(CGroup))
                 {

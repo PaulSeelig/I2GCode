@@ -1,4 +1,5 @@
 ﻿using GUI_I2G;
+using NuGet.Frameworks;
 
 namespace History_Test
 {
@@ -9,12 +10,13 @@ namespace History_Test
         public void Setup()
         {
             //Assemble
+            double[] AllEckpunkte = { 4, 4, 4, 4 };
             history = new History();
-            HistoryEntry project1 = new HistoryEntry("Lampe", new Parameter(), "TestValue", "image");
-            HistoryEntry project2 = new HistoryEntry("Ständer", new Parameter(), "gcode", "image");
-            HistoryEntry project3 = new HistoryEntry("Kabel", new Parameter(), "gcode", "image");
-            HistoryEntry project4 = new HistoryEntry("Stecker", new Parameter(), "gcode", "image");
-            HistoryEntry project5 = new HistoryEntry("Knopf", new Parameter(), "gcode", "image");
+            HistoryEntry project1 = new HistoryEntry("Lampe", new Parameter(7,10,ref AllEckpunkte,5,4), "TestValue", "image");
+            HistoryEntry project2 = new HistoryEntry("Ständer", new Parameter(10,7,ref AllEckpunkte,4,5), "gcode", "image");
+            HistoryEntry project3 = new HistoryEntry("Kabel", new Parameter(7,5,ref AllEckpunkte,10,4), "gcode", "image");
+            HistoryEntry project4 = new HistoryEntry("Stecker", new Parameter(5,7,ref AllEckpunkte,4,10), "gcode", "image");
+            HistoryEntry project5 = new HistoryEntry("Knopf", new Parameter(5,4,ref AllEckpunkte,10,7), "gcode", "image");
 
             //Act
             history.SaveGcodeProject(project1);
@@ -38,13 +40,15 @@ namespace History_Test
         public void SaveGcodeProject_Added_All()
         {
             //Assemble
-            HistoryEntry project6 = new HistoryEntry("Platte", new Parameter(), "gcode", "image");
+            double[] AllEckpunkte = { 2, 2, 2, 2 };
+            HistoryEntry project6 = new HistoryEntry("Platte", new Parameter(4,5,ref AllEckpunkte,7,10), "gcode", "image");
 
             //Act
             history.SaveGcodeProject(project6);
 
             //Assert
             Assert.That(history.GetHistoryCount() == 6);
+            Assert.That(history.GetEntry("Platte").parameter.TableWidth == 4);
         }
 
         [Test]
@@ -58,12 +62,14 @@ namespace History_Test
         {
             //Act
             HistoryEntry entry = history.GetEntry("Stecker");
+            entry.parameter.TableWidth = 4;
             history.SaveChangesToProject(entry);
             List<HistoryEntry> entries = history.GetHistoryByLast();
 
             //Assert
             Assert.That(history.GetHistoryCount(), Is.EqualTo(entries.Count));
             Assert.IsTrue(history.GetEntry("Stecker") == entries[0]);
+            Assert.IsTrue(history.GetEntry("Stecker").parameter.TableWidth == 4);
         }
 
         /// <summary>

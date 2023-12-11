@@ -14,8 +14,9 @@ namespace History_Test
         public void ConstructorTest_All_All()
         {
             //Assemble
+            double[] testing = { 4, 5, 6, 4 };
             string projName = "TestName";
-            var param = new Parameter();
+            var param = new Parameter(10, 10, ref testing, 5, 5);
             var GPath = new string(string.Empty);
             var ImgPath = new string(string.Empty);
 
