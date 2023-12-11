@@ -23,10 +23,8 @@ namespace GUI_I2G
                 return privprojectName;
             }
             private set => privprojectName = value; 
-        } //if not named set to current date
-        //Might be needed in front end
-        //public static string GCodeSavePath { get; private set; } = @".\HistoryEntries\";
-
+        } 
+        
         public DateTime lastOpened {  get; private set; } //updated after every openeing
 
         public Parameter parameter { get; private set; }

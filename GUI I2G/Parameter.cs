@@ -9,20 +9,20 @@ namespace GUI_I2G
 {
     public class Parameter
     {
-        public static double ToolDepth{ get; set; } // how far can the tool deep into the material
+        public double ToolDepth{ get; set; } // how far can the tool deep (do you meen cut?) into the material
         /// <summary>
         /// Customising how deep the cuts will be in mm
         /// </summary>
-        public static double CuttingDepth { get => CuttingDepth; set => value = value < MaterialDepth ? value : 0;}
+        public double CuttingDepth { get => CuttingDepth; set => value = value < MaterialDepth ? value : 0;} //less or equal? or do we leave room?
         /// <summary>
         /// is actually unnecessary if (toolDepth >= CuttingDepth), how ever if not, it is set by the function SetCutDepthPerRound(), 
         /// so it distributes the workload equally to each neccessary round
         /// </summary>
-        public static double CutDepthPerRound {  get => CutDepthPerRound; private set=> SetCutDepthPerRoun(); }
+        public double CutDepthPerRound {  get => CutDepthPerRound; private set=> SetCutDepthPerRoun(); }
 
-        public static int Rounds {  get; private set; } // honestly not sure yet, if I'll use this
+        public int Rounds {  get; private set; } // honestly not sure yet, if I'll use this
 
-        public static void SetCutDepthPerRoun()
+        public void SetCutDepthPerRoun()
         {
             if(CuttingDepth <= ToolDepth)
                 CutDepthPerRound = CuttingDepth;
@@ -33,19 +33,31 @@ namespace GUI_I2G
             }                                           // I guess it is better for the whole maschine, but worse to the tool
         }
 
-        public static double MaterialDepth { get; set; } = 10;
-        public static double[]? Eckpunkte { get; private set; }
+        public double MaterialDepth { get; set; } = 10;
+        public double[]? Eckpunkte { get; private set; }
 
-        public static double TableWidth { get; set; }
+        public double TableWidth { get; set; }
        
         //public static double TableHeight { get; set;}
 
-        public static double TableLength { get; set; }
+        public double TableLength { get; set; }
 
         /// <summary>
         /// x mile down mm per 1 Distance mm.
         /// It is mandatory to know, which angle is supported, while the miling tool deeps into the material!
         /// </summary>
-        public static double DDFactor {  get; set; } = 0.6; //idk the correct value, so for now I imamgine it to be 6 mm down per 10 mm in Distance
+        public double DDFactor {  get; set; } = 0.6; //idk the correct value, so for now I imamgine it to be 6 mm down per 10 mm in Distance
+
+        /// <summary>
+        /// sets the required values for the GCode, any additional values either have a default or can be set individually
+        /// </summary>
+        public Parameter(double tWidth, double tLength,ref double[] WorkpieceCorners, double toolDepth, double cutDepth) 
+        {
+            tWidth = TableWidth;
+            tLength = TableLength;
+            Eckpunkte = WorkpieceCorners;
+            ToolDepth = toolDepth;
+            CuttingDepth = cutDepth;
+        }
     }
 }
