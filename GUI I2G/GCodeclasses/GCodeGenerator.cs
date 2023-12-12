@@ -12,22 +12,23 @@ namespace GUI_I2G.GCodeclasses
 {
     public class GCodeGenerator : IGCCommandlib
     {
-        private static Parameter? parameter { get; set; } //this might be stupid but hey not the hardest fix
+        //private static Parameter? parameter { get; set; } //this might be stupid but hey not the hardest fix
 
         /// <summary>
         /// Generates GCode.string[]  with a given List<Contour[]>
         /// </summary>
-        /// <param name="ContourImage"></param>
+        /// <param name="ContourImage"></param>++
         /// <returns></returns>
-        public  static GCode GenerateGCode(Contour[] ContourImage)
+        public  static GCode GenerateGCode(Image ContourImage, Parameter p)
         {
-            GCode gcode = new() { AllContours = Contour.ContourGroup(ContourImage) }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
+            Contour[] contours = Contour.ContourExtractor(ContourImage);
+            GCode gcode = new() { AllContours = Contour.ContourGroup(contours) }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
            
             foreach (Contour[] CGroup in gcode.AllContours) // all ContourGroups are gone through
             {
                 GLinesList.Add(MoveTo(CGroup[0].StartPoint));
-                GeneratePerRound(in GLinesList, CGroup);
+                GeneratePerRound(ref GLinesList, CGroup, p);
             }
             GLinesList.Add(End());
             gcode.GCodeLines = GLinesList.ToArray();
@@ -38,7 +39,7 @@ namespace GUI_I2G.GCodeclasses
 
 
 
-        public static void GeneratePerRound(in List<string> GLinesList, Contour[] CGroup, double currentMileDepth = 0.0 )
+        public static void GeneratePerRound(ref List<string> GLinesList, Contour[] CGroup, Parameter parameter, double currentMileDepth = 0.0 )
         {
             double startDepth = currentMileDepth;
             double wantedDepth = currentMileDepth + parameter.CutDepthPerRound;
@@ -90,10 +91,10 @@ namespace GUI_I2G.GCodeclasses
                 }
                 if (Contour.IsClosed(CGroup))
                 {
-                    GeneratePerRound(in GLinesList, CGroup, currentMileDepth);
+                    GeneratePerRound(ref GLinesList, CGroup,parameter, currentMileDepth);
                 }
                 else
-                    GeneratePerRound(in GLinesList, Contour.Arreversed(CGroup), currentMileDepth);
+                    GeneratePerRound(ref GLinesList, Contour.Arreversed(CGroup),parameter, currentMileDepth);
             }
 
         }
