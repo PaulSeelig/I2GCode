@@ -87,6 +87,7 @@ namespace History_Test
 
             //Assert
             Assert.IsTrue(history.GetHistoryCount() == 5);
+            Assert.IsTrue(history.GetEntry("Stecker").parameter.CurrentTool.ToolDepth == 4);
         }
 
     }

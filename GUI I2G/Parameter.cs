@@ -9,8 +9,9 @@ namespace GUI_I2G
 {
     public class Tool
     {
-        public Tool(string name, double tooldepth) { Name = name; ToolDepth = tooldepth; }
+        public Tool(string name, double tooldepth, double diameter) { Name = name; ToolDepth = tooldepth; Diameter = diameter;}
         public double ToolDepth { get; set; }// how far can the tool dive (I do mean cut) into the material
+        public double Diameter {  get; set; }
         public string Name { get; set; }
     }
     public class Parameter
@@ -21,11 +22,15 @@ namespace GUI_I2G
 
         public Tool CurrentTool { get; set; } 
 
-        public double ToolDepth => CurrentTool.ToolDepth;
+
+        //public double ToolDepth => CurrentTool.ToolDepth;
+        //public double ToolDiameter => CurrentTool.Diameter;
+
         /// <summary>
         /// Customising how deep the cuts will be in mm
         /// </summary>
         public double CuttingDepth { get => CuttingDepth; set => value = value < MaterialDepth ? value : 0;} //less or equal? or do we leave room?
+
         /// <summary>
         /// is actually unnecessary if (toolDepth >= CuttingDepth), how ever if not, it is set by the function SetCutDepthPerRound(), 
         /// so it distributes the workload equally to each neccessary round
@@ -36,11 +41,11 @@ namespace GUI_I2G
 
         public void SetCutDepthPerRoun()
         {
-            if(CuttingDepth <= ToolDepth)
+            if(CuttingDepth <= CurrentTool.ToolDepth)
                 CutDepthPerRound = CuttingDepth;
             else 
             {
-                Rounds = (int) Math.Ceiling(CuttingDepth/ToolDepth); // a == rounds the Tool needs anyway, e.g: tool == 30mm & cutdepth == 100mm,.. would need 4 rounds, if not distributed, it would make the first 3 round with 30mm and the last with 10mm
+                Rounds = (int) Math.Ceiling(CuttingDepth/CurrentTool.ToolDepth); // a == rounds the Tool needs anyway, e.g: tool == 30mm & cutdepth == 100mm,.. would need 4 rounds, if not distributed, it would make the first 3 round with 30mm and the last with 10mm
                 CutDepthPerRound = CuttingDepth / Rounds;    // but if we distribute the Cutperdepth equally each round it'll make 25mm in depth, .. now that I'm ready,.. I'm lagging if this is even better for the tool? I was really sure at the beginning
             }                                           // I guess it is better for the whole maschine, but worse to the tool
         }
@@ -63,14 +68,12 @@ namespace GUI_I2G
         /// <summary>
         /// sets the required values for the GCode, any additional values either have a default or can be set individually
         /// </summary>
-        public Parameter(double tWidth, double tLength,ref double[] WorkpieceCorners, double cutDepth, double toolDepth1, double toolDepth2, double toolDepth3, string toolName1 = "Tool1", string toolName2 = "Tool2", string toolName3 = "Tool3") 
+        public Parameter(double tWidth, double tLength,ref double[] WorkpieceCorners, double cutDepth, double toolDepth1 =4 , double tooldiameter = 3, string toolName1 = "Tool1") 
         {
-            tWidth = TableWidth;
-            tLength = TableLength;
+            TableWidth = tWidth;
+            TableLength = tLength;
             Eckpunkte = WorkpieceCorners;
-            Tool1 = new(toolName1,toolDepth1);
-            Tool2 = new(toolName2, toolDepth2);
-            Tool3 = new(toolName3, toolDepth3);
+            Tool1 = new(toolName1,toolDepth1, tooldiameter);
             CuttingDepth = cutDepth;
         }
     }
