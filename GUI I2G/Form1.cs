@@ -1,8 +1,8 @@
 namespace GUI_I2G
 {
-    public partial class Form1 : Form
+    public partial class I2Gcode : Form
     {
-        public Form1()
+        public I2Gcode()
         {
             InitializeComponent();
         }
@@ -12,7 +12,12 @@ namespace GUI_I2G
 
         }
 
-        private void lbXKoo_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void I2Gcode_Load(object sender, EventArgs e)
         {
 
         }

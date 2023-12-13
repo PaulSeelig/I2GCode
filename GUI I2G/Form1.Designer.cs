@@ -1,6 +1,6 @@
 ﻿namespace GUI_I2G
 {
-    partial class Form1
+    partial class I2Gcode
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,185 +28,193 @@
         /// </summary>
         private void InitializeComponent()
         {
-            BtngenrateGCode = new Button();
-            PbBildDnD = new PictureBox();
-            LbtBDnD = new Label();
-            tBXKoo = new TextBox();
-            tBYKoo = new TextBox();
-            tBZKoo = new TextBox();
-            LbXKoo = new Label();
-            LbYKoo = new Label();
-            LbZKoo = new Label();
-            TbGCodeVorschau = new TextBox();
-            LbGCodeVorschau = new Label();
-            BtndownloadGCode = new Button();
-            LbGraviertiefe = new Label();
-            tBGraviertiefe = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)PbBildDnD).BeginInit();
+            btn_GenerateGCode = new Button();
+            pB_DragDrop = new PictureBox();
+            lbl_DragDrop = new Label();
+            tB_Y = new TextBox();
+            tB_Z = new TextBox();
+            lbl_X = new Label();
+            btn_DownloadGCode = new Button();
+            tB_depth = new TextBox();
+            tB_X = new TextBox();
+            lbl_Y = new Label();
+            lbl_Z = new Label();
+            lbl_depth = new Label();
+            tB_showGCode = new TextBox();
+            lbl_showGCode = new Label();
+            ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             SuspendLayout();
             // 
-            // BtngenrateGCode
+            // btn_GenerateGCode
             // 
-            BtngenrateGCode.BackColor = SystemColors.ButtonShadow;
-            BtngenrateGCode.Location = new Point(87, 354);
-            BtngenrateGCode.Name = "BtngenrateGCode";
-            BtngenrateGCode.Size = new Size(193, 60);
-            BtngenrateGCode.TabIndex = 0;
-            BtngenrateGCode.Text = "G- Code generieren";
-            BtngenrateGCode.UseVisualStyleBackColor = false;
-            BtngenrateGCode.Click += button1_Click;
+            btn_GenerateGCode.BackColor = SystemColors.ControlDark;
+            btn_GenerateGCode.Location = new Point(77, 323);
+            btn_GenerateGCode.Margin = new Padding(3, 2, 3, 2);
+            btn_GenerateGCode.Name = "btn_GenerateGCode";
+            btn_GenerateGCode.Size = new Size(169, 45);
+            btn_GenerateGCode.TabIndex = 0;
+            btn_GenerateGCode.Text = "G-Code generieren";
+            btn_GenerateGCode.UseVisualStyleBackColor = false;
+            btn_GenerateGCode.Click += button1_Click;
             // 
-            // PbBildDnD
+            // pB_DragDrop
             // 
-            PbBildDnD.BackColor = SystemColors.GradientInactiveCaption;
-            PbBildDnD.Location = new Point(12, 12);
-            PbBildDnD.Name = "PbBildDnD";
-            PbBildDnD.Size = new Size(776, 154);
-            PbBildDnD.TabIndex = 1;
-            PbBildDnD.TabStop = false;
+            pB_DragDrop.BackColor = SystemColors.GradientInactiveCaption;
+            pB_DragDrop.Location = new Point(10, 9);
+            pB_DragDrop.Margin = new Padding(3, 2, 3, 2);
+            pB_DragDrop.Name = "pB_DragDrop";
+            pB_DragDrop.Size = new Size(679, 116);
+            pB_DragDrop.TabIndex = 1;
+            pB_DragDrop.TabStop = false;
             // 
-            // LbtBDnD
+            // lbl_DragDrop
             // 
-            LbtBDnD.AutoSize = true;
-            LbtBDnD.Location = new Point(275, 130);
-            LbtBDnD.Name = "LbtBDnD";
-            LbtBDnD.Size = new Size(247, 20);
-            LbtBDnD.TabIndex = 2;
-            LbtBDnD.Text = "Bild hier via Drag n Drop hochladen";
+            lbl_DragDrop.AutoSize = true;
+            lbl_DragDrop.Location = new Point(241, 98);
+            lbl_DragDrop.Name = "lbl_DragDrop";
+            lbl_DragDrop.Size = new Size(194, 15);
+            lbl_DragDrop.TabIndex = 2;
+            lbl_DragDrop.Text = "Bild hier via Drag n Drop hochladen";
             // 
-            // tBXKoo
+            // tB_Y
             // 
-            tBXKoo.Location = new Point(187, 216);
-            tBXKoo.Name = "tBXKoo";
-            tBXKoo.Size = new Size(125, 27);
-            tBXKoo.TabIndex = 3;
+            tB_Y.Location = new Point(136, 225);
+            tB_Y.Margin = new Padding(3, 2, 3, 2);
+            tB_Y.Name = "tB_Y";
+            tB_Y.Size = new Size(110, 23);
+            tB_Y.TabIndex = 4;
             // 
-            // tBYKoo
+            // tB_Z
             // 
-            tBYKoo.Location = new Point(187, 249);
-            tBYKoo.Name = "tBYKoo";
-            tBYKoo.Size = new Size(125, 27);
-            tBYKoo.TabIndex = 4;
+            tB_Z.Location = new Point(136, 250);
+            tB_Z.Margin = new Padding(3, 2, 3, 2);
+            tB_Z.Name = "tB_Z";
+            tB_Z.Size = new Size(110, 23);
+            tB_Z.TabIndex = 5;
             // 
-            // tBZKoo
+            // lbl_X
             // 
-            tBZKoo.Location = new Point(187, 282);
-            tBZKoo.Name = "tBZKoo";
-            tBZKoo.Size = new Size(125, 27);
-            tBZKoo.TabIndex = 5;
+            lbl_X.AutoSize = true;
+            lbl_X.Location = new Point(44, 206);
+            lbl_X.Name = "lbl_X";
+            lbl_X.Size = new Size(71, 15);
+            lbl_X.TabIndex = 6;
+            lbl_X.Text = "X- Eckpunkt";
             // 
-            // LbXKoo
+            // btn_DownloadGCode
             // 
-            LbXKoo.AutoSize = true;
-            LbXKoo.Location = new Point(73, 216);
-            LbXKoo.Name = "LbXKoo";
-            LbXKoo.Size = new Size(90, 20);
-            LbXKoo.TabIndex = 6;
-            LbXKoo.Text = "X- Eckpunkt:";
-            LbXKoo.Click += lbXKoo_Click;
+            btn_DownloadGCode.BackColor = SystemColors.ControlDark;
+            btn_DownloadGCode.Location = new Point(408, 323);
+            btn_DownloadGCode.Name = "btn_DownloadGCode";
+            btn_DownloadGCode.Size = new Size(169, 45);
+            btn_DownloadGCode.TabIndex = 7;
+            btn_DownloadGCode.Text = "G-Code downloaden";
+            btn_DownloadGCode.UseVisualStyleBackColor = false;
             // 
-            // LbYKoo
+            // tB_depth
             // 
-            LbYKoo.AutoSize = true;
-            LbYKoo.Location = new Point(74, 249);
-            LbYKoo.Name = "LbYKoo";
-            LbYKoo.Size = new Size(89, 20);
-            LbYKoo.TabIndex = 7;
-            LbYKoo.Text = "Y- Eckpunkt:";
+            tB_depth.Location = new Point(136, 277);
+            tB_depth.Margin = new Padding(3, 2, 3, 2);
+            tB_depth.Name = "tB_depth";
+            tB_depth.Size = new Size(110, 23);
+            tB_depth.TabIndex = 8;
+            tB_depth.TextChanged += textBox1_TextChanged;
             // 
-            // LbZKoo
+            // tB_X
             // 
-            LbZKoo.AutoSize = true;
-            LbZKoo.Location = new Point(74, 282);
-            LbZKoo.Name = "LbZKoo";
-            LbZKoo.Size = new Size(90, 20);
-            LbZKoo.TabIndex = 8;
-            LbZKoo.Text = "Z- Eckpunkt:";
+            tB_X.Location = new Point(136, 198);
+            tB_X.Margin = new Padding(3, 2, 3, 2);
+            tB_X.Name = "tB_X";
+            tB_X.Size = new Size(110, 23);
+            tB_X.TabIndex = 9;
             // 
-            // TbGCodeVorschau
+            // lbl_Y
             // 
-            TbGCodeVorschau.Location = new Point(436, 213);
-            TbGCodeVorschau.Multiline = true;
-            TbGCodeVorschau.Name = "TbGCodeVorschau";
-            TbGCodeVorschau.Size = new Size(352, 135);
-            TbGCodeVorschau.TabIndex = 9;
+            lbl_Y.AutoSize = true;
+            lbl_Y.Location = new Point(44, 233);
+            lbl_Y.Name = "lbl_Y";
+            lbl_Y.Size = new Size(71, 15);
+            lbl_Y.TabIndex = 10;
+            lbl_Y.Text = "Y- Eckpunkt";
             // 
-            // LbGCodeVorschau
+            // lbl_Z
             // 
-            LbGCodeVorschau.AutoSize = true;
-            LbGCodeVorschau.Location = new Point(552, 190);
-            LbGCodeVorschau.Name = "LbGCodeVorschau";
-            LbGCodeVorschau.Size = new Size(130, 20);
-            LbGCodeVorschau.TabIndex = 10;
-            LbGCodeVorschau.Text = "G- Code Vorschau:";
+            lbl_Z.AutoSize = true;
+            lbl_Z.Location = new Point(44, 258);
+            lbl_Z.Name = "lbl_Z";
+            lbl_Z.Size = new Size(71, 15);
+            lbl_Z.TabIndex = 11;
+            lbl_Z.Text = "Z- Eckpunkt";
             // 
-            // BtndownloadGCode
+            // lbl_depth
             // 
-            BtndownloadGCode.BackColor = SystemColors.ButtonShadow;
-            BtndownloadGCode.Location = new Point(512, 354);
-            BtndownloadGCode.Name = "BtndownloadGCode";
-            BtndownloadGCode.Size = new Size(193, 60);
-            BtndownloadGCode.TabIndex = 11;
-            BtndownloadGCode.Text = "G- Code downloaden";
-            BtndownloadGCode.UseVisualStyleBackColor = false;
+            lbl_depth.AutoSize = true;
+            lbl_depth.Location = new Point(44, 285);
+            lbl_depth.Name = "lbl_depth";
+            lbl_depth.Size = new Size(67, 15);
+            lbl_depth.TabIndex = 12;
+            lbl_depth.Text = "Graviertiefe";
             // 
-            // LbGraviertiefe
+            // tB_showGCode
             // 
-            LbGraviertiefe.AutoSize = true;
-            LbGraviertiefe.Location = new Point(73, 318);
-            LbGraviertiefe.Name = "LbGraviertiefe";
-            LbGraviertiefe.Size = new Size(89, 20);
-            LbGraviertiefe.TabIndex = 13;
-            LbGraviertiefe.Text = "Graviertiefe:";
+            tB_showGCode.Location = new Point(339, 198);
+            tB_showGCode.Multiline = true;
+            tB_showGCode.Name = "tB_showGCode";
+            tB_showGCode.Size = new Size(315, 119);
+            tB_showGCode.TabIndex = 13;
             // 
-            // tBGraviertiefe
+            // lbl_showGCode
             // 
-            tBGraviertiefe.Location = new Point(186, 318);
-            tBGraviertiefe.Name = "tBGraviertiefe";
-            tBGraviertiefe.Size = new Size(125, 27);
-            tBGraviertiefe.TabIndex = 12;
+            lbl_showGCode.AutoSize = true;
+            lbl_showGCode.Location = new Point(445, 180);
+            lbl_showGCode.Name = "lbl_showGCode";
+            lbl_showGCode.Size = new Size(102, 15);
+            lbl_showGCode.TabIndex = 14;
+            lbl_showGCode.Text = "G-Code Vorschau:";
             // 
-            // Form1
+            // I2Gcode
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(LbGraviertiefe);
-            Controls.Add(tBGraviertiefe);
-            Controls.Add(BtndownloadGCode);
-            Controls.Add(LbGCodeVorschau);
-            Controls.Add(TbGCodeVorschau);
-            Controls.Add(LbZKoo);
-            Controls.Add(LbYKoo);
-            Controls.Add(LbXKoo);
-            Controls.Add(tBZKoo);
-            Controls.Add(tBYKoo);
-            Controls.Add(tBXKoo);
-            Controls.Add(LbtBDnD);
-            Controls.Add(PbBildDnD);
-            Controls.Add(BtngenrateGCode);
-            Name = "Form1";
-            Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)PbBildDnD).EndInit();
+            ClientSize = new Size(698, 406);
+            Controls.Add(lbl_showGCode);
+            Controls.Add(tB_showGCode);
+            Controls.Add(lbl_depth);
+            Controls.Add(lbl_Z);
+            Controls.Add(lbl_Y);
+            Controls.Add(tB_X);
+            Controls.Add(tB_depth);
+            Controls.Add(btn_DownloadGCode);
+            Controls.Add(lbl_X);
+            Controls.Add(tB_Z);
+            Controls.Add(tB_Y);
+            Controls.Add(lbl_DragDrop);
+            Controls.Add(pB_DragDrop);
+            Controls.Add(btn_GenerateGCode);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "I2Gcode";
+            Text = "I2G-Code";
+            Load += I2Gcode_Load;
+            ((System.ComponentModel.ISupportInitialize)pB_DragDrop).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button BtngenrateGCode;
-        private PictureBox PbBildDnD;
-        private Label LbtBDnD;
-        private TextBox tBXKoo;
-        private TextBox tBYKoo;
-        private TextBox tBZKoo;
-        private Label LbXKoo;
-        private Label LbYKoo;
-        private Label LbZKoo;
-        private TextBox TbGCodeVorschau;
-        private Label LbGCodeVorschau;
-        private Button BtndownloadGCode;
-        private Label LbGraviertiefe;
-        private TextBox tBGraviertiefe;
+        private Button btn_GenerateGCode;
+        private PictureBox pB_DragDrop;
+        private Label lbl_DragDrop;
+        private TextBox tB_Y;
+        private TextBox tB_Z;
+        private Label lbl_X;
+        private Button btn_DownloadGCode;
+        private TextBox tB_depth;
+        private TextBox tB_X;
+        private Label lbl_Y;
+        private Label lbl_Z;
+        private Label lbl_depth;
+        private TextBox tB_showGCode;
+        private Label lbl_showGCode;
     }
 }
