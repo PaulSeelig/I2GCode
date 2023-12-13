@@ -25,7 +25,7 @@ namespace GUI_I2G.Contures
 
        
         /// <summary>
-        /// The first Contour(s) are not finished (or all when the milingtool is to short) after the first go, so in order to finish it, this function reverse the toolpath
+        /// The first Contour(s) are not finished (or all when the millingtool is to short) after the first go, so in order to finish it, this function reverse the toolpath
         /// </summary>
         /// <returns>reversed Contour</returns>
         public Contour Reversed()
@@ -39,7 +39,7 @@ namespace GUI_I2G.Contures
         /// Use only if the whole toolpath isn't finished, if just the start isn't finished -> use [0].Reversed
         /// </summary>
         /// <param name="contours"></param>
-        /// <returns>A completly reversed array, in case that the milingtool is shorter than the Depth </returns>
+        /// <returns>A completly reversed array, in case that the millingtool is shorter than the Depth </returns>
         public static Contour[] ArrayReversed(Contour[] contours)
         {
             Contour[] ret = new Contour[contours.Length-1];

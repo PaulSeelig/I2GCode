@@ -39,24 +39,24 @@ namespace GUI_I2G.GCodeclasses
 
 
 
-        public static void GeneratePerRound(ref List<string> GLinesList, Contour[] CGroup, Parameter parameter, double currentMileDepth = 0.0 )
+        public static void GeneratePerRound(ref List<string> GLinesList, Contour[] CGroup, Parameter parameter, double currentMillDepth = 0.0 )
         {
-            double startDepth = currentMileDepth;
-            double wantedDepth = currentMileDepth + parameter.CutDepthPerRound;
+            double startDepth = currentMillDepth;
+            double wantedDepth = currentMillDepth + parameter.CutDepthPerRound;
 
             for (int j = 0; j < CGroup.Length; j++)// jede einzelne zusammenhängende Contourgroup wird contour für Contour durchgegangen
             {
 
-                if (currentMileDepth + CGroup[j].Length * parameter.DDFactor < parameter.CuttingDepth)
+                if (currentMillDepth + CGroup[j].Length * parameter.DDFactor < parameter.CuttingDepth)
                 {
-                    currentMileDepth += CGroup[j].Length * parameter.DDFactor;
-                    CGroup[j].EndDepth = currentMileDepth;
+                    currentMillDepth += CGroup[j].Length * parameter.DDFactor;
+                    CGroup[j].EndDepth = currentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                 }
-                else if (currentMileDepth != parameter.CutDepthPerRound)
+                else if (currentMillDepth != parameter.CutDepthPerRound)
                 {
-                    currentMileDepth = parameter.CutDepthPerRound;
-                    CGroup[j].EndDepth = currentMileDepth;
+                    currentMillDepth = parameter.CutDepthPerRound;
+                    CGroup[j].EndDepth = currentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                     if (!Contour.IsClosed(CGroup)) // if IsOpen() because !
                     {
@@ -72,29 +72,29 @@ namespace GUI_I2G.GCodeclasses
                 }
                 else
                 {
-                    CGroup[j].EndDepth = currentMileDepth;
+                    CGroup[j].EndDepth = currentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                 }
             }
 
 
-            if (currentMileDepth <= parameter.CuttingDepth + 1) // the Function should just repeat, if the overall progress is unfinished
+            if (currentMillDepth <= parameter.CuttingDepth + 1) // the Function should just repeat, if the overall progress is unfinished
             {
-                if (currentMileDepth == wantedDepth || Contour.IsClosed(CGroup)) // The currentMileDepth should not be increased, if a open ContourGroup Length is too short for the wantedDepth to be reached
+                if (currentMillDepth == wantedDepth || Contour.IsClosed(CGroup)) // The currentMillDepth should not be increased, if a open ContourGroup Length is too short for the wantedDepth to be reached
                 {
-                    if (currentMileDepth + parameter.CutDepthPerRound <= parameter.CuttingDepth + 1)
+                    if (currentMillDepth + parameter.CutDepthPerRound <= parameter.CuttingDepth + 1)
                     {
-                        currentMileDepth += parameter.CutDepthPerRound;
+                        currentMillDepth += parameter.CutDepthPerRound;
                     }
                     else
-                        currentMileDepth = parameter.CuttingDepth;
+                        currentMillDepth = parameter.CuttingDepth;
                 }
                 if (Contour.IsClosed(CGroup))
                 {
-                    GeneratePerRound(ref GLinesList, CGroup,parameter, currentMileDepth);
+                    GeneratePerRound(ref GLinesList, CGroup,parameter, currentMillDepth);
                 }
                 else
-                    GeneratePerRound(ref GLinesList, Contour.ArrayReversed(CGroup),parameter, currentMileDepth);
+                    GeneratePerRound(ref GLinesList, Contour.ArrayReversed(CGroup),parameter, currentMillDepth);
             }
 
         }

@@ -70,10 +70,11 @@ namespace GUI_I2G
         public double TableLength { get; set; }
 
         /// <summary>
-        /// x mile down mm per 1 Distance mm.
-        /// It is mandatory to know, which angle is supported, while the miling tool deeps into the material!
+        /// x mill-down mm per 1 Distance mm.
+        /// e.g the tool can go 6mm on the z achsis down, on a distance of 10mm on the xy-plane
+        /// It is mandatory to know, which angle is supported, while the milling tool dives into the material!
         /// </summary>
-        public double DDFactor {  get; set; } = 6; //idk the correct value, so for now I imamgine it to be 6 mm down per 10 mm in Distance
+        public double DDFactor {  get; set; } = 0.6; //idk the correct value, so for now I imamgine it to be 6 mm down per 10 mm in Distance
 
         /// <summary>
         /// sets the required values for the GCode, any additional values either have a default or can be set individually
