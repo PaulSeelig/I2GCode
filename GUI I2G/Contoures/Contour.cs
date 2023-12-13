@@ -40,7 +40,7 @@ namespace GUI_I2G.Contures
         /// </summary>
         /// <param name="contours"></param>
         /// <returns>A completly reversed array, in case that the milingtool is shorter than the Depth </returns>
-        public static Contour[] Arreversed(Contour[] contours)
+        public static Contour[] ArrayReversed(Contour[] contours)
         {
             Contour[] ret = new Contour[contours.Length-1];
             for (int i = 0; i < contours.Length; i++)
@@ -52,7 +52,7 @@ namespace GUI_I2G.Contures
 
 
 
-        public static Contour[] ContourExtractor(Image image)
+        public static Contour[] ContourExtractor(Image? image)
         {
             return ContourExtractor();
         }
@@ -69,6 +69,7 @@ namespace GUI_I2G.Contures
 
         public static List <Contour[]> ContourGroup(Contour[] CList) // The GCodeGenerator has to know, which Contoures in the Array belong together
         {
+
             return new List <Contour[]>();
         }
         public void WriteOutContures(Contour[] contures)

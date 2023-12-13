@@ -12,7 +12,7 @@ namespace GUI_I2G.GCodeclasses
     {
         public string[]? GCodeLines { get; set; }
 
-        public required List <Contour[]> AllContours { get; set; }
+        public List <Contour[]> AllContours { get; set; }
     }
 
  

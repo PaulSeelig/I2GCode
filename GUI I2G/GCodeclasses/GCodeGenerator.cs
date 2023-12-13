@@ -19,7 +19,7 @@ namespace GUI_I2G.GCodeclasses
         /// </summary>
         /// <param name="ContourImage"></param>++
         /// <returns></returns>
-        public  static GCode GenerateGCode(Image ContourImage, Parameter p)
+        public  static GCode GenerateGCode(Image? ContourImage, Parameter p)
         {
             Contour[] contours = Contour.ContourExtractor(ContourImage);
             GCode gcode = new() { AllContours = Contour.ContourGroup(contours) }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
@@ -94,7 +94,7 @@ namespace GUI_I2G.GCodeclasses
                     GeneratePerRound(ref GLinesList, CGroup,parameter, currentMileDepth);
                 }
                 else
-                    GeneratePerRound(ref GLinesList, Contour.Arreversed(CGroup),parameter, currentMileDepth);
+                    GeneratePerRound(ref GLinesList, Contour.ArrayReversed(CGroup),parameter, currentMileDepth);
             }
 
         }

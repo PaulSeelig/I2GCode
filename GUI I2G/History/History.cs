@@ -81,7 +81,7 @@ public class History : IHistorySafe
 	/// creates the History List from safefile
 	/// </summary>
 	/// <param name="jsonFilePath"></param>
-	public void OpenHistoryfromFile(string jsonFilePath)
+	public void OpenHistoryFromFile(string jsonFilePath)
 	{
 		string json = File.ReadAllText(jsonFilePath);
         history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
