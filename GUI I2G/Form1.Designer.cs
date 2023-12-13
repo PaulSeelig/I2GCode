@@ -60,7 +60,7 @@
             // pB_DragDrop
             // 
             pB_DragDrop.BackColor = SystemColors.GradientInactiveCaption;
-            pB_DragDrop.Dock = DockStyle.Top;
+            pB_DragDrop.BackgroundImageLayout = ImageLayout.None;
             pB_DragDrop.Location = new Point(0, 0);
             pB_DragDrop.Margin = new Padding(3, 2, 3, 2);
             pB_DragDrop.Name = "pB_DragDrop";
@@ -181,7 +181,6 @@
             // 
             // I2Gcode
             // 
-            AllowDrop = true;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
@@ -207,6 +206,7 @@
             Text = "I2G-Code";
             Load += I2Gcode_Load;
             DragDrop += I2Gcode_DragDrop;
+            DragEnter += I2Gcode_DragEnter;
             Resize += I2Gcode_Resize;
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).EndInit();
             ResumeLayout(false);
