@@ -7,9 +7,21 @@ using System.Threading.Tasks;
 
 namespace GUI_I2G
 {
+    public class Tool
+    {
+        public Tool(string name, double tooldepth) { Name = name; ToolDepth = tooldepth; }
+        public double ToolDepth { get; set; }// how far can the tool dive (I do mean cut) into the material
+        public string Name { get; set; }
+    }
     public class Parameter
     {
-        public double ToolDepth{ get; set; } // how far can the tool deep (do you meen cut?) into the material
+        public Tool Tool1{ get; set; } 
+        public Tool Tool2 { get; set; } 
+        public Tool Tool3 { get; set; }
+
+        public Tool CurrentTool { get; set; } 
+
+        public double ToolDepth => CurrentTool.ToolDepth;
         /// <summary>
         /// Customising how deep the cuts will be in mm
         /// </summary>
@@ -51,12 +63,14 @@ namespace GUI_I2G
         /// <summary>
         /// sets the required values for the GCode, any additional values either have a default or can be set individually
         /// </summary>
-        public Parameter(double tWidth, double tLength,ref double[] WorkpieceCorners, double toolDepth, double cutDepth) 
+        public Parameter(double tWidth, double tLength,ref double[] WorkpieceCorners, double cutDepth, double toolDepth1, double toolDepth2, double toolDepth3, string toolName1 = "Tool1", string toolName2 = "Tool2", string toolName3 = "Tool3") 
         {
             tWidth = TableWidth;
             tLength = TableLength;
             Eckpunkte = WorkpieceCorners;
-            ToolDepth = toolDepth;
+            Tool1 = new(toolName1,toolDepth1);
+            Tool2 = new(toolName2, toolDepth2);
+            Tool3 = new(toolName3, toolDepth3);
             CuttingDepth = cutDepth;
         }
     }
