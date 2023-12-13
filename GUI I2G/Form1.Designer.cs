@@ -28,102 +28,185 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            pictureBox1 = new PictureBox();
-            label1 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            label2 = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            BtngenrateGCode = new Button();
+            PbBildDnD = new PictureBox();
+            LbtBDnD = new Label();
+            tBXKoo = new TextBox();
+            tBYKoo = new TextBox();
+            tBZKoo = new TextBox();
+            LbXKoo = new Label();
+            LbYKoo = new Label();
+            LbZKoo = new Label();
+            TbGCodeVorschau = new TextBox();
+            LbGCodeVorschau = new Label();
+            BtndownloadGCode = new Button();
+            LbGraviertiefe = new Label();
+            tBGraviertiefe = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)PbBildDnD).BeginInit();
             SuspendLayout();
             // 
-            // button1
+            // BtngenrateGCode
             // 
-            button1.BackColor = SystemColors.MenuHighlight;
-            button1.Location = new Point(87, 335);
-            button1.Name = "button1";
-            button1.Size = new Size(193, 60);
-            button1.TabIndex = 0;
-            button1.Text = "G- Code generieren";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            BtngenrateGCode.BackColor = SystemColors.ButtonShadow;
+            BtngenrateGCode.Location = new Point(87, 354);
+            BtngenrateGCode.Name = "BtngenrateGCode";
+            BtngenrateGCode.Size = new Size(193, 60);
+            BtngenrateGCode.TabIndex = 0;
+            BtngenrateGCode.Text = "G- Code generieren";
+            BtngenrateGCode.UseVisualStyleBackColor = false;
+            BtngenrateGCode.Click += button1_Click;
             // 
-            // pictureBox1
+            // PbBildDnD
             // 
-            pictureBox1.BackColor = SystemColors.GradientInactiveCaption;
-            pictureBox1.Location = new Point(12, 12);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(776, 154);
-            pictureBox1.TabIndex = 1;
-            pictureBox1.TabStop = false;
+            PbBildDnD.BackColor = SystemColors.GradientInactiveCaption;
+            PbBildDnD.Location = new Point(12, 12);
+            PbBildDnD.Name = "PbBildDnD";
+            PbBildDnD.Size = new Size(776, 154);
+            PbBildDnD.TabIndex = 1;
+            PbBildDnD.TabStop = false;
             // 
-            // label1
+            // LbtBDnD
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(275, 130);
-            label1.Name = "label1";
-            label1.Size = new Size(247, 20);
-            label1.TabIndex = 2;
-            label1.Text = "Bild hier via Drag n Drop hochladen";
+            LbtBDnD.AutoSize = true;
+            LbtBDnD.Location = new Point(275, 130);
+            LbtBDnD.Name = "LbtBDnD";
+            LbtBDnD.Size = new Size(247, 20);
+            LbtBDnD.TabIndex = 2;
+            LbtBDnD.Text = "Bild hier via Drag n Drop hochladen";
             // 
-            // textBox1
+            // tBXKoo
             // 
-            textBox1.Location = new Point(155, 216);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 3;
+            tBXKoo.Location = new Point(187, 216);
+            tBXKoo.Name = "tBXKoo";
+            tBXKoo.Size = new Size(125, 27);
+            tBXKoo.TabIndex = 3;
             // 
-            // textBox2
+            // tBYKoo
             // 
-            textBox2.Location = new Point(155, 249);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(125, 27);
-            textBox2.TabIndex = 4;
+            tBYKoo.Location = new Point(187, 249);
+            tBYKoo.Name = "tBYKoo";
+            tBYKoo.Size = new Size(125, 27);
+            tBYKoo.TabIndex = 4;
             // 
-            // textBox3
+            // tBZKoo
             // 
-            textBox3.Location = new Point(155, 282);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(125, 27);
-            textBox3.TabIndex = 5;
+            tBZKoo.Location = new Point(187, 282);
+            tBZKoo.Name = "tBZKoo";
+            tBZKoo.Size = new Size(125, 27);
+            tBZKoo.TabIndex = 5;
             // 
-            // label2
+            // LbXKoo
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(42, 216);
-            label2.Name = "label2";
-            label2.Size = new Size(88, 20);
-            label2.TabIndex = 6;
-            label2.Text = "X- Startwert";
+            LbXKoo.AutoSize = true;
+            LbXKoo.Location = new Point(73, 216);
+            LbXKoo.Name = "LbXKoo";
+            LbXKoo.Size = new Size(90, 20);
+            LbXKoo.TabIndex = 6;
+            LbXKoo.Text = "X- Eckpunkt:";
+            LbXKoo.Click += lbXKoo_Click;
+            // 
+            // LbYKoo
+            // 
+            LbYKoo.AutoSize = true;
+            LbYKoo.Location = new Point(74, 249);
+            LbYKoo.Name = "LbYKoo";
+            LbYKoo.Size = new Size(89, 20);
+            LbYKoo.TabIndex = 7;
+            LbYKoo.Text = "Y- Eckpunkt:";
+            // 
+            // LbZKoo
+            // 
+            LbZKoo.AutoSize = true;
+            LbZKoo.Location = new Point(74, 282);
+            LbZKoo.Name = "LbZKoo";
+            LbZKoo.Size = new Size(90, 20);
+            LbZKoo.TabIndex = 8;
+            LbZKoo.Text = "Z- Eckpunkt:";
+            // 
+            // TbGCodeVorschau
+            // 
+            TbGCodeVorschau.Location = new Point(436, 213);
+            TbGCodeVorschau.Multiline = true;
+            TbGCodeVorschau.Name = "TbGCodeVorschau";
+            TbGCodeVorschau.Size = new Size(352, 135);
+            TbGCodeVorschau.TabIndex = 9;
+            // 
+            // LbGCodeVorschau
+            // 
+            LbGCodeVorschau.AutoSize = true;
+            LbGCodeVorschau.Location = new Point(552, 190);
+            LbGCodeVorschau.Name = "LbGCodeVorschau";
+            LbGCodeVorschau.Size = new Size(130, 20);
+            LbGCodeVorschau.TabIndex = 10;
+            LbGCodeVorschau.Text = "G- Code Vorschau:";
+            // 
+            // BtndownloadGCode
+            // 
+            BtndownloadGCode.BackColor = SystemColors.ButtonShadow;
+            BtndownloadGCode.Location = new Point(512, 354);
+            BtndownloadGCode.Name = "BtndownloadGCode";
+            BtndownloadGCode.Size = new Size(193, 60);
+            BtndownloadGCode.TabIndex = 11;
+            BtndownloadGCode.Text = "G- Code downloaden";
+            BtndownloadGCode.UseVisualStyleBackColor = false;
+            // 
+            // LbGraviertiefe
+            // 
+            LbGraviertiefe.AutoSize = true;
+            LbGraviertiefe.Location = new Point(73, 318);
+            LbGraviertiefe.Name = "LbGraviertiefe";
+            LbGraviertiefe.Size = new Size(89, 20);
+            LbGraviertiefe.TabIndex = 13;
+            LbGraviertiefe.Text = "Graviertiefe:";
+            // 
+            // tBGraviertiefe
+            // 
+            tBGraviertiefe.Location = new Point(186, 318);
+            tBGraviertiefe.Name = "tBGraviertiefe";
+            tBGraviertiefe.Size = new Size(125, 27);
+            tBGraviertiefe.TabIndex = 12;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(label2);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Controls.Add(label1);
-            Controls.Add(pictureBox1);
-            Controls.Add(button1);
+            Controls.Add(LbGraviertiefe);
+            Controls.Add(tBGraviertiefe);
+            Controls.Add(BtndownloadGCode);
+            Controls.Add(LbGCodeVorschau);
+            Controls.Add(TbGCodeVorschau);
+            Controls.Add(LbZKoo);
+            Controls.Add(LbYKoo);
+            Controls.Add(LbXKoo);
+            Controls.Add(tBZKoo);
+            Controls.Add(tBYKoo);
+            Controls.Add(tBXKoo);
+            Controls.Add(LbtBDnD);
+            Controls.Add(PbBildDnD);
+            Controls.Add(BtngenrateGCode);
             Name = "Form1";
             Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PbBildDnD).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
-        private PictureBox pictureBox1;
-        private Label label1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private Label label2;
+        private Button BtngenrateGCode;
+        private PictureBox PbBildDnD;
+        private Label LbtBDnD;
+        private TextBox tBXKoo;
+        private TextBox tBYKoo;
+        private TextBox tBZKoo;
+        private Label LbXKoo;
+        private Label LbYKoo;
+        private Label LbZKoo;
+        private TextBox TbGCodeVorschau;
+        private Label LbGCodeVorschau;
+        private Button BtndownloadGCode;
+        private Label LbGraviertiefe;
+        private TextBox tBGraviertiefe;
     }
 }

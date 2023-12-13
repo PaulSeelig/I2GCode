@@ -11,5 +11,10 @@ namespace GUI_I2G
         {
 
         }
+
+        private void lbXKoo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
