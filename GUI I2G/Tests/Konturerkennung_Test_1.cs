@@ -71,20 +71,21 @@ namespace GUI_I2G.Tests
             //thickness: 2 This is the thickness of contour points
 
 
-            //Zeig die imageDraw
+            /*//Zeig die imageDraw
             Image<Gray, System.Byte> imageDraw_resize = imageDraw.Copy();
             CvInvoke.Resize(imageDraw, imageDraw_resize, new Size(1024, (int)(((double)img.Height / img.Width) * 1024)));
             CvInvoke.Imshow("Bild_KonturenAufgemalt", imageDraw_resize);
             CvInvoke.DestroyWindow("Bild_KonturenAufgemalt");
             CvInvoke.WaitKey(0);
+            */
 
 
             CvInvoke.Imwrite("DrawName.png", imageDraw);
 
             Point[][] ablage = contours.ToArrayOfArray();
-            int lang = ablage.GetLength(0);
-            Console.WriteLine(lang);
-
+            
+            
+            /*
             for (int i = 0; i < ablage.GetLength(0); i++)
             {
                 if (ablage[i][0] == ablage[i + 1][0])
@@ -92,7 +93,7 @@ namespace GUI_I2G.Tests
 
                 }
             }
-
+            */
             return contours;
         }
     }
