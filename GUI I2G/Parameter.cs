@@ -58,10 +58,10 @@ namespace GUI_I2G
             }
         }
 
-        public int Rounds {  get; private set; } // honestly not sure yet, if I'll use this       
+        public int Rounds {  get; set; } // honestly not sure yet, if I'll use this       
 
         public double MaterialDepth { get; set; } = 10;
-        public Point[] Eckpunkte { get; private set; }
+        public Point[] Eckpunkte { get; set; }
 
         public double TableWidth { get; set; }
        
@@ -83,7 +83,7 @@ namespace GUI_I2G
         {
             TableWidth = tWidth;
             TableLength = tLength;
-            Eckpunkte = WorkpieceCorners;
+            Eckpunkte = WorkpieceCorners.ToArray<Point>();
             Tool1 = new("Tool1",toolDepth, 5);
             CuttingDepth = cutDepth;
             CurrentTool = Tool1;

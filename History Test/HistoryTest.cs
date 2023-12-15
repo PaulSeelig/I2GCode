@@ -36,6 +36,7 @@ namespace History_Test
 
             //Assert
             Assert.That(entry.gcodePath == "TestValue");
+            Assert.That(entry.parameter.Eckpunkte[0] == new Point(2, 3));
         }
 
         [Test]
@@ -83,14 +84,16 @@ namespace History_Test
         {
             //Assemble
             string jsonFilePath = @".\History.json";
+
             //Act
             history.SaveHistoryToFile(jsonFilePath);
-            history.OpenHistoryFromFile(jsonFilePath);
+            history.OpenHistoryFromFile(jsonFilePath);     
 
             //Assert
-            //Assert.That(history.GetHistoryCount(), Is.EqualTo(5));
-            //Assert.That(history.GetEntry("Stecker").parameter.Tool1.Diameter == 5);
-            Assert.That(history.GetEntry("Knopf").parameter.Eckpunkte.Length, Is.EqualTo(0));
+            Assert.That(history.GetHistoryCount(), Is.EqualTo(5));
+            Assert.That(history.GetEntry("Stecker").parameter.Tool1.Diameter == 5);
+            Assert.That(history.GetEntry("Knopf").parameter.Tool1.Name, Is.EqualTo("Tool1"));
+            Assert.That(history.GetEntry("Knopf").parameter.Eckpunkte != null);
         }
     }
 }
