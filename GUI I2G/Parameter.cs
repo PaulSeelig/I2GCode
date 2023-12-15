@@ -83,7 +83,7 @@ namespace GUI_I2G
         {
             TableWidth = tWidth;
             TableLength = tLength;
-            Eckpunkte = WorkpieceCorners.ToArray<Point>();
+            Eckpunkte = WorkpieceCorners; //if failed maybe i need .ToArray<Point>()
             Tool1 = new("Tool1",toolDepth, 5);
             CuttingDepth = cutDepth;
             CurrentTool = Tool1;
