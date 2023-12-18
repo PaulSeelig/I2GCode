@@ -20,7 +20,10 @@ namespace GUI_I2G.Contures
         /// The direction is needed, since the GCodeGenerator has to know, in which direction the radius takes effekt and therfor which Command to use
         /// </summary>
         public Direction Direct { get; set; }
-        public override double Length { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private double SaveLength {  get; set; }
+        public override double Length { get => SaveLength;
+            set 
+            { SaveLength = Math.PI * Radius * Math.Asin(Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2)) / 2 * Radius) / 90; } }// Idk, but think this works
 
         public Curve(Point start, Point end, double radius, Direction direx)
         {

@@ -36,8 +36,11 @@ namespace GUI_I2G.Dummys
 
 
 
-            Contour[] aCArrClosed = new[] {aC, aV, bC};
-            return new List<Contour[]>(); 
+            Contour[] aCArrClosed = new[] { aC, aV, bC };
+            Contour[] bCArrOpen = new[] { cC, dC, bV, eC };
+            Contour[] cCArrSingle = new[] { iV };
+            //Contour[] dCArrClosed = new[] { aC, aV, bC };
+            return new List<Contour[]>{aCArrClosed, bCArrOpen, cCArrSingle}; 
         }
     }
 }

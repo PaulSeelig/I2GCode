@@ -14,7 +14,8 @@ namespace GUI_I2G.Contures
             StartPoint = start;
             EndPoint = end;
         }
+        private double SaveLength {  get; set; }
 
-        public override double Length { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override double Length { get => SaveLength; set => Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2));}
     }
 }
