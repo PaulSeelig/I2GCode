@@ -1,5 +1,7 @@
-using GUI_I2G;
-namespace HistoryTests
+using GUI_I2G.Contures;
+using System.Drawing;
+
+namespace ContourTests
 {
     public class Tests
     {
@@ -9,9 +11,16 @@ namespace HistoryTests
         }
 
         [Test]
-        public void Test1()
+        public void LengthTest()
         {
-            Assert.Pass();
+            //Assemble
+            Curve testCurve = new Curve(new Point(10,0), new Point(0,10), 10, Direction.Glockwise);
+
+            //Act
+            testCurve.Length = 10; //this looks stupid but might do it
+
+            //Assert
+            Assert.AreEqual(31.416, testCurve.Length);
         }
     }
 }

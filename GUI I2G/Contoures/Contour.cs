@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GUI_I2G.Contures
 {
-    public abstract class Contour//wieso abstract (macht man doch nur wenn man auch abstract Methoden benutzt?(außerdem haben wir das damals schon abgequatscht?))
+    public abstract class Contour
     {
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
-        public double EndDepth { get; set; } // I'll need this   
+        public double EndDepth { get; set; } // is this not in Parameter? how would you set this? 
         public abstract double Length { get; set; }
 
 
@@ -56,7 +56,11 @@ namespace GUI_I2G.Contures
         {
             return ContourExtractor();
         }
-        public static Contour[] ContourExtractor() //DummyFunktion
+        /// <summary>
+        /// currently Dummy Class, hopefully Leonardos Code soon
+        /// </summary>
+        /// <returns>returns the Image through a hirarchy of Contours</returns>
+        public static Contour[] ContourExtractor() 
         {
             //bloss beispielhaft
             Contour[] result = new Contour[3];

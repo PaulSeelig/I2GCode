@@ -14,16 +14,24 @@ namespace GUI_I2G.Contures
     public class Curve : Contour
     {
 
-        public double Radius { get; set; }
+        public double Radius { get; set; } //solten wir den nicht lieber errechnen lassen?
         
         /// <summary>
         /// The direction is needed, since the GCodeGenerator has to know, in which direction the radius takes effekt and therfor which Command to use
         /// </summary>
         public Direction Direct { get; set; }
         private double SaveLength {  get; set; }
-        public override double Length { get => SaveLength;
+        /// <summary>
+        /// 
+        /// </summary>
+        public override double Length 
+        { 
+            get => SaveLength;
             set 
-            { SaveLength = Math.PI * Radius * Math.Asin(Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2)) / 2 * Radius) / 90; } }// Idk, but think this works
+            { 
+                SaveLength = Math.PI * Radius * Math.Asin(Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2)) / 2 * Radius) / 90; 
+            } 
+        }// Idk, but think this works
 
         public Curve(Point start, Point end, double radius, Direction direx)
         {
