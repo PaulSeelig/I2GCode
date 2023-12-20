@@ -13,8 +13,9 @@ namespace GUI_I2G.Contures
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
         public double EndDepth { get; set; } // is this not in Parameter? how would you set this? 
-        public abstract double Length { get; set; }
+        public double Length { get; set; }
 
+        public abstract void SetLength();
 
         /// <summary>
         /// Tests if the maschine can continue in rounds, or rather has to make an one eighty
