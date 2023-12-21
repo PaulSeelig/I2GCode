@@ -13,9 +13,8 @@ namespace GUI_I2G.Contures
         {
             StartPoint = start;
             EndPoint = end;
-            SetLength();
         }
-        public override void SetLength () => Length = Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2));
+        public override double Length { get => Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2)); }
         
     }
 }

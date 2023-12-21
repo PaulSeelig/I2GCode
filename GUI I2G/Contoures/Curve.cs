@@ -27,10 +27,8 @@ namespace GUI_I2G.Contures
         /// The direction is needed, since the GCodeGenerator has to know, in which direction the radius takes effekt and therfor which Command to use
         /// </summary>
         public Direction Direct { get; set; }
-        public override void SetLength()
-        {
-            Length = Radius * Math.Asin(Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2)) / (2 * Radius)) * 2;
-        }   // The original looks like Pi*r*Asin(distancebetweenPoints/2r)/90, but Asin gives back radians, so I multiplied with 180/Math.Pi and shortend the equation
+        public override double Length { get => Radius * Math.Asin(Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2)) / (2 * Radius)) * 2;}
+  // The original looks like Pi*r*Asin(distancebetweenPoints/2r)/90, but Asin gives back radians, so I multiplied with 180/Math.Pi and shortend the equation
         
         public Curve(Point start, Point end, double radius, Direction direx)
         {
