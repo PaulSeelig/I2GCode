@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_I2G.GCodeclasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,10 +26,14 @@ namespace GUI_I2G.Contures
         }
         /// <summary>
         /// The direction is needed, since the GCodeGenerator has to know, in which direction the radius takes effekt and therfor which Command to use
-        /// </summary>
+        /// </summary>a
         public Direction Direct { get; set; }
+        public int MDirect { get => Direct == Direction.Glockwise ? 2 : 3; }
+        /// <summary>
+        /// The original looks like Pi*r*Asin(distancebetweenPoints/2r)/90, but Asin gives back radians, so I multiplied with 180/Math.Pi and shortend the equation
+        /// </summary>
         public override double Length { get => Radius * Math.Asin(Math.Sqrt(Math.Pow(StartPoint.X - EndPoint.X, 2) + Math.Pow(StartPoint.Y - EndPoint.Y, 2)) / (2 * Radius)) * 2;}
-  // The original looks like Pi*r*Asin(distancebetweenPoints/2r)/90, but Asin gives back radians, so I multiplied with 180/Math.Pi and shortend the equation
+
         
         public Curve(Point start, Point end, double radius, Direction direx)
         {
@@ -36,7 +41,6 @@ namespace GUI_I2G.Contures
             EndPoint = end;
             Direct = direx;
             SetRadius(radius);
-            SetLength();
         }
     }
 }

@@ -13,15 +13,15 @@ namespace GUI_I2G.Dummys
         public static List<Contour[]> CreateListOfContourArrays()
         {
             // closed Contourgroup
-            Contour aC = new Curve(new Point(3, 4), new(45, 5), 2, Direction.Glockwise);
+            Contour aC = new Curve(new Point(3, 4), new(45, 5), 25, Direction.Glockwise);
             Contour aV = new Vector(new Point(45, 5), new(30, -50));
             Contour bC = new Curve(new Point(30, -50), new(3, 4), 40, Direction.CounterGlockwise);
 
             // open Contourgroup
-            Contour cC = new Curve(new Point(300, -40), new(200, 52), 2, Direction.Glockwise);
-            Contour dC = new Curve(new Point(200, 52), new(49, 5), 80, Direction.Glockwise);
+            Contour cC = new Curve(new Point(300, -40), new(200, 52), 200, Direction.Glockwise);
+            Contour dC = new Curve(new Point(200, 52), new(49, 5), 800, Direction.Glockwise);
             Contour bV = new Vector(new Point(49, 5), new(-70, 65));
-            Contour eC = new Curve(new Point(-70, 65), new(23, -93), 50, Direction.Glockwise);
+            Contour eC = new Curve(new Point(-70, 65), new(23, -93), 500, Direction.Glockwise);
 
             // single Contour
             Contour iV = new Vector(new Point(3, 4), new(45, 5));
