@@ -15,9 +15,55 @@ namespace GUI_I2G
             pB_DragDrop.DragDrop += new DragEventHandler(pB_DragDrop_DragDrop);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren
         {
+            // X Koordinate, prüfen ob es sich um einen double als eingabe handelt
+            if (double.TryParse(tB_X.Text,out double xkoo1))
+            {
+                lbl_X.Text = "Gespeichert";
+            }
+            else {
+                lbl_X.Text = "Ungültige EIngabe!";
+            }
+            double xkoo2 = -xkoo1;
+            double xkoo3 = xkoo2;
+            double xkoo4 = xkoo1;
 
+            // Y Koordinate, prüfen ob es sich um einen double als eingabe handelt
+            if (double.TryParse(tB_Y.Text, out double ykoo1))
+            {
+                lbl_Y.Text = "Gespeichert";
+            }
+            else
+            {
+                lbl_Y.Text = "Ungültige Eingabe!";
+            }
+            double ykoo2 = ykoo1;
+            double ykoo3 = -ykoo2;
+            double ykoo4 = ykoo3;
+
+            // Z Koordinate, prüfen ob es sich um einen double als eingabe handelt
+            if (double.TryParse(tB_Z.Text, out double zkoo))
+            {
+                lbl_Z.Text = "Gespeichert";
+            }
+            else
+            {
+                lbl_Z.Text = "Ungültige Eingabe!";
+            }
+            double MaterialHeight = zkoo;
+
+            // Graviertiefe, prüfen ob es sich um einen double als eingabe handelt
+            if (double.TryParse(tB_depth.Text, out double depth))
+            {
+                lbl_depth.Text = "Gespeichert";
+            }
+            else
+            {
+                lbl_depth.Text = "Ungültige Eingabe!";
+            }
+            double GravurDepth = depth;
+            //Bildverarbeitung aufrufen
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

@@ -36,7 +36,7 @@ namespace GUI_I2G.Contures
             EndPoint = end;
             Direct = direx;
             SetRadius(radius);
-            SetLength();
+            //SetLength();
         }
     }
 }
