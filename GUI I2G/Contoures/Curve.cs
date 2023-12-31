@@ -15,8 +15,32 @@ namespace GUI_I2G.Contures
 
     public class Curve : Contour
     {
-        public double Radius { get; set; } //solten wir den nicht lieber errechnen lassen?  .....Pierre: Ja, der sollte besser errechnet werden. Ich bin mir aber zurzeit nicht sicher, was ich da tatsächlich von Leo zurückbekomme. Zwei Punkte reichen halt nich.
-        public void SetRadius(double radius) // nur damit der Radius nicht zu klein erstellt wird
+        /// <summary>
+        /// defines a third Point on the Curve between Start- and EndPoint;
+        /// It calculates the Radius, so I won't have to decide which one I use later on
+        /// alternative to Radius, only one of them is required...
+        /// for further explanation, this is my source for the calculation:... https://www.youtube.com/watch?v=ptqdguJGcg4
+        /// </summary>
+        public Point ThrdPOnCurve { set {
+                Point avector = new(StartPoint.X - value.X, StartPoint.Y - value.Y);
+                Point bvector = new(EndPoint.X - value.X, EndPoint.Y - value.Y);
+                double aPow2 = Math.Pow(avector.X, 2) + Math.Pow(avector.Y, 2);
+                double bPow2 = Math.Pow(bvector.X,2) + Math.Pow(bvector.Y, 2);
+                double vecMulti = avector.X * bvector.X + avector.Y * bvector.Y;
+                double radius = 1/2 * Math.Sqrt(aPow2 * bPow2 * (aPow2 + bPow2 - 2 * vecMulti) / (aPow2 * bPow2 - Math.Pow(aPow2, 2)));
+                SetRadius(radius);} }
+        /// <summary>
+        /// defines the center of the circle, from which the curve is part of; 
+        /// the Center calculates the Radius, so I later on, won't have to decide which to use;
+        /// alternative to Radius, only one of the both of them is required...
+        /// </summary>
+        public Point Center { set => SetRadius(Math.Sqrt(Math.Pow(StartPoint.X - value.X, 2) + Math.Pow(StartPoint.Y - value.Y, 2)));}
+        /// <summary>
+        /// defines the radius of the curve; 
+        /// alternative to Center, only one of the both of them is required... 
+        /// </summary>
+        public double Radius { get; private set; } //solten wir den nicht lieber errechnen lassen?  .....Pierre: Ja, der sollte besser errechnet werden. Ich bin mir aber zurzeit nicht sicher, was ich da tatsächlich von Leo zurückbekomme. Zwei Punkte reichen halt nich.
+        public void SetRadius(double radius) // nur damit der Radius nicht zu klein erstellt wird, soll aber später noch andere Dinge testen..(Fehlersuchen)
         {
             Vector a = new(StartPoint, EndPoint);
             if (2 * radius < a.Length)
