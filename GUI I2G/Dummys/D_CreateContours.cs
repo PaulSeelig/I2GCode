@@ -12,6 +12,7 @@ namespace GUI_I2G.Dummys
     {
         public static List<Contour[]> CreateListOfContourArrays()
         {
+            Contour a0 = new Curve(new(-47, 334), new(209, -274), new(165, 298));
             // closed Contourgroup
             Contour aC = new Curve(new Point(3, 4), new(45, 5), 25, Direction.Glockwise);
             Contour aV = new Vector(new Point(45, 5), new(30, -50));
@@ -36,7 +37,7 @@ namespace GUI_I2G.Dummys
 
 
 
-            Contour[] aCArrClosed = new[] { aC, aV, bC };
+            Contour[] aCArrClosed = new[] { a0, aC, aV, bC };
             Contour[] bCArrOpen = new[] { cC, dC, bV, eC };
             Contour[] cCArrSingle = new[] { iV };
             //Contour[] dCArrClosed = new[] { aC, aV, bC };

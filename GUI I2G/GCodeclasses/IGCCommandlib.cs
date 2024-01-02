@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace GUI_I2G.GCodeclasses
 {
@@ -13,19 +14,24 @@ namespace GUI_I2G.GCodeclasses
     /// </summary>
     public abstract partial class IGCCommandlib 
     {
-        //static public double Z() => Parameter.DepthEngraving;
-        static public List<string> Start() => new () { "%", "G21 G90 G95" };
+        static private string? X;
+        static private string? Y;
+        static private string? Z; 
+        static public List<string> Start() => new () { "%", "G17 G21 G90 G95" };
 
-        static public string CutPath(Contour c) => c is Curve ? CutInCurve(c as Curve) : CutInLine(c);
+        static public string CutPath(Contour c) => c != null ? (c is Curve ? CutInCurve(c as Curve) : CutInLine(c)) : throw NullRefException;
         
-        static public string MoveTo(Point P) => (G0_3.IsOrSet(0) ? "" : "G0 ") + $"X{P.X} Y{P.Y}";
+        static public string MoveTo(Point P) => "G0".IsOrSet(ref G0_3) + ToXYPoint(P);
 
-        static public string CutInLine(Contour c) => (G0_3.IsOrSet(1)? "" : "G1 ") + $"X{c.EndPoint.X} Y{c.EndPoint.Y}";
+        static private string ToXYPoint(Point P, string? pZ = null ) => $"X{P.X}".IsOrSet(ref X) + $"X{P.Y}".IsOrSet(ref Y) + $"Z{pZ}".IsOrSet(ref Z);
+        static private string CutInLine(Contour c) => "G1".IsOrSet(ref G0_3) + ToXYPoint(c.EndPoint, c.EndDepth.ToString());
 
-        static public string CutInCurve(Curve c) => (G0_3.IsOrSet(c.MDirect) ? "" : $"G{c.MDirect} ") + $"X{c.EndPoint.X} Y{c.EndPoint.Y} R{c.Radius}"; 
+        static private string CutInCurve(Curve c) => c.MDirect.IsOrSet(ref G0_3) + ToXYPoint(c.EndPoint, c.EndDepth.ToString()) + $"R{c.Radius}"; 
         static public string End() => "G28 %";
 
         static public string CoolTime(double t) => "";
+
+        public static NullReferenceException NullRefException => new();
     }
 }
 

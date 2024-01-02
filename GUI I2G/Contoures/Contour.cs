@@ -12,7 +12,7 @@ namespace GUI_I2G.Contures
     {
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
-        public double EndDepth { get; set; } // is this not in Parameter? how would you set this? 
+        public double EndDepth { get; set; } = 0;// is this not in Parameter? how would you set this? 
         public abstract double Length { get;}
         /// <summary>
         /// Tests if the maschine can continue in rounds, or rather has to make an one eighty
@@ -40,7 +40,7 @@ namespace GUI_I2G.Contures
         /// <returns>A completly reversed array, in case that the millingtool is shorter than the Depth </returns>
         public static Contour[] ArrayReversed(Contour[] contours)
         {
-            Contour[] ret = new Contour[contours.Length-1];
+            Contour[] ret = new Contour[contours.Length];
             for (int i = 0; i < contours.Length; i++)
             {
                 ret[i] = contours[contours.Length - i - 1].Reversed();
