@@ -100,11 +100,11 @@
             // lbl_X
             // 
             lbl_X.AutoSize = true;
-            lbl_X.Location = new Point(37, 383);
+            lbl_X.Location = new Point(14, 383);
             lbl_X.Name = "lbl_X";
-            lbl_X.Size = new Size(71, 15);
+            lbl_X.Size = new Size(109, 15);
             lbl_X.TabIndex = 6;
-            lbl_X.Text = "X- Eckpunkt";
+            lbl_X.Text = "X- Eckpunkt in mm";
             // 
             // btn_DownloadGCode
             // 
@@ -136,34 +136,35 @@
             // lbl_Y
             // 
             lbl_Y.AutoSize = true;
-            lbl_Y.Location = new Point(37, 410);
+            lbl_Y.Location = new Point(14, 410);
             lbl_Y.Name = "lbl_Y";
-            lbl_Y.Size = new Size(71, 15);
+            lbl_Y.Size = new Size(109, 15);
             lbl_Y.TabIndex = 10;
-            lbl_Y.Text = "Y- Eckpunkt";
+            lbl_Y.Text = "Y- Eckpunkt in mm";
             // 
             // lbl_Z
             // 
             lbl_Z.AutoSize = true;
-            lbl_Z.Location = new Point(37, 435);
+            lbl_Z.Location = new Point(14, 435);
             lbl_Z.Name = "lbl_Z";
-            lbl_Z.Size = new Size(71, 15);
+            lbl_Z.Size = new Size(109, 15);
             lbl_Z.TabIndex = 11;
-            lbl_Z.Text = "Z- Eckpunkt";
+            lbl_Z.Text = "Z- Eckpunkt in mm";
+            lbl_Z.Click += lbl_Z_Click;
             // 
             // lbl_depth
             // 
             lbl_depth.AutoSize = true;
-            lbl_depth.Location = new Point(37, 462);
+            lbl_depth.Location = new Point(18, 462);
             lbl_depth.Name = "lbl_depth";
-            lbl_depth.Size = new Size(67, 15);
+            lbl_depth.Size = new Size(105, 15);
             lbl_depth.TabIndex = 12;
-            lbl_depth.Text = "Graviertiefe";
+            lbl_depth.Text = "Graviertiefe in mm";
             // 
             // tB_showGCode
             // 
             tB_showGCode.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            tB_showGCode.Location = new Point(339, 198);
+            tB_showGCode.Location = new Point(334, 198);
             tB_showGCode.Multiline = true;
             tB_showGCode.Name = "tB_showGCode";
             tB_showGCode.ScrollBars = ScrollBars.Horizontal;
