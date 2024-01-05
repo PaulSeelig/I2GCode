@@ -89,20 +89,5 @@ namespace GUI_I2G.Contures
                     Console.WriteLine((conture as Line).Length.ToString());
             }
         }
-        //[JsonConstructor]
-        //public Contour()
-        //{
-        //    if (this.GetType() == typeof(Curve))
-        //    { 
-        //        this = new Curve();
-        //    }
-        //    if (this.GetType() == typeof(Line))
-        //        => new Line(this);
-        //}
-
     }
-
-
-
-
 }
