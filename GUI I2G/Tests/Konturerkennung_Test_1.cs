@@ -69,13 +69,6 @@ namespace GUI_I2G.Tests
             }
         }
        
-        public void kKonturen(List<Linie> a)
-        {
-            for (int i = 0; i < a.Count; i++)
-            {
-
-            }
-        }
         protected Point Mittelpunktrechner(Point p1, Point p2, Point p3)
         {
             Point mP = new Point();

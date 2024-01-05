@@ -18,6 +18,7 @@ namespace GUI_I2G
         public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren
         {
             // X Koordinate, prüfen ob es sich um einen double als eingabe handelt
+            // Alternativ -> lbl_X.Text = double.TryParse(tB_X.Text,out double xkoo1)? "gespeichert" : "Ungültige Eingabe";
             if (double.TryParse(tB_X.Text,out double xkoo1))
             {
                 lbl_X.Text = "Gespeichert";
@@ -64,6 +65,8 @@ namespace GUI_I2G
             }
             double GravurDepth = depth;
             //Bildverarbeitung aufrufen
+
+            //HistoryEntry historyEntry = new();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

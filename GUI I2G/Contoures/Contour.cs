@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GUI_I2G.Contures
@@ -12,7 +13,7 @@ namespace GUI_I2G.Contures
     {
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
-        public double EndDepth { get; set; } = 0;// is this not in Parameter? how would you set this? 
+        public double EndDepth { get; set; } = 0;
         public abstract double Length { get;}
         /// <summary>
         /// Tests if the maschine can continue in rounds, or rather has to make an one eighty
@@ -62,13 +63,16 @@ namespace GUI_I2G.Contures
         {
             //bloss beispielhaft
             Contour[] result = new Contour[3];
-            result[0] = new Vector(new Point(3, 5), new Point(2, -4));
+            result[0] = new Line(new Point(3, 5), new Point(2, -4));
             result[1] = new Curve(new Point(3, 5), new Point(3, 6), 5, Direction.Glockwise);
-            result[2] = new Vector(new Point(4, 5), new Point(7, 4));
+            result[2] = new Line(new Point(4, 5), new Point(7, 4));
 
             return result;
         }
-
+        public static List<Contour[]> ContourGroup(List<Contour> CList)
+        {
+            return ContourGroup(CList.ToArray());
+        }
         public static List <Contour[]> ContourGroup(Contour[] CList) // The GCodeGenerator has to know, which Contoures in the Array belong together
         {
 
@@ -81,10 +85,21 @@ namespace GUI_I2G.Contures
                 Console.WriteLine(conture.StartPoint.ToString() + " : " + conture.EndPoint.ToString());
                 if (conture.GetType() == typeof(Curve))
                     Console.Write(" : " + (conture as Curve).Radius.ToString());
-                if (conture is Vector)
-                    Console.WriteLine((conture as Vector).Length.ToString());
+                if (conture is Line)
+                    Console.WriteLine((conture as Line).Length.ToString());
             }
         }
+        //[JsonConstructor]
+        //public Contour()
+        //{
+        //    if (this.GetType() == typeof(Curve))
+        //    { 
+        //        this = new Curve();
+        //    }
+        //    if (this.GetType() == typeof(Line))
+        //        => new Line(this);
+        //}
+
     }
 
 
