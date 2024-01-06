@@ -69,7 +69,7 @@ namespace GUI_I2G
         {
             if (e.Data != null)
             {
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];
                 if (files != null && files.Length > 0)
                 {
                     pB_DragDrop.ImageLocation = files[0];
@@ -81,7 +81,7 @@ namespace GUI_I2G
             if (pB_DragDrop.Image != null)
             {
                 pB_DragDrop.SizeMode = PictureBoxSizeMode.Zoom;
-                pB_DragDrop.Size = this.Size;
+                //pB_DragDrop.Size = this.Size;
             }
         }
         private void pB_DragDrop_Click(object sender, EventArgs e)
@@ -96,12 +96,15 @@ namespace GUI_I2G
 
         private void I2Gcode_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            if (files != null && files.Length > 0)
+            if (e.Data != null)
             {
-                string imagePath = files[0];
-                pB_DragDrop.Image = Image.FromFile(imagePath);
-                pB_DragDrop_Scale();
+                string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];
+                if (files != null && files.Length > 0)
+                {
+                    string imagePath = files[0];
+                    pB_DragDrop.Image = Image.FromFile(imagePath);
+                    pB_DragDrop_Scale();
+                }
             }
         }
 
@@ -116,6 +119,17 @@ namespace GUI_I2G
         private void lbl_Z_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_DownloadGCode_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pB_DragDrop_SizeChanged(object sender, EventArgs e)
+        {
+            pB_DragDrop_Scale();
+            //pB_DragDrop.Dock = (DockStyle)Top;
         }
     }
 }

@@ -61,6 +61,7 @@
             // 
             pB_DragDrop.BackColor = SystemColors.GradientInactiveCaption;
             pB_DragDrop.BackgroundImageLayout = ImageLayout.None;
+            pB_DragDrop.Dock = DockStyle.Top;
             pB_DragDrop.Location = new Point(0, 0);
             pB_DragDrop.Margin = new Padding(3, 2, 3, 2);
             pB_DragDrop.Name = "pB_DragDrop";
@@ -68,6 +69,7 @@
             pB_DragDrop.SizeMode = PictureBoxSizeMode.Zoom;
             pB_DragDrop.TabIndex = 1;
             pB_DragDrop.TabStop = false;
+            pB_DragDrop.SizeChanged += pB_DragDrop_SizeChanged;
             pB_DragDrop.Click += pB_DragDrop_Click;
             pB_DragDrop.DragDrop += pB_DragDrop_DragDrop;
             pB_DragDrop.DragEnter += pB_DragDrop_DragEnter;
@@ -115,6 +117,7 @@
             btn_DownloadGCode.TabIndex = 7;
             btn_DownloadGCode.Text = "G-Code downloaden";
             btn_DownloadGCode.UseVisualStyleBackColor = false;
+            btn_DownloadGCode.Click += btn_DownloadGCode_Click;
             // 
             // tB_depth
             // 
@@ -182,9 +185,8 @@
             // 
             // I2Gcode
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
+            AllowDrop = true;
+            AutoScaleMode = AutoScaleMode.None;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(827, 603);
             Controls.Add(lbl_showGCode);
