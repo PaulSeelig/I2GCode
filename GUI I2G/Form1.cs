@@ -1,9 +1,11 @@
+using System.Drawing.Text;
 using System.Windows.Forms;
 
 namespace GUI_I2G
 {
     public partial class I2Gcode : Form
     {
+        private int zoomLevel = 100;
         public I2Gcode()
         {
             InitializeComponent();
@@ -13,7 +15,35 @@ namespace GUI_I2G
             pB_DragDrop.DragEnter += new DragEventHandler(pB_DragDrop_DragEnter);
             // Zuweisung für EventHandler, wird benutzt, wenn ein Drag and Drop vorgang abgeschlossen ist
             pB_DragDrop.DragDrop += new DragEventHandler(pB_DragDrop_DragDrop);
+
+            pB_DragDrop.MouseWheel += PB_DragDrop_MouseWheel;
         }
+
+        private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0 && zoomLevel < 200) // Zoom in
+            {
+                zoomLevel += 10;
+                pB_DragDrop.BringToFront();
+            }
+            else if (e.Delta < 0 && zoomLevel > 10) // Zoom out
+            {
+                zoomLevel -= 10;
+                pB_DragDrop.SendToBack();
+            }
+            SetZoomLevel();
+        }
+        private void SetZoomLevel()
+        {
+            float zoomFactor = zoomLevel / 100f;
+            int newWidth = (int)(pB_DragDrop.Image.Width * zoomFactor);
+            int newHeight = (int)(pB_DragDrop.Image.Height * zoomFactor);
+
+            // Setze die Größe der PictureBox neu und zentriere das Bild
+            pB_DragDrop.Size = new Size(newWidth, newHeight);
+            pB_DragDrop.Location = new Point((pB_DragDrop.Parent.Width - pB_DragDrop.Width) / 2, (pB_DragDrop.Parent.Height - pB_DragDrop.Height) / 2);
+        }
+
         private void EingabenPrüfer(TextBox textBox, Label label, out double value)       // Methode für btn1
         {
             if (double.TryParse(textBox.Text, out value))
