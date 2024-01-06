@@ -20,7 +20,7 @@ namespace GUI_I2G.GCodeclasses
                 return "";
 
             current = newone;
-            return current;
+            return $"{current} ";
         } 
     }
     public abstract partial class IGCCommandlib

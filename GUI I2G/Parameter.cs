@@ -10,8 +10,8 @@ namespace GUI_I2G
 {
     public class Tool
     {
-        public Tool(string name, double tooldepth, double diameter) { Name = name; ToolDepth = tooldepth; Diameter = diameter;}
-        public double ToolDepth { get; set; }// how far can the tool dive (I do mean cut) into the material
+        public Tool(string name, double tooldepth, double diameter = 10) { Name = name; ToolDepth = tooldepth; Diameter = diameter;}
+        public double ToolDepth { get; set; } = 25;// how far can the tool dive (I do mean cut) into the material
         public double Diameter {  get; set; }
         public string Name { get; set; }
     }
@@ -21,9 +21,9 @@ namespace GUI_I2G
         public Tool? Tool2 { get; set; } 
         public Tool? Tool3 { get; set; }
 
-        public Tool CurrentTool { get => SaveCurrentTool; set => SaveCurrentTool = value ?? Tool1; }
+        // public Tool CurrentTool { get => SaveCurrentTool; set => SaveCurrentTool = value ?? Tool1; }
 
-        private Tool? SaveCurrentTool { get; set; }
+        public Tool? CurrentTool { get; set; } = new Tool("T1", 25);
 
 
         //public double ToolDepth => CurrentTool.ToolDepth;
@@ -32,7 +32,7 @@ namespace GUI_I2G
         /// <summary>
         /// Customising how deep the cuts will be in mm
         /// </summary>
-        private double SaveCuttingDepth { get; set; }//less or equal? or do we leave room?
+        public double SaveCuttingDepth { get; set; }//less or equal? or do we leave room?
 
         public double CuttingDepth { get => SaveCuttingDepth; set => SaveCuttingDepth = value < MaterialDepth ? value : Allert(); }
 
@@ -41,26 +41,26 @@ namespace GUI_I2G
             //MessageBox message 
             return MaterialDepth;
         }
-        public double SaveCutDepthPerRound { get; set; }
+        //public double SaveCutDepthPerRound { get; set; }
         /// <summary>
         /// is actually unnecessary if (toolDepth >= CuttingDepth), how ever if not, it is set by the function SetCutDepthPerRound(), 
         /// so it distributes the workload equally to each neccessary round
         /// </summary>
-        public double CutDepthPerRound {  get => SaveCutDepthPerRound; private set
+        public double CutDepthPerRound {  get
             {
                 if (CuttingDepth <= CurrentTool.ToolDepth)
-                    SaveCutDepthPerRound = CuttingDepth;
+                    return CuttingDepth;
                 else
                 {
                     Rounds = (int)Math.Ceiling(CuttingDepth / CurrentTool.ToolDepth); // a == rounds the Tool needs anyway, e.g: tool == 30mm & cutdepth == 100mm,.. would need 4 rounds, if not distributed, it would make the first 3 round with 30mm and the last with 10mm
-                    SaveCutDepthPerRound = CuttingDepth / Rounds;    // but if we distribute the Cutperdepth equally each round it'll make 25mm in depth, .. now that I'm ready,.. I'm lagging if this is even better for the tool? I was really sure at the beginning
+                    return (CuttingDepth / Rounds);    // but if we distribute the Cutperdepth equally each round it'll make 25mm in depth, .. now that I'm ready,.. I'm lagging if this is even better for the tool? I was really sure at the beginning
                 }                                           // I guess it is better for the whole maschine, but worse for the tool
             }
         }
 
         public int Rounds {  get; set; } // honestly not sure yet, if I'll use this       
 
-        public double MaterialDepth { get; set; } = 10;
+        public double MaterialDepth { get; set; } = 100;
         public Point[] Eckpunkte { get; set; }
 
         public double TableWidth { get; set; }
@@ -79,7 +79,7 @@ namespace GUI_I2G
         /// <summary>
         /// sets the required values for the GCode, any additional values either have a default or can be set individually
         /// </summary>
-        public Parameter(double tWidth, double tLength, Point[] WorkpieceCorners, double cutDepth, double toolDepth = 4) 
+        public Parameter(double tWidth, double tLength, Point[] WorkpieceCorners, double cutDepth = 20, double toolDepth = 4) 
         {
             TableWidth = tWidth;
             TableLength = tLength;
@@ -92,9 +92,9 @@ namespace GUI_I2G
         {
             //TableWidth = 300;
             //TableLength = 400;
-            //Eckpunkte = new[] { new Point(200, 200), new(-200, 200), new(-200, -200), new(200, -200) };
+            Eckpunkte = new[] { new Point(200, 200), new(-200, 200), new(-200, -200), new(200, -200) };
             //Tool1 = new("Tool1", 30, 20);
-            //CuttingDepth = 50;
+            CuttingDepth = 50;
             //CurrentTool = Tool1;
         }
     }

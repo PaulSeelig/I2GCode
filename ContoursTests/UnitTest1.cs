@@ -14,13 +14,9 @@ namespace ContourTests
         public void LengthTest()
         {
             //Assemble
-            Curve testCurve = new Curve(new Point(10,0), new Point(0,10), 10, Direction.Glockwise);
-
-            //Act
-            testCurve.Length = 10; //this looks stupid but might do it
-
+            Curve testCurve = new(new Point(10,0), new Point(0,10), 10, Direction.Glockwise);
             //Assert
-            Assert.AreEqual(31.416, testCurve.Length);
+            Assert.AreEqual(15.708, testCurve.Length);
         }
     }
 }

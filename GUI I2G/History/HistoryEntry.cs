@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.Json;
+using GUI_I2G.GCodeclasses;
 
 namespace GUI_I2G
 {
@@ -29,7 +30,7 @@ namespace GUI_I2G
 
         public Parameter parameter { get; private set; }
 
-        public string gcodePath { get; private set; }
+        public GCode Gcode { get; private set; }
 
         public string imagePath { get; private set; }
 
@@ -45,13 +46,14 @@ namespace GUI_I2G
         /// </summary>
         /// <param name="projectname"></param>
         /// <param name="parameter"></param>
-        /// <param name="gcodePath"></param>
+        /// <param name="gcode"></param>
         /// <param name="imagePath"></param>
-        public HistoryEntry(string projectname, Parameter parameter, string gcodePath, string imagePath)
+        
+        public HistoryEntry(string projectname, Parameter parameter, GCode gcode, string imagePath)
         {
             this.projectName = projectname;
             this.parameter = parameter;
-            this.gcodePath = gcodePath;
+            this.Gcode = gcode;
             this.lastOpened = DateTime.Now;
             this.imagePath = imagePath;
         }

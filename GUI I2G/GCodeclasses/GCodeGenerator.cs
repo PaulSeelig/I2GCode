@@ -14,7 +14,7 @@ namespace GUI_I2G.GCodeclasses
     public class GCodeGenerator : IGCCommandlib
     {
         //private static Parameter? parameter { get; set; } //this might be stupid but hey not the hardest fix
-
+        private static double CurrentMillDepth {  get; set; }
         /// <summary>
         /// Generates GCode.string[]  with a given List<Contour[]>
         /// </summary>
@@ -23,41 +23,34 @@ namespace GUI_I2G.GCodeclasses
         public  static GCode GenerateGCode(Image? ContourImage, Parameter p)
         {
             Contour[] contours = Contour.ContourExtractor(ContourImage);
-            GCode gcode = new() { AllContours = D_CreateContours.CreateListOfContourArrays() }; //Contour.ContourGroup(contours) }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
+            GCode gcode = new(D_CreateContours.CreateListOfContourArrays()); //Contour.ContourGroup(contours) }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
            
-            foreach (Contour[] CGroup in gcode.AllContours) // all ContourGroups are gone through
+            foreach (Contour[] CGroup in gcode.GetAllContours()) // all ContourGroups are gone through
             {
-                GLinesList.Add(MoveTo(CGroup[0].StartPoint));
-                GeneratePerRound(ref GLinesList, CGroup, p);
+                CurrentMillDepth = 0;
+                GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, $"Z0"));
+                GeneratePerRound(ref GLinesList, CGroup, p, p.CutDepthPerRound);
             }
             GLinesList.Add(End());
             gcode.GCodeLines = GLinesList.ToArray();
             return gcode;
         }
         
-
-
-
-
-        public static void GeneratePerRound(ref List<string> GLinesList, Contour[] CGroup, Parameter parameter, double currentMillDepth = 0.0 )
-        {
-            double startDepth = currentMillDepth;
-            double wantedDepth = currentMillDepth + parameter.CutDepthPerRound;
-
+        public static void GeneratePerRound(ref List<string> GLinesList, Contour[] CGroup, Parameter parameter, double wantedDepth)
+        {        
             for (int j = 0; j < CGroup.Length; j++)// jede einzelne zusammenhängende Contourgroup wird contour für Contour durchgegangen
             {
-
-                if (currentMillDepth + CGroup[j].Length * parameter.DDFactor < parameter.CuttingDepth)
+                if (CurrentMillDepth + CGroup[j].Length * parameter.DDFactor < wantedDepth)
                 {
-                    currentMillDepth += CGroup[j].Length * parameter.DDFactor;
-                    CGroup[j].EndDepth = currentMillDepth;
+                    CurrentMillDepth += CGroup[j].Length * parameter.DDFactor;
+                    CGroup[j].EndDepth = CurrentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                 }
-                else if (currentMillDepth != parameter.CutDepthPerRound)
+                else if (CurrentMillDepth != wantedDepth)
                 {
-                    currentMillDepth = parameter.CutDepthPerRound;
-                    CGroup[j].EndDepth = currentMillDepth;
+                    CurrentMillDepth = wantedDepth;
+                    CGroup[j].EndDepth = CurrentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                     if (!Contour.IsClosed(CGroup)) // if IsOpen() because !
                     {
@@ -67,36 +60,35 @@ namespace GUI_I2G.GCodeclasses
                         }
                         for (int k = 0; k <= j; k++)
                         {
-                            GLinesList.Add(MoveTo(CGroup[k].EndPoint));
+                            GLinesList.AddRange(MoveTo(CGroup[k].Reversed().EndPoint, $"Z{CurrentMillDepth}"));
                         }
                     }
                 }
                 else
                 {
-                    CGroup[j].EndDepth = currentMillDepth;
+                    CGroup[j].EndDepth = wantedDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                 }
             }
-
-
-            if (currentMillDepth <= parameter.CuttingDepth + 1) // the Function should just repeat, if the overall progress is unfinished
+            if (CurrentMillDepth < parameter.CuttingDepth) // the Function should just repeat, if the overall progress is unfinished
             {
-                if (currentMillDepth == wantedDepth || Contour.IsClosed(CGroup)) // The currentMillDepth should not be increased, if a open ContourGroup Length is too short for the wantedDepth to be reached
+                if (CurrentMillDepth == wantedDepth || Contour.IsClosed(CGroup)) // The currentMillDepth should not be increased, if a open ContourGroup Length is too short for the wantedDepth to be reached
                 {
-                    if (currentMillDepth + parameter.CutDepthPerRound <= parameter.CuttingDepth + 1)
+                    if (wantedDepth + parameter.CutDepthPerRound < parameter.CuttingDepth)
                     {
-                        currentMillDepth += parameter.CutDepthPerRound;
+                        wantedDepth += parameter.CutDepthPerRound;
                     }
                     else
-                        currentMillDepth = parameter.CuttingDepth;
+                        wantedDepth = parameter.CuttingDepth;
                 }
                 if (Contour.IsClosed(CGroup))
                 {
-                    GeneratePerRound(ref GLinesList, CGroup,parameter, currentMillDepth);
+                    GeneratePerRound(ref GLinesList, CGroup,parameter,wantedDepth);
                 }
                 else
-                    GeneratePerRound(ref GLinesList, Contour.ArrayReversed(CGroup),parameter, currentMillDepth);
+                    GeneratePerRound(ref GLinesList, Contour.ArrayReversed(CGroup),parameter,wantedDepth);
             }
+
 
         }
     }
