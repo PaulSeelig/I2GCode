@@ -4,7 +4,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.CodeDom;
 
-public class History : IHistorySafe
+public class History :  IHistorySafe
 {
 	//Properties:
 	//private so only inhouse methods can access it
@@ -21,13 +21,18 @@ public class History : IHistorySafe
 	}
 
 	/// <summary>
-	/// A method that hopefully returns the list sorted by LastOpened
+	/// Method that returns the Last opened Project
 	/// </summary>
 	/// <returns>List sorted by LastOpened</returns>
-    public List<HistoryEntry> GetHistoryByLast()
+    public HistoryEntry GetLastOpened()
     {
-        return history.OrderByDescending(entry => entry.lastOpened).ToList();
+        return history.OrderByDescending(entry => entry.lastOpened).First();
     }
+
+	public HistoryEntry GetEntryByIndex(int index)
+	{
+		return history[index];
+	}
 
 	/// <summary>
 	/// just a test method
@@ -85,5 +90,6 @@ public class History : IHistorySafe
 	{
 		string json = File.ReadAllText(jsonFilePath);
         history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
-	}
+		history.OrderByDescending(entry => entry.lastOpened);
+    }
 }

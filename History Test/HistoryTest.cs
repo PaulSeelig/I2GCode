@@ -63,20 +63,6 @@ namespace History_Test
             Assert.That(history.GetHistoryCount() == 5);
         }
 
-        [Test]
-        public void GetHistory_OrderByLastOpened_SaveCHanges()
-        {
-            //Act
-            HistoryEntry entry = history.GetEntry("Stecker");
-            entry.parameter.TableWidth = 4;
-            history.SaveChangesToProject(entry);
-            List<HistoryEntry> entries = history.GetHistoryByLast();
-
-            //Assert
-            Assert.That(history.GetHistoryCount(), Is.EqualTo(entries.Count));
-            Assert.IsTrue(history.GetEntry("Stecker") == entries[0]);
-            Assert.IsTrue(history.GetEntry("Stecker").parameter.TableWidth == 4);
-        }
 
         /// <summary>
         /// if this test fails its because the filepath is not user specific. 
@@ -93,13 +79,20 @@ namespace History_Test
             history.OpenHistoryFromFile(jsonFilePath);     
 
             //Assert
+            //Item Saving
             Assert.That(history.GetHistoryCount(), Is.EqualTo(5));
+            //Test if the history is ordered by last opened after deserealizing
+            Assert.AreEqual(history.GetEntryByIndex(0), history.GetEntry("Knopf"));
+            //Test if GCode got saved properly
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[0] == "%");
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[^1] == "G28 %");
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines.Length == 44);
+            //Test if Parameter object saved
             Assert.That(history.GetEntry("Stecker").parameter.Tool1.Diameter == 5);
             Assert.That(history.GetEntry("Knopf").parameter.Tool1.Name, Is.EqualTo("Tool1"));
             Assert.That(history.GetEntry("Knopf").parameter.Eckpunkte != null);
+
+            
         }
     }
 }
