@@ -90,6 +90,6 @@ public class History :  IHistorySafe
 	{
 		string json = File.ReadAllText(jsonFilePath);
         history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
-		history.OrderByDescending(entry => entry.lastOpened);
+		history = history.OrderByDescending(entry => entry.lastOpened).ToList();
     }
 }

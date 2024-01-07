@@ -69,7 +69,7 @@ namespace History_Test
         /// idk how to do that over git
         /// </summary>
         [Test]
-        public void SaveProject_TestingCount()
+        public void SaveProject_TestingSavedDate()
         {
             //Assemble
             string jsonFilePath = @".\History.json";
@@ -82,7 +82,7 @@ namespace History_Test
             //Item Saving
             Assert.That(history.GetHistoryCount(), Is.EqualTo(5));
             //Test if the history is ordered by last opened after deserealizing
-            Assert.AreEqual(history.GetEntryByIndex(0), history.GetEntry("Knopf"));
+            Assert.AreEqual(history.GetEntryByIndex(0).projectName, history.GetLastOpened().projectName);
             //Test if GCode got saved properly
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[0] == "%");
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[^1] == "G28 %");
