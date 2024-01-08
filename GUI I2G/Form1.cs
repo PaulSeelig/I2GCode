@@ -1,6 +1,7 @@
 using Emgu.CV;
 using Emgu.CV.Structure;
 using System.Drawing.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace GUI_I2G
@@ -8,6 +9,7 @@ namespace GUI_I2G
     public partial class I2Gcode : Form
     {
         private int zoomLevel = 100;
+        
         public I2Gcode()
         {            
             InitializeComponent();
@@ -20,7 +22,7 @@ namespace GUI_I2G
 
             pB_DragDrop.MouseWheel += PB_DragDrop_MouseWheel;
         }
-        public string pfad;
+
 
         private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
         {
@@ -52,7 +54,7 @@ namespace GUI_I2G
             if (double.TryParse(textBox.Text, out value))
             {
                 // entweder hier Methode aufrufen & Koordinaten übergeben                
-                Image<Color, System.Byte> imggray = new Image<Color, System.Byte>(pfad);
+                Image<Rgb, System.Byte> imggray = new Image<Rgb, System.Byte>(Parameter.Pfad);
 
             }
             else
@@ -131,6 +133,7 @@ namespace GUI_I2G
 
         private void I2Gcode_DragDrop(object sender, DragEventArgs e)
         {
+            string pfad;
             if (e.Data != null)
             {
                 string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];

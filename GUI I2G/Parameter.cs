@@ -10,13 +10,15 @@ namespace GUI_I2G
 {
     public class Tool
     {
-        public Tool(string name, double tooldepth, double diameter = 10) { Name = name; ToolDepth = tooldepth; Diameter = diameter;}
+          public Tool(string name, double tooldepth, double diameter = 10) { Name = name; ToolDepth = tooldepth; Diameter = diameter;}
         public double ToolDepth { get; set; } = 25;// how far can the tool dive (I do mean cut) into the material
         public double Diameter {  get; set; }
         public string Name { get; set; }
     }
     public class Parameter
     {
+        public static string Pfad { get => Directory.CreateDirectory(Environment.CurrentDirectory.ToString() + "\\Projects").FullName; }
+
         public Tool Tool1{ get; set; } 
         public Tool? Tool2 { get; set; } 
         public Tool? Tool3 { get; set; }
