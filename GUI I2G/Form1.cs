@@ -57,7 +57,6 @@ namespace GUI_I2G
                 // entweder hier Methode aufrufen & Koordinaten übergeben                
                 Image<Rgb, System.Byte> draw = new(Parameter.Pfad);
                 CvInvoke.DrawContours(draw, Contour.Konturfinder(Parameter.Pfad), -1, new MCvScalar(200, 45, 45), 2);
-
             }
             else
             {
