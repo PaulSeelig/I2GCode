@@ -3,6 +3,7 @@ using GUI_I2G.GCodeclasses;
 using NuGet.Frameworks;
 using System.Drawing;
 
+//Allmost everything done by Paul Seelig s0578706 small part by Pierre Wiele
 namespace History_Test
 {
     public class HistoryTest

@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.CodeDom;
 
+//Authored by Paul Seelig s0578706
 public class History :  IHistorySafe
 {
 	//Properties:

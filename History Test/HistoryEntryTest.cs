@@ -2,6 +2,7 @@ using GUI_I2G;
 using GUI_I2G.GCodeclasses;
 using System.Drawing;
 
+//Authored by Paul Seelig s0578706
 namespace History_Test
 {
     public class HistoryEntryTest
@@ -12,10 +13,6 @@ namespace History_Test
 
         }
 
-
-        /// <summary>
-        /// this test should autofail becaus eits hard to test datetime.now
-        /// </summary>
         [Test]
         public void ConstructorTest_All_All()
         {

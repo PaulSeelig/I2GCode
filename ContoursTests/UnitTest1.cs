@@ -10,6 +10,7 @@ namespace ContourTests
         {
         }
 
+        //Test authored by Paul Seelig s0578706
         [Test]
         public void LengthTest()
         {

@@ -10,6 +10,7 @@ using System.IO;
 using System.Text.Json;
 using GUI_I2G.GCodeclasses;
 
+//Authored by Paul Seelig s0578706
 namespace GUI_I2G
 {
     [Serializable]
