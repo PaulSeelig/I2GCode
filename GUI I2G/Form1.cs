@@ -10,7 +10,7 @@ namespace GUI_I2G
     public partial class I2Gcode : Form
     {
         private int zoomLevel = 100;
-        
+        public string imagepfad;
         public I2Gcode()
         {            
             InitializeComponent();
@@ -55,8 +55,8 @@ namespace GUI_I2G
             if (double.TryParse(textBox.Text, out value))
             {
                 // entweder hier Methode aufrufen & Koordinaten übergeben                
-                Image<Rgb, System.Byte> draw = new(Parameter.Pfad);
-                CvInvoke.DrawContours(draw, Contour.Konturfinder(Parameter.Pfad), -1, new MCvScalar(200, 45, 45), 2);
+                Image<Rgb, System.Byte> draw = new Image<Rgb, System.Byte>(imagepfad);
+                CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
                 CvInvoke.Imwrite("draw"+Parameter.Pfad, draw);
                 Image save = Image.FromFile("draw"+Parameter.Pfad);
                 pB_DragDrop.Image = save;
@@ -137,14 +137,14 @@ namespace GUI_I2G
 
         private void I2Gcode_DragDrop(object sender, DragEventArgs e)
         {
-            string pfad;
+           
             if (e.Data != null)
             {
                 string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];
                 if (files != null && files.Length > 0)
                 {
-                    pfad = files[0];
-                    pB_DragDrop.Image = Image.FromFile(pfad);
+                    imagepfad = files[0];
+                    pB_DragDrop.Image = Image.FromFile(imagepfad);
                     pB_DragDrop_Scale();
                 }
             }
