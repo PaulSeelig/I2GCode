@@ -68,11 +68,11 @@ namespace GUI_I2G.Contures
         }
 
 
-
         public static Contour[] ContourExtractor(VectorOfVectorOfPoint KonturenArray)
         {
-            
+            Point[][] Konturen = KonturenArray.ToArrayOfArray();
 
+            for(int i = 0; i < Konturen.Length;i++)
             return ;
         }
         /// <summary>
