@@ -1,5 +1,6 @@
 using Emgu.CV;
 using Emgu.CV.Structure;
+using GUI_I2G.Contures;
 using System.Drawing.Text;
 using System.Windows.Forms;
 
@@ -52,7 +53,8 @@ namespace GUI_I2G
             if (double.TryParse(textBox.Text, out value))
             {
                 // entweder hier Methode aufrufen & Koordinaten übergeben                
-                Image<Color, System.Byte> imggray = new Image<Color, System.Byte>(pfad);
+                Image<Rgb, System.Byte> draw = new Image<Rgb, System.Byte>(pfad);
+                CvInvoke.DrawContours(draw, Contour.Konturfinder(pfad), -1, new MCvScalar(200, 45, 45), 2);
 
             }
             else

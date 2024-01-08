@@ -55,7 +55,7 @@ namespace GUI_I2G.Contures
         {
             Mat img = CvInvoke.Imread(pfad, Emgu.CV.CvEnum.ImreadModes.Color);
 
-            Image<Gray, System.Byte> imggray = new Image<Gray, System.Byte>(img);                
+            Image<Gray, System.Byte> imggray = new Image<Gray, System.Byte>(img);            
 
             double otsuSchwellenwert = CvInvoke.Threshold(imggray, imggray, 0, 255, ThresholdType.Otsu);
 
