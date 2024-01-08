@@ -1,4 +1,7 @@
 ﻿using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
+using Emgu.CV.Util;
 using GUI_I2G.GCodeclasses;
 using System;
 using System.Collections.Generic;
@@ -48,12 +51,29 @@ namespace GUI_I2G.Contures
             }
             return ret;
         }
-
-
-
-        public static Contour[] ContourExtractor(Image? image)
+        public VectorOfVectorOfPoint Konturfinder (Image image)
         {
-            return ContourExtractor();
+            Mat img = CvInvoke.Imread("Bild.png", Emgu.CV.CvEnum.ImreadModes.Color);
+
+            Image<Gray, System.Byte> imggray = new Image<Gray, System.Byte>(img);
+
+            Image<Gray, System.Byte> imageDraw = imggray.Copy();//auf dem werden die lKonturen gemalt            
+
+            double otsuSchwellenwert = CvInvoke.Threshold(imggray, imggray, 0, 255, ThresholdType.Otsu);
+
+            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+            CvInvoke.FindContours(imggray, contours, null, Emgu.CV.CvEnum.RetrType.List, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxNone);
+
+            return contours;
+        }
+
+
+
+        public static Contour[] ContourExtractor(VectorOfVectorOfPoint KonturenArray)
+        {
+            
+
+            return ;
         }
         /// <summary>
         /// currently Dummy Class, hopefully Leonardos Code soon
