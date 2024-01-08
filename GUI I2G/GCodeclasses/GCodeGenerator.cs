@@ -22,7 +22,7 @@ namespace GUI_I2G.GCodeclasses
         /// <returns></returns>
         public  static GCode GenerateGCode(Image? ContourImage, Parameter p)
         {
-            Contour[] contours = Contour.ContourExtractor(ContourImage);
+            Contour[] contours = Contour.ContourExtractor(Contour.Konturfinder(Form1.pfad));
             GCode gcode = new(D_CreateContours.CreateListOfContourArrays()); //Contour.ContourGroup(contours) }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
            
