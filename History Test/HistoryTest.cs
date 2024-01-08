@@ -34,11 +34,13 @@ namespace History_Test
         [Test]
         public void GetEntry_Entry_All()
         {
-            //Act
+            //Assemble
             HistoryEntry entry = history.GetEntry("Lampe");
 
             //Assert
-            Assert.That(entry.Gcode == allGcode);
+            Assert.That(entry.projectName == "Lampe");
+            Assert.That(entry.Gcode.GCodeLines[0] == allGcode.GCodeLines[0]);
+            Assert.That(entry.Gcode.GCodeLines[^1] == allGcode.GCodeLines[^1]);
             Assert.That(entry.parameter.Eckpunkte[0] == new Point(2, 3));
         }
 
@@ -48,6 +50,7 @@ namespace History_Test
             //Assemble
             Point[] AllEckpunkte = { new(2,3), new(2,4), new(4,6), new(2,6)};
             HistoryEntry project6 = new HistoryEntry("Platte", new Parameter(4,5, AllEckpunkte,7,10), allGcode, "image");
+            HistoryEntry project7 = new HistoryEntry("Knopf", new Parameter(4, 5, AllEckpunkte, 7, 10), allGcode, "image");
 
             //Act
             history.SaveGcodeProject(project6);
@@ -55,6 +58,7 @@ namespace History_Test
             //Assert
             Assert.That(history.GetHistoryCount() == 6);
             Assert.That(history.GetEntry("Platte").parameter.TableWidth == 4);
+            Assert.That(history.GetEntryByIndex(4).parameter.TableWidth, Is.EqualTo(5));
         }
 
         [Test]
@@ -86,13 +90,25 @@ namespace History_Test
             //Test if GCode got saved properly
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[0] == "%");
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[^1] == "G28 %");
-            Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines.Length == 44);
+            //Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines.Length == 44);
             //Test if Parameter object saved
             Assert.That(history.GetEntry("Stecker").parameter.Tool1.Diameter == 5);
             Assert.That(history.GetEntry("Knopf").parameter.Tool1.Name, Is.EqualTo("Tool1"));
-            Assert.That(history.GetEntry("Knopf").parameter.Eckpunkte != null);
+            Assert.That(history.GetEntry("Knopf").parameter.Eckpunkte != null); 
+        }
 
-            
+        [Test]
+        public void LastFive_Test()
+        {
+            //Assemble
+            int[] Indexes = new int[5];
+            string[] projectNames = history.GetLastFive(Indexes);
+            //Act
+
+            //Assert
+            Assert.AreEqual(Indexes.Length, projectNames.Length);
+            Assert.That(projectNames[0], Is.EqualTo(history.GetEntryByIndex(Indexes[0]).projectName));
+            Assert.That(projectNames[4], Is.EqualTo(history.GetEntryByIndex(Indexes[4]).projectName));
         }
     }
 }

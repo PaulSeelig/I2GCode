@@ -20,7 +20,6 @@ public class History :  IHistorySafe
 		return (from entry in history where entry.projectName == projectName select entry).FirstOrDefault();
 	}
 
-	//Mach masl ne methode die Projectname und index ausgibt danke
 	/// <summary>
 	/// Method that returns the Last opened Project
 	/// </summary>
@@ -30,6 +29,11 @@ public class History :  IHistorySafe
         return history.OrderByDescending(entry => entry.lastOpened).First();
     }
 
+	/// <summary>
+	/// returns the HistoryEntry at the spezified index
+	/// </summary>
+	/// <param name="index"></param>
+	/// <returns>returns a HistoryEntry object</returns>
 	public HistoryEntry GetEntryByIndex(int index)
 	{
 		return history[index];
@@ -44,32 +48,49 @@ public class History :  IHistorySafe
 		return history.Count;
 	}
 
+	/// <summary>
+	/// a method to get the last five Projects by Name and Index to display them and find them using GetByIndex()
+	/// </summary>
+	/// <param name="Indexes"></param>
+	/// <returns>string array and hopefully an int array</returns>
+	public string[] GetLastFive(int[] Indexes)
+	{
+		string[] output = new string[5];
+		int testValue = 5;
+		
+		if(history.Count() < 5) 
+		{
+			testValue = history.Count();
+		}
+
+		for(int i = 0; i < testValue; i++)
+		{
+			output[i] = history[i].projectName;
+            Indexes[i] = i;
+		}
+		return output;
+	}
+
     /// <summary>
-    /// Updates an existing history entry.
-    /// </summary>
-    /// <param name="updatedEntry">The updated history entry.</param>
-    public void SaveChangesToProject(HistoryEntry updatedEntry)
-    {
-        // Find the index of the entry in the list
-        int index = history.FindIndex(entry => entry.projectName == updatedEntry.projectName);
-
-        // If the entry is found, update it
-        if (index != -1)
-        {
-			updatedEntry.UpdateLastOpened();
-            history[index] = updatedEntry;
-        }
-
-    }
-
-    /// <summary>
-    /// Adds a History object to the List and calls Save function (could change)
+    /// Adds a History object to the List or updates an existing entry
     /// </summary>
     /// <param name="entry">The history entry to be added.</param>
     public void SaveGcodeProject(HistoryEntry entry)
 	{
-		entry.UpdateLastOpened();
-		history.Add(entry);
+        // Find the index of the entry in the list
+        int index = history.FindIndex(e => e.projectName == entry.projectName);
+
+        // If the entry is found, update it
+        if (index != -1)
+        {
+            entry.UpdateLastOpened();
+            history[index] = entry;
+        } 
+		else
+		{
+			entry.UpdateLastOpened();
+			history.Add(entry);
+		}
 	}
 
     /// <summary>
@@ -87,7 +108,7 @@ public class History :  IHistorySafe
 	/// creates the History List from safefile
 	/// </summary>
 	/// <param name="jsonFilePath"></param>
-	public void OpenHistoryFromFile(string jsonFilePath)
+	public void OpenHistoryFromFile(string jsonFilePath) //might need to be static
 	{
 		string json = File.ReadAllText(jsonFilePath);
         history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
