@@ -55,9 +55,7 @@ namespace GUI_I2G.Contures
         {
             Mat img = CvInvoke.Imread("Bild.png", Emgu.CV.CvEnum.ImreadModes.Color);
 
-            Image<Gray, System.Byte> imggray = new Image<Gray, System.Byte>(img);
-
-            Image<Gray, System.Byte> imageDraw = imggray.Copy();//auf dem werden die lKonturen gemalt            
+            Image<Gray, System.Byte> imggray = new Image<Gray, System.Byte>(img);                
 
             double otsuSchwellenwert = CvInvoke.Threshold(imggray, imggray, 0, 255, ThresholdType.Otsu);
 
@@ -68,12 +66,25 @@ namespace GUI_I2G.Contures
         }
 
 
-        public static Contour[] ContourExtractor(VectorOfVectorOfPoint KonturenArray)
+        public static List<Contour[]> ContourExtractor(VectorOfVectorOfPoint KonturenArray)
         {
-            Point[][] Konturen = KonturenArray.ToArrayOfArray();
-
-            for(int i = 0; i < Konturen.Length;i++)
-            return ;
+            Point[][] konturen = KonturenArray.ToArrayOfArray();
+            List <Contour[]> contours = new List<Contour[]>();
+            for(int i = 0; i < konturen.Length; i++)
+            {
+                Contour[] contour = new Contour[konturen[i].Length];
+                for (int j = 0; j < konturen[i].Length; j++)
+                {
+                    if (j + 1 == konturen[i].Length)
+                        break;
+                    Line line = new Line();
+                    line.StartPoint = konturen[i][j];                   
+                    line.EndPoint = konturen[i][j+1];
+                    contour[j] = line;
+                }
+                contours.Add(contour);
+            }            
+            return contours;
         }
         /// <summary>
         /// currently Dummy Class, hopefully Leonardos Code soon
