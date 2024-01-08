@@ -51,7 +51,7 @@ namespace GUI_I2G.Contures
             }
             return ret;
         }
-        public VectorOfVectorOfPoint Konturfinder (string pfad)
+        public static VectorOfVectorOfPoint Konturfinder (string pfad)
         {
             Mat img = CvInvoke.Imread(pfad, Emgu.CV.CvEnum.ImreadModes.Color);
 
