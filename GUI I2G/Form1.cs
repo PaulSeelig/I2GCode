@@ -1,3 +1,5 @@
+using Emgu.CV;
+using Emgu.CV.Structure;
 using System.Drawing.Text;
 using System.Windows.Forms;
 
@@ -7,7 +9,7 @@ namespace GUI_I2G
     {
         private int zoomLevel = 100;
         public I2Gcode()
-        {
+        {            
             InitializeComponent();
             // ermöglicht Drag und Drop
             pB_DragDrop.AllowDrop = true;
@@ -18,6 +20,7 @@ namespace GUI_I2G
 
             pB_DragDrop.MouseWheel += PB_DragDrop_MouseWheel;
         }
+        public string pfad;
 
         private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
         {
@@ -48,7 +51,9 @@ namespace GUI_I2G
         {
             if (double.TryParse(textBox.Text, out value))
             {
-                // entweder hier Methode aufrufen & Koordinaten übergeben
+                // entweder hier Methode aufrufen & Koordinaten übergeben                
+                Image<Color, System.Byte> imggray = new Image<Color, System.Byte>(pfad);
+
             }
             else
             {
@@ -131,8 +136,8 @@ namespace GUI_I2G
                 string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];
                 if (files != null && files.Length > 0)
                 {
-                    string imagePath = files[0];
-                    pB_DragDrop.Image = Image.FromFile(imagePath);
+                    pfad = files[0];
+                    pB_DragDrop.Image = Image.FromFile(pfad);
                     pB_DragDrop_Scale();
                 }
             }
