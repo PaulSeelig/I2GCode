@@ -20,10 +20,9 @@ namespace GUI_I2G.GCodeclasses
         /// </summary>
         /// <param name="ContourImage"></param>++
         /// <returns></returns>
-        public  static GCode GenerateGCode(Image? ContourImage, Parameter p)
+        public  static GCode GenerateGCode(List<Contour[]> ListOfContArrays, Parameter p)
         {
-            Contour[] contours = Contour.ContourExtractor(ContourImage);
-            GCode gcode = new(D_CreateContours.CreateListOfContourArrays()); //Contour.ContourGroup(contours) }; // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
+            GCode gcode = new(ListOfContArrays); // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
            
             foreach (Contour[] CGroup in gcode.GetAllContours()) // all ContourGroups are gone through

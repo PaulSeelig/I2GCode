@@ -55,8 +55,8 @@ namespace GUI_I2G
             if (double.TryParse(textBox.Text, out value))
             {
                 // entweder hier Methode aufrufen & Koordinaten übergeben                
-                Image<Rgb, System.Byte> draw = new Image<Rgb, System.Byte>(pfad);
-                CvInvoke.DrawContours(draw, Contour.Konturfinder(pfad), -1, new MCvScalar(200, 45, 45), 2);
+                Image<Rgb, System.Byte> draw = new Image<Rgb, System.Byte>(Parameter.Pfad);
+                CvInvoke.DrawContours(draw, Contour.Konturfinder(Parameter.Pfad), -1, new MCvScalar(200, 45, 45), 2);
 
             }
             else
