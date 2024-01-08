@@ -20,6 +20,7 @@ public class History :  IHistorySafe
 		return (from entry in history where entry.projectName == projectName select entry).FirstOrDefault();
 	}
 
+	//Mach masl ne methode die Projectname und index ausgibt danke
 	/// <summary>
 	/// Method that returns the Last opened Project
 	/// </summary>
