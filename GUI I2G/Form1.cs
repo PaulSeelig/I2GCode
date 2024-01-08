@@ -55,7 +55,7 @@ namespace GUI_I2G
             if (double.TryParse(textBox.Text, out value))
             {
                 // entweder hier Methode aufrufen & Koordinaten übergeben                
-                Image<Rgb, System.Byte> draw = new Image<Rgb, System.Byte>(imagepfad);
+                Image<Rgb, System.Byte> draw = new(imagepfad);
                 CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
                 CvInvoke.Imwrite("draw"+Parameter.Pfad, draw);
                 Image save = Image.FromFile("draw"+Parameter.Pfad);
@@ -110,10 +110,10 @@ namespace GUI_I2G
         {
             if (e.Data != null)
             {
-                string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];
+                string files = (e.Data.GetData(DataFormats.FileDrop) as string[])[0];
                 if (files != null && files.Length > 0)
                 {
-                    pB_DragDrop.ImageLocation = files[0];
+                    pB_DragDrop.ImageLocation = files;
                 }
             }
         }
