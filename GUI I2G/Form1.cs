@@ -1,6 +1,7 @@
 using Emgu.CV;
 using Emgu.CV.Structure;
 using GUI_I2G.Contures;
+using GUI_I2G.GCodeclasses;
 using System.Drawing.Text;
 using System.IO;
 using System.Windows.Forms;
@@ -53,19 +54,23 @@ namespace GUI_I2G
         private void EingabenPrüfer(TextBox textBox, Label label, out double value)       // Methode für btn1
         {
             if (double.TryParse(textBox.Text, out value))
-            {
-                // entweder hier Methode aufrufen & Koordinaten übergeben                
+            {               
                 Image<Rgb, System.Byte> draw = new(imagepfad);
                 CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
                 CvInvoke.Imwrite("draw"+Parameter.Pfad, draw);
                 Image save = Image.FromFile("draw"+Parameter.Pfad);
                 pB_DragDrop.Image = save;
+                //GCodeTextBox();   //GCode in TB anzeigen
             }
             else
             {
                 throw new FormatException("Ungültige Eingabe");
                 // evtl Fenster neuladen, Programm neu starten, nichts machen? 
             }
+        }
+        private void GCodeTextBox(string text)
+        {
+            tB_showGCode.Text = text;
         }
 
         public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren

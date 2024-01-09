@@ -167,9 +167,11 @@
             // tB_showGCode
             // 
             tB_showGCode.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tB_showGCode.BackColor = SystemColors.Window;
             tB_showGCode.Location = new Point(334, 198);
             tB_showGCode.Multiline = true;
             tB_showGCode.Name = "tB_showGCode";
+            tB_showGCode.ReadOnly = true;
             tB_showGCode.ScrollBars = ScrollBars.Horizontal;
             tB_showGCode.Size = new Size(455, 317);
             tB_showGCode.TabIndex = 13;
