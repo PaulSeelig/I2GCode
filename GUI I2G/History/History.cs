@@ -54,9 +54,8 @@ public class History :  IHistorySafe
 	/// </summary>
 	/// <param name="Indexes"></param>
 	/// <returns>string array and hopefully an int array</returns>
-	public string[] GetLastFive(int[] Indexes)
+	public void GetLastFive(int[] Indexes, string[] output)
 	{
-		string[] output = new string[5];
 		int testValue = 5;
 		
 		if(history.Count() < 5) 
@@ -69,7 +68,7 @@ public class History :  IHistorySafe
 			output[i] = history[i].projectName;
             Indexes[i] = i;
 		}
-		return output;
+		//return output;
 	}
 
     /// <summary>

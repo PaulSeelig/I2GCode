@@ -103,13 +103,16 @@ namespace History_Test
         {
             //Assemble
             int[] Indexes = new int[5];
-            string[] projectNames = history.GetLastFive(Indexes);
+            string[] projectNames = new string[5];
+            history.GetLastFive(Indexes, projectNames);
             //Act
 
             //Assert
             Assert.AreEqual(Indexes.Length, projectNames.Length);
-            Assert.That(projectNames[0], Is.EqualTo(history.GetEntryByIndex(Indexes[0]).projectName));
-            Assert.That(projectNames[4], Is.EqualTo(history.GetEntryByIndex(Indexes[4]).projectName));
+            Assert.That(projectNames[0], Is.EqualTo("Lampe"));
+            Assert.That(history.GetEntryByIndex(Indexes[0]).projectName, Is.EqualTo("Lampe"));
+            Assert.That(history.GetEntryByIndex(Indexes[4]).projectName, Is.EqualTo("Knopf"));
+            Assert.That(projectNames[4], Is.EqualTo("Knopf"));
         }
     }
 }
