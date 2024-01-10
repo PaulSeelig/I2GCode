@@ -85,7 +85,7 @@
             // 
             // tB_Y
             // 
-            tB_Y.Location = new Point(129, 402);
+            tB_Y.Location = new Point(158, 402);
             tB_Y.Margin = new Padding(3, 2, 3, 2);
             tB_Y.Name = "tB_Y";
             tB_Y.Size = new Size(110, 23);
@@ -93,7 +93,7 @@
             // 
             // tB_Z
             // 
-            tB_Z.Location = new Point(129, 427);
+            tB_Z.Location = new Point(158, 427);
             tB_Z.Margin = new Padding(3, 2, 3, 2);
             tB_Z.Name = "tB_Z";
             tB_Z.Size = new Size(110, 23);
@@ -121,7 +121,7 @@
             // 
             // tB_depth
             // 
-            tB_depth.Location = new Point(129, 454);
+            tB_depth.Location = new Point(158, 454);
             tB_depth.Margin = new Padding(3, 2, 3, 2);
             tB_depth.Name = "tB_depth";
             tB_depth.Size = new Size(110, 23);
@@ -130,7 +130,7 @@
             // 
             // tB_X
             // 
-            tB_X.Location = new Point(129, 375);
+            tB_X.Location = new Point(158, 375);
             tB_X.Margin = new Padding(3, 2, 3, 2);
             tB_X.Name = "tB_X";
             tB_X.Size = new Size(110, 23);

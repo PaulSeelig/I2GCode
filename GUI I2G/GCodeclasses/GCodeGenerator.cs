@@ -34,7 +34,7 @@ namespace GUI_I2G.GCodeclasses
             GLinesList.Add(End());
             gcode.GCodeLines = GLinesList.ToArray();
             return gcode;
-        }
+        } 
         
         public static void GeneratePerRound(ref List<string> GLinesList, Contour[] CGroup, Parameter parameter, double wantedDepth)
         {        

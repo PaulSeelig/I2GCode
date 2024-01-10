@@ -2,6 +2,7 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using GUI_I2G.Contures;
 using GUI_I2G.GCodeclasses;
+using GUI_I2G.Tests;
 using System.Drawing.Text;
 using System.IO;
 using System.Windows.Forms;
@@ -55,12 +56,7 @@ namespace GUI_I2G
         {
             if (double.TryParse(textBox.Text, out value))
             {               
-                Image<Rgb, System.Byte> draw = new(imagepfad);
-                CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
-                CvInvoke.Imwrite("draw"+Parameter.Pfad, draw);
-                Image save = Image.FromFile("draw"+Parameter.Pfad);
-                pB_DragDrop.Image = save;
-                //GCodeTextBox();   //GCode in TB anzeigen
+                GCodeTextBox();   //GCode in TB anzeigen
             }
             else
             {
@@ -68,9 +64,12 @@ namespace GUI_I2G
                 // evtl Fenster neuladen, Programm neu starten, nichts machen? 
             }
         }
-        private void GCodeTextBox(string text)
+        private void GCodeTextBox()
         {
-            tB_showGCode.Text = text;
+            GCodeGenerator gCode = new GCodeGenerator();
+            tB_showGCode.Text = gCode.ToString();
+            Parameter p = new Parameter();
+            //tB_showGCode.Text = GCodeGenerator.GenerateGCode(,p);
         }
 
         public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren
@@ -81,7 +80,14 @@ namespace GUI_I2G
                 EingabenPrüfer(tB_Y, lbl_Y, out double ykoo1);
                 EingabenPrüfer(tB_Z, lbl_Z, out double zkoo);
                 EingabenPrüfer(tB_depth, lbl_depth, out double depth);
+
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
+                
+                Image<Rgb, System.Byte> draw = new(Parameter.Pfad);
+                CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
+                CvInvoke.Imwrite("draw" + Parameter.Pfad, draw);
+                Image save = Image.FromFile("draw" + Parameter.Pfad);
+                pB_DragDrop.Image = save;
             }
             catch (FormatException)
             {
@@ -154,7 +160,6 @@ namespace GUI_I2G
                 }
             }
         }
-
         private void I2Gcode_DragEnter(object sender, DragEventArgs e)
         {
             if ((e.Data != null) && e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -176,7 +181,6 @@ namespace GUI_I2G
         private void pB_DragDrop_SizeChanged(object sender, EventArgs e)
         {
             pB_DragDrop_Scale();
-            //pB_DragDrop.Dock = (DockStyle)Top;
         }
     }
 }
