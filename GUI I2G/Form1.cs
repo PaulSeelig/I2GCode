@@ -3,8 +3,10 @@ using Emgu.CV.Structure;
 using GUI_I2G.Contures;
 using GUI_I2G.GCodeclasses;
 using GUI_I2G.Tests;
+using System.Diagnostics;
 using System.Drawing.Text;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace GUI_I2G
@@ -12,7 +14,8 @@ namespace GUI_I2G
     public partial class I2Gcode : Form
     {
         private int zoomLevel = 100;
-        public string imagepfad;
+        private int a = 0;
+        private string imagepfad;
         public I2Gcode()
         {            
             InitializeComponent();
@@ -83,11 +86,11 @@ namespace GUI_I2G
 
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
                 
-                Image<Rgb, System.Byte> draw = new(Parameter.Pfad);
-                CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
-                CvInvoke.Imwrite("draw" + Parameter.Pfad, draw);
-                Image save = Image.FromFile("draw" + Parameter.Pfad);
-                pB_DragDrop.Image = save;
+                //Image<Rgb, System.Byte> draw = new(Parameter.Pfad);
+                //CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
+                //CvInvoke.Imwrite("draw" + Parameter.Pfad, draw);
+                //Image save = Image.FromFile("draw" + Parameter.Pfad);
+                //pB_DragDrop.Image = save;
             }
             catch (FormatException)
             {
@@ -175,7 +178,16 @@ namespace GUI_I2G
 
         private void btn_DownloadGCode_Click(object sender, EventArgs e)
         {
-
+            DownloadGcode();
+            a++;
+        }
+        public void DownloadGcode() 
+        {
+            string GCodeVorschau = tB_showGCode.Text;
+            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filePath = Path.Combine(folderPath, $"Gcode{a}.txt");
+            File.WriteAllText(filePath, GCodeVorschau);
+            Process.Start("explorer.exe", "/select," + filePath);
         }
 
         private void pB_DragDrop_SizeChanged(object sender, EventArgs e)
