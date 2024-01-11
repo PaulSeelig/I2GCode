@@ -104,7 +104,7 @@ namespace History_Test
             //Assemble
             int[] Indexes = new int[5];
             string[] projectNames = new string[5];
-            history.GetLastFive(Indexes, projectNames);
+            history.GetLastFiveOpened(Indexes, projectNames);
             //Act
 
             //Assert

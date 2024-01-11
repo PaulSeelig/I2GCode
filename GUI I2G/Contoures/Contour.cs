@@ -6,6 +6,7 @@ using GUI_I2G.GCodeclasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -65,7 +66,7 @@ namespace GUI_I2G.Contures
             return contours;
         }
 
-
+        
         public static List<Contour[]> ContourExtractor(VectorOfVectorOfPoint KonturenArray)
         {
             Point[][] konturen = KonturenArray.ToArrayOfArray();
@@ -73,28 +74,27 @@ namespace GUI_I2G.Contures
             for(int i = 0; i < konturen.Length; i++)
             {
                 List<Contour> contour = new();
+                //contour.Add(new Line(konturen[i][0], konturen[i][^1])); gedanken test hat nicht funktioniert wahrscheinlich wegen der doppelung der Konturen
                 for (int j = 0; j < konturen[i].Length; j++)
                 {
                     if (j + 2 == konturen[i].Length)
                         break;
-
-                    if(contour.Count > 0 && OnVector((Line)contour.Last(), konturen[i][j + 1]))
+                    if (contour.Count > 0 && OnVector((Line)contour.Last(), konturen[i][j + 1]))
                     {
                         contour.Last().EndPoint = konturen[i][j + 1];
                     }
                     else if (konturen[i].Length > 1)
                     {
-                        
+
                         Line line = new(konturen[i][j], konturen[i][j + 1]);
                         contour.Add(line);
                     }
                 }
-                if(contour.Count > 0)
+                if (contour.Count > 0)
                     contours.Add(contour.ToArray());
             }            
             return contours;
         }
-
         private static bool OnVector(Line l, Point p)
         {
             if (l.StartPoint.X == l.EndPoint.X)

@@ -51,14 +51,15 @@ public class History :  IHistorySafe
 
 	/// <summary>
 	/// a method to get the last five Projects by Name and Index to display them and find them using GetByIndex()
+	/// should it be called after each save of a project?
 	/// </summary>
 	/// <param name="Indexes"></param>
 	/// <returns>string array and hopefully an int array</returns>
-	public void GetLastFive(int[] Indexes, string[] output) //Doch List<HistoryEntry>
+	public void GetLastFiveOpened(int[] Indexes, string[] output) //Doch List<HistoryEntry>
 	{
 		int testValue = 5;
-		
-		if(history.Count() < 5) 
+        history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+        if (history.Count() < 5) 
 		{
 			testValue = history.Count();
 		}
@@ -88,7 +89,7 @@ public class History :  IHistorySafe
 		else
 		{
 			entry.UpdateLastOpened();
-			history.Add(entry); //should be added to the front of the list
+			history.Add(entry); 
 		}
 	}
 
@@ -111,6 +112,6 @@ public class History :  IHistorySafe
 	{
 		string json = File.ReadAllText(jsonFilePath);
         history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
-		history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+        history = history.OrderByDescending(entry => entry.lastOpened).ToList();
     }
 }

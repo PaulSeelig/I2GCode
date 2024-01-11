@@ -21,9 +21,9 @@ namespace GUI_I2G
         // this imagepath is the path of the image that gets dropped intp the PictureBox, its used to draw the contours in button1_Click
         private string imagepath;
 
-        private Image<Rgb,System.Byte> rgbimage;
+        private Image<Rgb, System.Byte> rgbimage;
 
-        private double depth; 
+        private double depth;
         public I2Gcode()
         {
             InitializeComponent();
@@ -52,10 +52,10 @@ namespace GUI_I2G
             pB_DragDrop.Location = new Point((pB_DragDrop.Parent.Width - pB_DragDrop.Width) / 2, (pB_DragDrop.Parent.Height - pB_DragDrop.Height) / 2);
         }
         // Checks if the input from the Coordinate TextBox gets parsed into double
-        private void CheckInput(TextBox textBox, out double value)       
+        private void CheckInput(TextBox textBox, out double value)
         {
             if (double.TryParse(textBox.Text, out value))
-            {}
+            { }
             else
             {
                 throw new FormatException("Ungültige Eingabe");
@@ -63,7 +63,7 @@ namespace GUI_I2G
         }
         private void GCodeTextBox(Parameter p)
         {
-            GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)),p);
+            GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)), p);
         }
         // Downloads the GCode as .txt file to MyDocuments
         public void DownloadGcode()
@@ -106,7 +106,7 @@ namespace GUI_I2G
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
-                p.CuttingDepth = depth;               
+                p.CuttingDepth = depth;
 
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
@@ -115,8 +115,8 @@ namespace GUI_I2G
 
                 CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
 
-                CvInvoke.Imwrite("draw"+name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
-                Image save = Image.FromFile("draw"+name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
+                CvInvoke.Imwrite("draw" + name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
+                Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
 
                 pB_DragDrop.Image = save;
                 GCodeTextBox(p);
@@ -169,6 +169,11 @@ namespace GUI_I2G
         private void pB_DragDrop_SizeChanged(object sender, EventArgs e)
         {
             pB_DragDrop_Scale();
+        }
+
+        private void pB_DragDrop_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

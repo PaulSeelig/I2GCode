@@ -70,6 +70,7 @@
             pB_DragDrop.TabIndex = 1;
             pB_DragDrop.TabStop = false;
             pB_DragDrop.SizeChanged += pB_DragDrop_SizeChanged;
+            pB_DragDrop.Click += pB_DragDrop_Click;
             pB_DragDrop.DragDrop += pB_DragDrop_DragDrop;
             pB_DragDrop.DragEnter += pB_DragDrop_DragEnter;
             // 
