@@ -21,6 +21,8 @@ namespace GUI_I2G
         // this imagepath is the path of the image that gets dropped intp the PictureBox, its used to draw the contours in button1_Click
         private string imagepath;
 
+        private Image<Rgb,System.Byte> rgbimage;
+
         private double depth; 
         public I2Gcode()
         {
@@ -61,7 +63,7 @@ namespace GUI_I2G
         }
         private void GCodeTextBox(Parameter p)
         {
-            GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(imagepath)),p);
+            GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)),p);
         }
         // Downloads the GCode as .txt file to MyDocuments
         public void DownloadGcode()
@@ -108,10 +110,11 @@ namespace GUI_I2G
 
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
-                Image<Rgb, System.Byte> draw = new(imagepath);
-                CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepath), -1, new MCvScalar(200, 45, 45), 2);
-                CvInvoke.Imwrite("drawtest.png", draw);//"draw"+name
-                Image save = Image.FromFile("drawtest.png");
+                rgbimage = new(imagepath); //hier wird das rgbimage erstellt
+                
+                CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);
+                CvInvoke.Imwrite("drawtest.png", rgbimage);//namen gibt es eine andere methode 
+                Image save = Image.FromFile("drawtest.png"); //image in das andere image schauen das das anders geht
                 pB_DragDrop.Image = save;
                 GCodeTextBox(p);
             }
