@@ -15,7 +15,7 @@ namespace GUI_I2G
     {
         private int zoomLevel = 100;
         private int a = 0;
-        private string imagepfad;
+        public string imagepfad;
         public I2Gcode()
         {            
             InitializeComponent();
@@ -86,11 +86,12 @@ namespace GUI_I2G
 
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
                 
-                //Image<Rgb, System.Byte> draw = new(Parameter.Pfad);
-                //CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
-                //CvInvoke.Imwrite("draw" + Parameter.Pfad, draw);
-                //Image save = Image.FromFile("draw" + Parameter.Pfad);
-                //pB_DragDrop.Image = save;
+                Image<Rgb, System.Byte> draw = new(imagepfad);
+                CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
+
+                CvInvoke.Imwrite("draw" + Parameter.Pfad, draw);
+                Image save = Image.FromFile("draw" + Parameter.Pfad);
+                pB_DragDrop.Image = save;
             }
             catch (FormatException)
             {
@@ -150,8 +151,7 @@ namespace GUI_I2G
         }
 
         private void I2Gcode_DragDrop(object sender, DragEventArgs e)
-        {
-           
+        {           
             if (e.Data != null)
             {
                 string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];
