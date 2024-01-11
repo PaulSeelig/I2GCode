@@ -88,9 +88,10 @@ namespace GUI_I2G
                 
                 Image<Rgb, System.Byte> draw = new(imagepfad);
                 CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
-
-                CvInvoke.Imwrite("draw" + Parameter.Pfad, draw);
-                Image save = Image.FromFile("draw" + Parameter.Pfad);
+                string[] imageteile = imagepfad.Split("//");
+                string name = imageteile.Last();
+                CvInvoke.Imwrite("drawtest.png", draw);//"draw"+name
+                Image save = Image.FromFile("drawtest.png");
                 pB_DragDrop.Image = save;
             }
             catch (FormatException)
