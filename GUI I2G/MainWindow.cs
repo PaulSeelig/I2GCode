@@ -3,6 +3,7 @@ using Emgu.CV.Structure;
 using GUI_I2G.Contures;
 using GUI_I2G.GCodeclasses;
 using GUI_I2G.Tests;
+using Microsoft.VisualBasic;
 using System.Diagnostics;
 using System.Drawing.Text;
 using System.IO;
@@ -13,42 +14,51 @@ namespace GUI_I2G
 {
     public partial class I2Gcode : Form
     {
+        // zoom level is needed for the SetZoomLevel Method, defines the speed of zooming
         private int zoomLevel = 100;
+        // "a" is used to download the GCode, it represents the numbers of GCodes created
         private int a = 0;
-        private string imagepfad;
+        // this imagepath is the path of the image that gets dropped intp the PictureBox, its used to draw the contours in button1_Click
+        private string imagepath;
         public I2Gcode()
         {
             InitializeComponent();
-            // ermöglicht Drag und Drop
+            // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
-            // Zuweisung für Eventhandler, wird benutzt, wenn man mit einem Bild über die PB hovert
+            // this Eventhandler is used if one hovers over the PictureBox
             pB_DragDrop.DragEnter += new DragEventHandler(pB_DragDrop_DragEnter);
-            // Zuweisung für EventHandler, wird benutzt, wenn ein Drag and Drop vorgang abgeschlossen ist
+            // this Eventhandler is used after a Drag and drop process is complete
             pB_DragDrop.DragDrop += new DragEventHandler(pB_DragDrop_DragDrop);
-
+            // this is needed bcs in VS2022 this event does not exist until its manually added
             pB_DragDrop.MouseWheel += PB_DragDrop_MouseWheel;
         }
+        // sets the zoom level of the picture box 
         private void SetZoomLevel()
         {
+            // zoom factor is calculated based on zoom level (100) 
             float zoomFactor = zoomLevel / 100f;
+            // calculates the new width of the PictureBox after each Zoom
             int newWidth = (int)(pB_DragDrop.Image.Width * zoomFactor);
+            // calculates the new height of the PictureBox after each Zoom
             int newHeight = (int)(pB_DragDrop.Image.Height * zoomFactor);
 
-            // Setze die Größe der PictureBox neu und zentriere das Bild
+            // resize the PictureBox
             pB_DragDrop.Size = new Size(newWidth, newHeight);
+            // centers the image in the PictureBox
             pB_DragDrop.Location = new Point((pB_DragDrop.Parent.Width - pB_DragDrop.Width) / 2, (pB_DragDrop.Parent.Height - pB_DragDrop.Height) / 2);
         }
-
-        private void EingabenPrüfer(TextBox textBox, Label label, out double value)       // Methode für btn1
+        // Checks if the input from the Coordinate TextBox gets parsed into double
+        private void CheckInput(TextBox textBox, out double value)       
         {
             if (double.TryParse(textBox.Text, out value))
             {
-                GCodeTextBox();   //GCode in TB anzeigen
+                // if parsing succees,generate g code 
+                GCodeTextBox(); 
             }
             else
             {
+                // if parsing succees,generate g code 
                 throw new FormatException("Ungültige Eingabe");
-                // evtl Fenster neuladen, Programm neu starten, nichts machen? 
             }
         }
         private void GCodeTextBox()
@@ -58,12 +68,18 @@ namespace GUI_I2G
             Parameter p = new Parameter();
             //tB_showGCode.Text = GCodeGenerator.GenerateGCode(,p);
         }
+        // Downloads the GCode as .txt file to MyDocuments
         public void DownloadGcode()
         {
+            // takes the GCode from the TextBox
             string GCodeVorschau = tB_showGCode.Text;
+            // takes the folder path to MyDocuments
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            // puts a file named "GCode .txt" at the destinaetd folderpath
             string filePath = Path.Combine(folderPath, $"Gcode{a}.txt");
+            // writes the GCode into the file
             File.WriteAllText(filePath, GCodeVorschau);
+            // opens the explorer and selects the saved file
             Process.Start("explorer.exe", "/select," + filePath);
         }
         private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
@@ -84,16 +100,16 @@ namespace GUI_I2G
         {
             try
             {
-                EingabenPrüfer(tB_X, lbl_X, out double xkoo1);
-                EingabenPrüfer(tB_Y, lbl_Y, out double ykoo1);
-                EingabenPrüfer(tB_Z, lbl_Z, out double zkoo);
-                EingabenPrüfer(tB_depth, lbl_depth, out double depth);
+                CheckInput(tB_X, out double xkoo1);
+                CheckInput(tB_Y, out double ykoo1);
+                CheckInput(tB_Z, out double zkoo);
+                CheckInput(tB_depth, out double depth);
 
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
-                Image<Rgb, System.Byte> draw = new(imagepfad);
-                CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
-                string[] imageteile = imagepfad.Split("//");
+                Image<Rgb, System.Byte> draw = new(imagepath);
+                CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepath), -1, new MCvScalar(200, 45, 45), 2);
+                string[] imageteile = imagepath.Split("//");
                 string name = imageteile.Last();
                 CvInvoke.Imwrite("drawtest.png", draw);//"draw"+name
                 Image save = Image.FromFile("drawtest.png");
@@ -123,7 +139,7 @@ namespace GUI_I2G
                 if (files != null && files.Length > 0)
                 {
                     pB_DragDrop.ImageLocation = files;
-                    imagepfad = files;
+                    imagepath = files;
                 }
             }
         }
