@@ -116,9 +116,7 @@ namespace GUI_I2G
                 CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
 
                 CvInvoke.Imwrite("draw"+name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
-                Image save = Image.FromFile("draw"+name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen
-                
-                //File.Move("draw" + name, Parameter.Pfad); mach ich vielleicht später
+                Image save = Image.FromFile("draw"+name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
 
                 pB_DragDrop.Image = save;
                 GCodeTextBox(p);
