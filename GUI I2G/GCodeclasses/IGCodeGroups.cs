@@ -23,7 +23,7 @@ namespace GUI_I2G.GCodeclasses
             return $"{current} ";
         } 
     }
-    public abstract partial class IGCCommandlib
+    public static partial class GCodeGenerator
     {
 
         //modale Gruppe ist ->(ein einmal verwendeter Befehl wird aufrechterhalten, bis

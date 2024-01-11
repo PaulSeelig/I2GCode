@@ -11,7 +11,7 @@ using GUI_I2G.Dummys;
 
 namespace GUI_I2G.GCodeclasses
 {
-    public class GCodeGenerator : IGCCommandlib
+    public static partial class GCodeGenerator
     {
         //private static Parameter? parameter { get; set; } //this might be stupid but hey not the hardest fix
         private static double CurrentMillDepth {  get; set; }
