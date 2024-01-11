@@ -70,7 +70,6 @@
             pB_DragDrop.TabIndex = 1;
             pB_DragDrop.TabStop = false;
             pB_DragDrop.SizeChanged += pB_DragDrop_SizeChanged;
-            pB_DragDrop.Click += pB_DragDrop_Click;
             pB_DragDrop.DragDrop += pB_DragDrop_DragDrop;
             pB_DragDrop.DragEnter += pB_DragDrop_DragEnter;
             // 
@@ -82,6 +81,8 @@
             lbl_DragDrop.Size = new Size(194, 15);
             lbl_DragDrop.TabIndex = 2;
             lbl_DragDrop.Text = "Bild hier via Drag n Drop hochladen";
+            lbl_DragDrop.DragDrop += pB_DragDrop_DragDrop;
+            lbl_DragDrop.DragEnter += pB_DragDrop_DragEnter;
             // 
             // tB_Y
             // 
@@ -126,7 +127,6 @@
             tB_depth.Name = "tB_depth";
             tB_depth.Size = new Size(110, 23);
             tB_depth.TabIndex = 8;
-            tB_depth.TextChanged += textBox1_TextChanged;
             // 
             // tB_X
             // 
@@ -153,7 +153,6 @@
             lbl_Z.Size = new Size(109, 15);
             lbl_Z.TabIndex = 11;
             lbl_Z.Text = "Z- Eckpunkt in mm";
-            lbl_Z.Click += lbl_Z_Click;
             // 
             // lbl_depth
             // 
@@ -209,9 +208,6 @@
             MaximumSize = new Size(7002, 3760);
             Name = "I2Gcode";
             Text = "I2G-Code";
-            Load += I2Gcode_Load;
-            DragDrop += I2Gcode_DragDrop;
-            DragEnter += I2Gcode_DragEnter;
             Resize += I2Gcode_Resize;
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).EndInit();
             ResumeLayout(false);

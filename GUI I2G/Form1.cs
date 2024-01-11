@@ -17,7 +17,7 @@ namespace GUI_I2G
         private int a = 0;
         private string imagepfad;
         public I2Gcode()
-        {            
+        {
             InitializeComponent();
             // ermöglicht Drag und Drop
             pB_DragDrop.AllowDrop = true;
@@ -58,7 +58,7 @@ namespace GUI_I2G
         private void EingabenPrüfer(TextBox textBox, Label label, out double value)       // Methode für btn1
         {
             if (double.TryParse(textBox.Text, out value))
-            {               
+            {
                 GCodeTextBox();   //GCode in TB anzeigen
             }
             else
@@ -85,7 +85,7 @@ namespace GUI_I2G
                 EingabenPrüfer(tB_depth, lbl_depth, out double depth);
 
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
-                
+
                 Image<Rgb, System.Byte> draw = new(imagepfad);
                 CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepfad), -1, new MCvScalar(200, 45, 45), 2);
                 string[] imageteile = imagepfad.Split("//");
@@ -98,19 +98,7 @@ namespace GUI_I2G
             {
                 MessageBox.Show("Ungültige Eingabe, bitte geben Sie die Koordinaten, eines Eckpunkts Ihres Werkstücks in mm ein.");
             }
-            // oder hier Methode aufrufen & Koordinaten übergeben
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void I2Gcode_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void pB_DragDrop_DragEnter(object sender, DragEventArgs e)
         {
             if ((e.Data != null) && e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -130,6 +118,7 @@ namespace GUI_I2G
                 if (files != null && files.Length > 0)
                 {
                     pB_DragDrop.ImageLocation = files;
+                    imagepfad = files;
                 }
             }
         }
@@ -141,48 +130,16 @@ namespace GUI_I2G
                 //pB_DragDrop.Size = this.Size;
             }
         }
-        private void pB_DragDrop_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void I2Gcode_Resize(object sender, EventArgs e)
         {
             pB_DragDrop_Scale();
         }
-
-        private void I2Gcode_DragDrop(object sender, DragEventArgs e)
-        {           
-            if (e.Data != null)
-            {
-                string[]? files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                if (files != null && files.Length > 0)
-                {
-                    imagepfad = files[0];
-                    pB_DragDrop.Image = Image.FromFile(imagepfad);
-                    pB_DragDrop_Scale();
-                }
-            }
-        }
-        private void I2Gcode_DragEnter(object sender, DragEventArgs e)
-        {
-            if ((e.Data != null) && e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-            else
-                e.Effect = DragDropEffects.None;
-        }
-
-        private void lbl_Z_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_DownloadGCode_Click(object sender, EventArgs e)
         {
             DownloadGcode();
             a++;
         }
-        public void DownloadGcode() 
+        public void DownloadGcode()
         {
             string GCodeVorschau = tB_showGCode.Text;
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
