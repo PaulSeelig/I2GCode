@@ -18,7 +18,7 @@ public class History :  IHistorySafe
 	/// <param name="projectName"> the name required for the search </param>
 	public HistoryEntry GetEntry(string projectName)
 	{ 
-		return (from entry in history where entry.projectName == projectName select entry).FirstOrDefault();
+		return history.Where(e => e.projectName == projectName).FirstOrDefault(); 
 	}
 
 	/// <summary>
@@ -54,7 +54,7 @@ public class History :  IHistorySafe
 	/// </summary>
 	/// <param name="Indexes"></param>
 	/// <returns>string array and hopefully an int array</returns>
-	public void GetLastFive(int[] Indexes, string[] output)
+	public void GetLastFive(int[] Indexes, string[] output) //Doch List<HistoryEntry>
 	{
 		int testValue = 5;
 		
@@ -68,7 +68,6 @@ public class History :  IHistorySafe
 			output[i] = history[i].projectName;
             Indexes[i] = i;
 		}
-		//return output;
 	}
 
     /// <summary>
@@ -89,7 +88,7 @@ public class History :  IHistorySafe
 		else
 		{
 			entry.UpdateLastOpened();
-			history.Add(entry);
+			history.Add(entry); //should be added to the front of the list
 		}
 	}
 
