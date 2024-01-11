@@ -51,11 +51,9 @@ namespace GUI_I2G.Contures
             }
             return ret;
         }
-        public static VectorOfVectorOfPoint Konturfinder (string pfad)
-        {
-            Mat img = CvInvoke.Imread(pfad, Emgu.CV.CvEnum.ImreadModes.Color);
-
-            Image<Gray, System.Byte> imggray = new(img);            
+        public static VectorOfVectorOfPoint Konturfinder (string pfad)//hier soll image benutzt werden
+        {            
+            Image<Gray, System.Byte> imggray = new(pfad);//soll nur geändert werden in Gray
 
             double otsuSchwellenwert = CvInvoke.Threshold(imggray, imggray, 0, 255, ThresholdType.Otsu);
 

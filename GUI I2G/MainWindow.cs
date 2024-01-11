@@ -110,8 +110,8 @@ namespace GUI_I2G
 
                 Image<Rgb, System.Byte> draw = new(imagepath);
                 CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepath), -1, new MCvScalar(200, 45, 45), 2);
-                CvInvoke.Imwrite("drawtest.png", draw);//"draw"+name
-                Image save = Image.FromFile("drawtest.png");
+                CvInvoke.Imwrite("drawtest.png", draw);//namen gibt es eine andere methode 
+                Image save = Image.FromFile("drawtest.png"); //image in das andere image schauen das das anders geht
                 pB_DragDrop.Image = save;
                 GCodeTextBox(p);
             }
