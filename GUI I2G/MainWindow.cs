@@ -111,10 +111,13 @@ namespace GUI_I2G
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
                 rgbimage = new(imagepath); //hier wird das rgbimage erstellt
-                
-                CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);
-                CvInvoke.Imwrite("drawtest.png", rgbimage);//namen gibt es eine andere methode 
-                Image save = Image.FromFile("drawtest.png"); //image in das andere image schauen das das anders geht
+                string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
+
+                CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
+
+                CvInvoke.Imwrite("draw"+name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
+                Image save = Image.FromFile("draw"+name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen
+
                 pB_DragDrop.Image = save;
                 GCodeTextBox(p);
             }
