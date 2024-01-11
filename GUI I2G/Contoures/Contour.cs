@@ -75,7 +75,7 @@ namespace GUI_I2G.Contures
                 Contour[] contour = new Contour[konturen[i].Length];
                 for (int j = 0; j < konturen[i].Length; j++)
                 {
-                    if (j + 1 == konturen[i].Length)
+                    if (j + 2 == konturen[i].Length)
                         break;
                     Line line = new Line();
                     line.StartPoint = konturen[i][j];                   
