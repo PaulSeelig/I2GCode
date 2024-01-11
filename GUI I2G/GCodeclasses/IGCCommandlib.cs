@@ -12,7 +12,7 @@ namespace GUI_I2G.GCodeclasses
     /// <summary>
     /// This is a partial Class, in the other part, I define Methods and public ints for CommandGroups. So the file is called IGCodeGroups.
     /// </summary>
-    public abstract partial class IGCCommandlib 
+    public static partial class GCodeGenerator
     {
         static private string? X;
         static private string? Y;
