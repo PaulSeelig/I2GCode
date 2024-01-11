@@ -20,6 +20,8 @@ namespace GUI_I2G
         private int a = 0;
         // this imagepath is the path of the image that gets dropped intp the PictureBox, its used to draw the contours in button1_Click
         private string imagepath;
+
+        private double depth; 
         public I2Gcode()
         {
             InitializeComponent();
@@ -63,10 +65,9 @@ namespace GUI_I2G
         }
         private void GCodeTextBox()
         {
-            GCodeGenerator gCode = new GCodeGenerator();
-            tB_showGCode.Text = gCode.ToString();
             Parameter p = new Parameter();
-            //tB_showGCode.Text = GCodeGenerator.GenerateGCode(,p);
+            p.CuttingDepth = depth-1;
+            GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(imagepath)),p);
         }
         // Downloads the GCode as .txt file to MyDocuments
         public void DownloadGcode()
@@ -109,8 +110,6 @@ namespace GUI_I2G
 
                 Image<Rgb, System.Byte> draw = new(imagepath);
                 CvInvoke.DrawContours(draw, Contour.Konturfinder(imagepath), -1, new MCvScalar(200, 45, 45), 2);
-                string[] imageteile = imagepath.Split("//");
-                string name = imageteile.Last();
                 CvInvoke.Imwrite("drawtest.png", draw);//"draw"+name
                 Image save = Image.FromFile("drawtest.png");
                 pB_DragDrop.Image = save;
