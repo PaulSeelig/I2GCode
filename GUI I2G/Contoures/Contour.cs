@@ -55,11 +55,12 @@ namespace GUI_I2G.Contures
         {
             Mat img = CvInvoke.Imread(pfad, Emgu.CV.CvEnum.ImreadModes.Color);
 
-            Image<Gray, System.Byte> imggray = new Image<Gray, System.Byte>(img);            
+            Image<Gray, System.Byte> imggray = new(img);            
 
             double otsuSchwellenwert = CvInvoke.Threshold(imggray, imggray, 0, 255, ThresholdType.Otsu);
 
-            VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint();
+            VectorOfVectorOfPoint contours = new();
+
             CvInvoke.FindContours(imggray, contours, null, Emgu.CV.CvEnum.RetrType.List, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxNone);
 
             return contours;
@@ -72,17 +73,23 @@ namespace GUI_I2G.Contures
             List <Contour[]> contours = new List<Contour[]>();
             for(int i = 0; i < konturen.Length; i++)
             {
-                Contour[] contour = new Contour[konturen[i].Length];
+                List<Contour> contour = new();
                 for (int j = 0; j < konturen[i].Length; j++)
                 {
                     if (j + 2 == konturen[i].Length)
                         break;
-                    Line line = new Line();
-                    line.StartPoint = konturen[i][j];                   
-                    line.EndPoint = konturen[i][j+1];
-                    contour[j] = line;
+                    if (konturen[i].Length > 1)
+                    {
+                        Line line = new()
+                        {
+                            StartPoint = konturen[i][j],
+                            EndPoint = konturen[i][j + 1]
+                        };
+                        contour.Add(line);
+                    }
                 }
-                contours.Add(contour);
+                if(contour.Count > 0)
+                    contours.Add(contour.ToArray());
             }            
             return contours;
         }

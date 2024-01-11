@@ -53,20 +53,14 @@ namespace GUI_I2G
         private void CheckInput(TextBox textBox, out double value)       
         {
             if (double.TryParse(textBox.Text, out value))
-            {
-                // if parsing succees,generate g code 
-                GCodeTextBox(); 
-            }
+            {}
             else
             {
-                // if parsing succees,generate g code 
                 throw new FormatException("Ungültige Eingabe");
             }
         }
-        private void GCodeTextBox()
+        private void GCodeTextBox(Parameter p)
         {
-            Parameter p = new Parameter();
-            p.CuttingDepth = depth-1;
             GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(imagepath)),p);
         }
         // Downloads the GCode as .txt file to MyDocuments
@@ -101,10 +95,16 @@ namespace GUI_I2G
         {
             try
             {
+
                 CheckInput(tB_X, out double xkoo1);
                 CheckInput(tB_Y, out double ykoo1);
-                CheckInput(tB_Z, out double zkoo);
-                CheckInput(tB_depth, out double depth);
+                CheckInput(tB_Z, out double zkoo1);
+                CheckInput(tB_depth, out depth);
+                Parameter p = new();
+                p.Eckpunkt[0] = xkoo1;
+                p.Eckpunkt[1] = ykoo1;
+                p.Eckpunkt[2] = zkoo1;
+                p.CuttingDepth = depth;               
 
                 MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
@@ -113,6 +113,7 @@ namespace GUI_I2G
                 CvInvoke.Imwrite("drawtest.png", draw);//"draw"+name
                 Image save = Image.FromFile("drawtest.png");
                 pB_DragDrop.Image = save;
+                GCodeTextBox(p);
             }
             catch (FormatException)
             {

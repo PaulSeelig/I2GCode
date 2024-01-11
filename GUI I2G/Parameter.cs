@@ -62,8 +62,8 @@ namespace GUI_I2G
 
         public int Rounds {  get; set; } // honestly not sure yet, if I'll use this       
 
-        public double MaterialDepth { get; set; } = 100;
-        public Point[] Eckpunkte { get; set; }
+        public double MaterialDepth => Eckpunkt[2];
+        public double[] Eckpunkt { get; set; } = new double[3];
 
         public double TableWidth { get; set; }
        
@@ -81,11 +81,11 @@ namespace GUI_I2G
         /// <summary>
         /// sets the required values for the GCode, any additional values either have a default or can be set individually
         /// </summary>
-        public Parameter(double tWidth, double tLength, Point[] WorkpieceCorners, double cutDepth = 20, double toolDepth = 4) 
+        public Parameter(double tWidth, double tLength, double[] WorkpieceCorners, double cutDepth = 20, double toolDepth = 4) 
         {
             TableWidth = tWidth;
             TableLength = tLength;
-            Eckpunkte = WorkpieceCorners; //if failed maybe i need .ToArray<Point>()
+            Eckpunkt = WorkpieceCorners; //if failed maybe i need .ToArray<Point>()
             Tool1 = new("Tool1",toolDepth, 5);
             CuttingDepth = cutDepth;
             CurrentTool = Tool1;
@@ -94,9 +94,9 @@ namespace GUI_I2G
         {
             //TableWidth = 300;
             //TableLength = 400;
-            Eckpunkte = new[] { new Point(200, 200), new(-200, 200), new(-200, -200), new(200, -200) };
+            //Eckpunkt = new[] { new(200), new(200), new(-200), new(200, -200) };
             //Tool1 = new("Tool1", 30, 20);
-            CuttingDepth = 50;
+            //CuttingDepth = 50;
             //CurrentTool = Tool1;
         }
     }
