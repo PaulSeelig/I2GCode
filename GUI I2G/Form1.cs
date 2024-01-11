@@ -15,7 +15,7 @@ namespace GUI_I2G
     {
         private int zoomLevel = 100;
         private int a = 0;
-        public string imagepfad;
+        private string imagepfad;
         public I2Gcode()
         {            
             InitializeComponent();
