@@ -28,22 +28,6 @@ namespace GUI_I2G
 
             pB_DragDrop.MouseWheel += PB_DragDrop_MouseWheel;
         }
-
-
-        private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
-        {
-            if (e.Delta > 0 && zoomLevel < 200) // Zoom in
-            {
-                zoomLevel += 10;
-                pB_DragDrop.BringToFront();
-            }
-            else if (e.Delta < 0 && zoomLevel > 10) // Zoom out
-            {
-                zoomLevel -= 10;
-                pB_DragDrop.SendToBack();
-            }
-            SetZoomLevel();
-        }
         private void SetZoomLevel()
         {
             float zoomFactor = zoomLevel / 100f;
@@ -74,7 +58,28 @@ namespace GUI_I2G
             Parameter p = new Parameter();
             //tB_showGCode.Text = GCodeGenerator.GenerateGCode(,p);
         }
-
+        public void DownloadGcode()
+        {
+            string GCodeVorschau = tB_showGCode.Text;
+            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filePath = Path.Combine(folderPath, $"Gcode{a}.txt");
+            File.WriteAllText(filePath, GCodeVorschau);
+            Process.Start("explorer.exe", "/select," + filePath);
+        }
+        private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0 && zoomLevel < 200) // Zoom in
+            {
+                zoomLevel += 10;
+                pB_DragDrop.BringToFront();
+            }
+            else if (e.Delta < 0 && zoomLevel > 10) // Zoom out
+            {
+                zoomLevel -= 10;
+                pB_DragDrop.SendToBack();
+            }
+            SetZoomLevel();
+        }
         public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren
         {
             try
@@ -139,15 +144,6 @@ namespace GUI_I2G
             DownloadGcode();
             a++;
         }
-        public void DownloadGcode()
-        {
-            string GCodeVorschau = tB_showGCode.Text;
-            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filePath = Path.Combine(folderPath, $"Gcode{a}.txt");
-            File.WriteAllText(filePath, GCodeVorschau);
-            Process.Start("explorer.exe", "/select," + filePath);
-        }
-
         private void pB_DragDrop_SizeChanged(object sender, EventArgs e)
         {
             pB_DragDrop_Scale();
