@@ -16,6 +16,7 @@ namespace GUI_I2G.Contures
     {
         public Point StartPoint { get; set; }
         public Point EndPoint { get; set; }
+
         public double EndDepth { get; set; } = 0;
         public abstract double Length { get;}
         /// <summary>
@@ -70,7 +71,7 @@ namespace GUI_I2G.Contures
         public static List<Contour[]> ContourExtractor(VectorOfVectorOfPoint KonturenArray)
         {
             Point[][] konturen = KonturenArray.ToArrayOfArray();
-            List <Contour[]> contours = new List<Contour[]>();
+            List <Contour[]> contours = new();
             for(int i = 0; i < konturen.Length; i++)
             {
                 List<Contour> contour = new();
@@ -78,13 +79,15 @@ namespace GUI_I2G.Contures
                 {
                     if (j + 2 == konturen[i].Length)
                         break;
-                    if (konturen[i].Length > 1)
+
+                    if(contour.Count > 0 && OnVector((Line)contour.Last(), konturen[i][j + 1]))
                     {
-                        Line line = new()
-                        {
-                            StartPoint = konturen[i][j],
-                            EndPoint = konturen[i][j + 1]
-                        };
+                        contour.Last().EndPoint = konturen[i][j + 1];
+                    }
+                    else if (konturen[i].Length > 1)
+                    {
+                        
+                        Line line = new(konturen[i][j], konturen[i][j + 1]);
                         contour.Add(line);
                     }
                 }
@@ -92,6 +95,20 @@ namespace GUI_I2G.Contures
                     contours.Add(contour.ToArray());
             }            
             return contours;
+        }
+
+        private static bool OnVector(Line l, Point p)
+        {
+            if (l.StartPoint.X == l.EndPoint.X)
+            {
+                return (p.X <= l.StartPoint.X + 0.235) && p.X >= l.StartPoint.X - 0.235;
+            }
+            double incline = (l.StartPoint.Y - l.EndPoint.Y) / (l.StartPoint.X - l.EndPoint.X);
+            double expY = l.EndPoint.Y + (l.EndPoint.X - p.X) * incline;
+            if (expY <= (p.Y + 0.235) && expY >= (p.Y - 0.235))
+                return true;
+            else 
+                return false;
         }
         /// <summary>
         /// currently Dummy Class, hopefully Leonardos Code soon

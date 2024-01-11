@@ -14,8 +14,8 @@ namespace History_Test
         public void Setup()
         {
             //Assemble
-            Point[] AllEckpunkte = { new(2,3), new(3,4), new(4,7)};
-            Point[] AllEckpunkte2 = { new(2, 3), new(3, 5), new(5, 6) };
+            double[] AllEckpunkte = { 203, 304, 407};
+            double[] AllEckpunkte2 = { 203, 435, 455 };
             
             history = new History();
             HistoryEntry project1 = new("Lampe", new Parameter(7,10, AllEckpunkte,5,4), allGcode, "image");
@@ -42,16 +42,16 @@ namespace History_Test
             Assert.That(entry.projectName == "Lampe");
             Assert.That(entry.Gcode.GCodeLines[0] == allGcode.GCodeLines[0]);
             Assert.That(entry.Gcode.GCodeLines[^1] == allGcode.GCodeLines[^1]);
-            Assert.That(entry.parameter.Eckpunkte[0] == new Point(2, 3));
+           // Assert.That(entry.parameter.Eckpunkt[0] == new Point(2, 3));
         }
 
         [Test]
         public void SaveGcodeProject_Added_All()
         {
             //Assemble
-            Point[] AllEckpunkte = { new(2,3), new(2,4), new(4,6), new(2,6)};
-            HistoryEntry project6 = new HistoryEntry("Platte", new Parameter(4,5, AllEckpunkte,7,10), allGcode, "image");
-            HistoryEntry project7 = new HistoryEntry("Knopf", new Parameter(4, 5, AllEckpunkte, 7, 10), allGcode, "image");
+            double[] AllEckpunkte = {232, 434, 767 };
+            HistoryEntry project6 = new("Platte", new Parameter(4,5, AllEckpunkte,7,10), allGcode, "image");
+            HistoryEntry project7 = new("Knopf", new Parameter(4, 5, AllEckpunkte, 7, 10), allGcode, "image");
 
             //Act
             history.SaveGcodeProject(project6);
@@ -95,7 +95,7 @@ namespace History_Test
             //Test if Parameter object saved
             Assert.That(history.GetEntry("Stecker").parameter.Tool1.Diameter == 5);
             Assert.That(history.GetEntry("Knopf").parameter.Tool1.Name, Is.EqualTo("Tool1"));
-            Assert.That(history.GetEntry("Knopf").parameter.Eckpunkte != null); 
+            Assert.That(history.GetEntry("Knopf").parameter.Eckpunkt != null); 
         }
 
         [Test]

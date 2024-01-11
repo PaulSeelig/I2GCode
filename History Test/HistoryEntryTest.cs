@@ -17,7 +17,7 @@ namespace History_Test
         public void ConstructorTest_All_All()
         {
             //Assemble
-            Point[] testing = { new(444, 500), new(-59,-300), new(40, -50), new(-40,30) };
+            double[] testing = { 304, 34, 434 };
             string projName = "TestName";
             var param = new Parameter(10, 10, testing, 5, 5);
             var GCode = GCodeGenerator.GenerateGCode(null, param);

@@ -8,6 +8,7 @@ using GUI_I2G;
 using Emgu.CV;
 using System.Windows.Forms.Design;
 using GUI_I2G.Dummys;
+using System.Diagnostics;
 
 namespace GUI_I2G.GCodeclasses
 {
@@ -24,11 +25,11 @@ namespace GUI_I2G.GCodeclasses
         {
             GCode gcode = new(ListOfContArrays); // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
-           
+            DummyGenerateMaterial(ref GLinesList, p);
             foreach (Contour[] CGroup in gcode.GetAllContours()) // all ContourGroups are gone through
             {
                 CurrentMillDepth = 0;
-                GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, $"Z0"));
+                GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, $"Z{p.MaterialDepth}"));
                 GeneratePerRound(ref GLinesList, CGroup, p, p.CutDepthPerRound);
             }
             GLinesList.Add(End());
@@ -43,7 +44,7 @@ namespace GUI_I2G.GCodeclasses
                 if (CurrentMillDepth + CGroup[j].Length * parameter.DDFactor < wantedDepth)
                 {
                     CurrentMillDepth += CGroup[j].Length * parameter.DDFactor;
-                    CGroup[j].EndDepth = CurrentMillDepth;
+                    CGroup[j].EndDepth =  - CurrentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                 }
                 else if (CurrentMillDepth != wantedDepth)
@@ -90,5 +91,31 @@ namespace GUI_I2G.GCodeclasses
 
 
         }
+        [Conditional("DEBUG")]
+        private static void DummyGenerateMaterial(ref List<string> those, Parameter p)
+        {
+            those.Add("G1");
+            List<Line> lines = new()
+            {
+                new Line(new Point(0, 0), new(0, ((int)p.Eckpunkt[0]))),
+                new Line(new Point(0, (int)p.Eckpunkt[0]), new((int)p.Eckpunkt[1], (int)p.Eckpunkt[0])),
+                new Line(new Point((int)p.Eckpunkt[1], (int)p.Eckpunkt[0]), new((int)p.Eckpunkt[1], 0)),
+                new Line(new((int)p.Eckpunkt[1], 0), new(0, 0))
+                            };
+
+            while (p.MaterialDepth > CurrentMillDepth)
+            {
+                
+                foreach (Line item in lines)
+                {
+                    //CurrentMillDepth = ((CurrentMillDepth + (p.CurrentTool.ToolDepth * 0.025)) < p.MaterialDepth)? (CurrentMillDepth + (p.CurrentTool.ToolDepth * 0.025) ): p.MaterialDepth;
+                    CurrentMillDepth += 0.025;
+                    item.EndDepth = CurrentMillDepth;
+                    those.Add(CutPath(item));
+                }
+            }
+            CurrentMillDepth = 0;
+        }
     }
+
 }
