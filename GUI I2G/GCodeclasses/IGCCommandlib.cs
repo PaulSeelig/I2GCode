@@ -17,6 +17,7 @@ namespace GUI_I2G.GCodeclasses
         static private string? X;
         static private string? Y;
         static private string? Z; 
+
        
         
         static public List<string> Start() => new () { "%", "G17 G21 G90 G95" };

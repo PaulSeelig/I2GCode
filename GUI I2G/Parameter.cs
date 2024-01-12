@@ -27,6 +27,11 @@ namespace GUI_I2G
 
         public Tool? CurrentTool { get; set; } = new Tool("T1", 10);
 
+        public double AddPosX { get; set; }
+        public double AddPosY { get; set; }
+
+        public double ScaleFactor {  get; set; }
+
 
         //public double ToolDepth => CurrentTool.ToolDepth;
         //public double ToolDiameter => CurrentTool.Diameter;

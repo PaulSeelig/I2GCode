@@ -25,8 +25,9 @@ namespace GUI_I2G.GCodeclasses
         {
             GCode gcode = new(ListOfContArrays); // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
+            GetScaleFactor(gcode.GetAllContours()[^1], ref p);
             DummyGenerateMaterial(ref GLinesList, p);
-            foreach (Contour[] CGroup in gcode.GetAllContours()) // all ContourGroups are gone through
+            foreach(Contour[] CGroup in gcode.GetAllContours())//.SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
             {
                 CurrentMillDepth = 0;
                 GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, $"Z{p.MaterialDepth}"));
@@ -37,13 +38,13 @@ namespace GUI_I2G.GCodeclasses
             return gcode;
         } 
         
-        public static void GeneratePerRound(ref List<string> GLinesList, Contour[] CGroup, Parameter parameter, double wantedDepth)
+        public static void GeneratePerRound(ref List<string> GLinesList, Contour[] CGroup, Parameter p, double wantedDepth)
         {        
             for (int j = 0; j < CGroup.Length; j++)// jede einzelne zusammenhängende Contourgroup wird contour für Contour durchgegangen
             {
-                if (CurrentMillDepth + CGroup[j].Length * parameter.DDFactor < wantedDepth)
+                if (CurrentMillDepth + CGroup[j].Length * p.DDFactor < wantedDepth)
                 {
-                    CurrentMillDepth += CGroup[j].Length * parameter.DDFactor;
+                    CurrentMillDepth += CGroup[j].Length * p.DDFactor;
                     CGroup[j].EndDepth =  - CurrentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j]));
                 }
@@ -70,23 +71,23 @@ namespace GUI_I2G.GCodeclasses
                     GLinesList.Add(CutPath(CGroup[j]));
                 }
             }
-            if (CurrentMillDepth < parameter.CuttingDepth) // the Function should just repeat, if the overall progress is unfinished
+            if (CurrentMillDepth < p.CuttingDepth) // the Function should just repeat, if the overall progress is unfinished
             {
                 if (CurrentMillDepth == wantedDepth || Contour.IsClosed(CGroup)) // The currentMillDepth should not be increased, if a open ContourGroup Length is too short for the wantedDepth to be reached
                 {
-                    if (wantedDepth + parameter.CutDepthPerRound < parameter.CuttingDepth)
+                    if (wantedDepth + p.CutDepthPerRound < p.CuttingDepth)
                     {
-                        wantedDepth += parameter.CutDepthPerRound;
+                        wantedDepth += p.CutDepthPerRound;
                     }
                     else
-                        wantedDepth = parameter.CuttingDepth;
+                        wantedDepth = p.CuttingDepth;
                 }
                 if (Contour.IsClosed(CGroup))
                 {
-                    GeneratePerRound(ref GLinesList, CGroup,parameter,wantedDepth);
+                    GeneratePerRound(ref GLinesList, CGroup,p,wantedDepth);
                 }
                 else
-                    GeneratePerRound(ref GLinesList, Contour.ArrayReversed(CGroup),parameter,wantedDepth);
+                    GeneratePerRound(ref GLinesList, Contour.ArrayReversed(CGroup),p,wantedDepth);
             }
 
 
@@ -116,6 +117,15 @@ namespace GUI_I2G.GCodeclasses
             }
             CurrentMillDepth = 0;
         }
+        private static void GetScaleFactor(Contour[] pArrArray, ref Parameter p)
+        {
+            double pArrayXLength = pArrArray[1].EndPoint.X - pArrArray[0].StartPoint.X;
+            double pArrayYLength = pArrArray[1].EndPoint.Y - pArrArray[0].StartPoint.Y;
+            double scaleFactorX = p.Eckpunkt[0] / pArrayXLength;
+            double scaleFactorY = p.Eckpunkt[1] / pArrayYLength;
+            p.ScaleFactor = scaleFactorX <= scaleFactorY ? scaleFactorX : scaleFactorY;
+            p.AddPosX = (p.Eckpunkt[0] - p.ScaleFactor * pArrayXLength) / 2;
+            p.AddPosY = (p.Eckpunkt[1] - p.ScaleFactor * pArrayYLength) / 2;
+        }
     }
-
 }

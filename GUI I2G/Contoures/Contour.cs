@@ -71,13 +71,15 @@ namespace GUI_I2G.Contures
         {
             Point[][] konturen = KonturenArray.ToArrayOfArray();
             List <Contour[]> contours = new();
+            
             for(int i = 0; i < konturen.Length; i++)
             {
                 List<Contour> contour = new();
+                Line vector = new();
                 //contour.Add(new Line(konturen[i][0], konturen[i][^1])); gedanken test hat nicht funktioniert wahrscheinlich wegen der doppelung der Konturen
                 for (int j = 0; j < konturen[i].Length; j++)
                 {
-                    if (j + 2 == konturen[i].Length)
+                    if (j + 2 == konturen[i].Length) // why, actually??
                         break;
                     if (contour.Count > 0 && OnVector((Line)contour.Last(), konturen[i][j + 1]))
                     {
@@ -92,9 +94,19 @@ namespace GUI_I2G.Contures
                 }
                 if (contour.Count > 0)
                     contours.Add(contour.ToArray());
-            }            
+            }    
+            if(contours.Last().Length != 4)
+            {
+                throw BorderException();
+            }
             return contours;
         }
+        private static Exception BorderException()
+        {
+            return new Exception("Border is touched by other Contours!");
+        }
+
+
         private static bool OnVector(Line l, Point p)
         {
             if (l.StartPoint.X == l.EndPoint.X)
