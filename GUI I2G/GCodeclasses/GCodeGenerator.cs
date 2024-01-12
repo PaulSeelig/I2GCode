@@ -30,7 +30,7 @@ namespace GUI_I2G.GCodeclasses
             foreach(Contour[] CGroup in gcode.GetAllContours())//.SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
             {
                 CurrentMillDepth = 0;
-                GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, $"Z{p.MaterialDepth}"));
+                GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, p.MaterialDepth, p));
                 GeneratePerRound(ref GLinesList, CGroup, p, p.CutDepthPerRound);
             }
             GLinesList.Add(End());
@@ -46,29 +46,29 @@ namespace GUI_I2G.GCodeclasses
                 {
                     CurrentMillDepth += CGroup[j].Length * p.DDFactor;
                     CGroup[j].EndDepth =  - CurrentMillDepth;
-                    GLinesList.Add(CutPath(CGroup[j]));
+                    GLinesList.Add(CutPath(CGroup[j], p));
                 }
                 else if (CurrentMillDepth != wantedDepth)
                 {
                     CurrentMillDepth = wantedDepth;
                     CGroup[j].EndDepth = CurrentMillDepth;
-                    GLinesList.Add(CutPath(CGroup[j]));
+                    GLinesList.Add(CutPath(CGroup[j], p));
                     if (!Contour.IsClosed(CGroup)) // if IsOpen() because !
                     {
                         for (int k = j; k >= 0; k--)
                         {
-                            GLinesList.Add(CutPath(CGroup[k].Reversed()));
+                            GLinesList.Add(CutPath(CGroup[k].Reversed(), p));
                         }
                         for (int k = 0; k <= j; k++)
                         {
-                            GLinesList.AddRange(MoveTo(CGroup[k].Reversed().EndPoint, $"Z{CurrentMillDepth}"));
+                            GLinesList.AddRange(MoveTo(CGroup[k].Reversed().EndPoint, CurrentMillDepth, p));
                         }
                     }
                 }
                 else
                 {
                     CGroup[j].EndDepth = wantedDepth;
-                    GLinesList.Add(CutPath(CGroup[j]));
+                    GLinesList.Add(CutPath(CGroup[j], p));
                 }
             }
             if (CurrentMillDepth < p.CuttingDepth) // the Function should just repeat, if the overall progress is unfinished
@@ -98,9 +98,9 @@ namespace GUI_I2G.GCodeclasses
             those.Add("G1");
             List<Line> lines = new()
             {
-                new Line(new Point(0, 0), new(0, ((int)p.Eckpunkt[0]))),
-                new Line(new Point(0, (int)p.Eckpunkt[0]), new((int)p.Eckpunkt[1], (int)p.Eckpunkt[0])),
-                new Line(new Point((int)p.Eckpunkt[1], (int)p.Eckpunkt[0]), new((int)p.Eckpunkt[1], 0)),
+                new Line(new Point(0, 0), new(0, ((int)(p.Eckpunkt[0]/p.ScaleFactor)))),
+                new Line(new Point(0, (int)(p.Eckpunkt[0]/p.ScaleFactor)), new((int)(p.Eckpunkt[1]/p.ScaleFactor), (int)(p.Eckpunkt[0]/p.ScaleFactor))),
+                new Line(new Point((int)(p.Eckpunkt[1]/p.ScaleFactor), (int)(p.Eckpunkt[0]/p.ScaleFactor)), new((int)(p.Eckpunkt[1]/p.ScaleFactor), 0)),
                 new Line(new((int)p.Eckpunkt[1], 0), new(0, 0))
                             };
 
@@ -112,7 +112,7 @@ namespace GUI_I2G.GCodeclasses
                     //CurrentMillDepth = ((CurrentMillDepth + (p.CurrentTool.ToolDepth * 0.025)) < p.MaterialDepth)? (CurrentMillDepth + (p.CurrentTool.ToolDepth * 0.025) ): p.MaterialDepth;
                     CurrentMillDepth += 0.025;
                     item.EndDepth = CurrentMillDepth;
-                    those.Add(CutPath(item));
+                    those.Add(CutPath(item, p));
                 }
             }
             CurrentMillDepth = 0;

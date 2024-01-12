@@ -18,19 +18,35 @@ namespace GUI_I2G.GCodeclasses
         static private string? Y;
         static private string? Z; 
 
+        
+
        
         
         static public List<string> Start() => new () { "%", "G17 G21 G90 G95" };
 
-        static public string CutPath(Contour c) => c != null ? (c is Curve ? CutInCurve(c as Curve) : CutInLine(c)) : "";
-        
-        static public List<string> MoveTo(Point P, string? pZ) => new() { "G0".IsOrSet(ref G0_3) + "Z-1".IsOrSet(ref Z), ToXYPoint(P, Z), pZ.IsOrSet(ref Z) };
+        static public string CutPath(Contour c, Parameter p) => c != null ? (c is Curve ? CutInCurve(c as Curve, p) : CutInLine(c, p)) : "";
 
-        static private string ToXYPoint(Point P, string? pZ ) => $"X{P.X}".IsOrSet(ref X) + $"Y{P.Y}".IsOrSet(ref Y) + pZ.IsOrSet(ref Z);
-       
-        static private string CutInLine(Contour c) => "G1".IsOrSet(ref G0_3) + ToXYPoint(c.EndPoint, $"Z{c.EndDepth}");
+        static public List<string> MoveTo(Point point, double pZ, Parameter p)
+        {
+            List<string> sl = new() 
+            {
+                "G0".IsOrSet(ref G0_3) + $"Z{(p.MaterialDepth + 2)}".IsOrSet(ref Z),
+                ToXYPoint(point, p.MaterialDepth + 2, p),
+                $"Z{pZ} ".IsOrSet(ref Z) 
+            };
+            sl.Remove("");
+            return sl;
+        }
 
-        static private string CutInCurve(Curve c) => c.MDirect.IsOrSet(ref G0_3) + ToXYPoint(c.EndPoint, $"Z{c.EndDepth}") + $"R{c.Radius}"; 
+        static private string ToXYPoint(Point point, double pZ, Parameter p)
+        {
+            return  $"X{(point.X * p.ScaleFactor + p.AddPosX)} ".IsOrSet(ref X) + 
+                    $"Y{(point.Y * p.ScaleFactor + p.AddPosY)} ".IsOrSet(ref Y) + 
+                    $"Z{pZ} ".IsOrSet(ref Z);
+        }
+        static private string CutInLine(Contour c, Parameter p) => "G1".IsOrSet(ref G0_3) + ToXYPoint(c.EndPoint, c.EndDepth, p);
+
+        static private string CutInCurve(Curve c, Parameter p) => c.MDirect.IsOrSet(ref G0_3) + ToXYPoint(c.EndPoint, c.EndDepth, p) + $"R{c.Radius * p.ScaleFactor}"; 
       
         static public string End() => "G28 %";
 
