@@ -27,7 +27,7 @@ namespace GUI_I2G.GCodeclasses
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
             GetScaleFactor(gcode.GetAllContours()[^1], ref p);
             DummyGenerateMaterial(ref GLinesList, p);
-            foreach(Contour[] CGroup in gcode.GetAllContours())//.SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
+            foreach(Contour[] CGroup in gcode.GetAllContours().SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
             {
                 CurrentMillDepth = 0;
                 GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, p.MaterialDepth, p));
@@ -96,13 +96,15 @@ namespace GUI_I2G.GCodeclasses
         private static void DummyGenerateMaterial(ref List<string> those, Parameter p)
         {
             those.Add("G1");
+            int X = (int) (p.Eckpunkt[0]);
+            int Y = (int) (p.Eckpunkt[1]);
             List<Line> lines = new()
             {
-                new Line(new Point(0, 0), new(0, ((int)(p.Eckpunkt[0]/p.ScaleFactor)))),
-                new Line(new Point(0, (int)(p.Eckpunkt[0]/p.ScaleFactor)), new((int)(p.Eckpunkt[1]/p.ScaleFactor), (int)(p.Eckpunkt[0]/p.ScaleFactor))),
-                new Line(new Point((int)(p.Eckpunkt[1]/p.ScaleFactor), (int)(p.Eckpunkt[0]/p.ScaleFactor)), new((int)(p.Eckpunkt[1]/p.ScaleFactor), 0)),
-                new Line(new((int)p.Eckpunkt[1], 0), new(0, 0))
-                            };
+                new Line(new (0, 0), new(0, Y)),
+                new Line(new (0, Y), new(X, Y)),
+                new Line(new (X, Y), new(X, 0)),
+                new Line(new (X, 0), new(0, 0))
+            };
 
             while (p.MaterialDepth > CurrentMillDepth)
             {
@@ -110,9 +112,9 @@ namespace GUI_I2G.GCodeclasses
                 foreach (Line item in lines)
                 {
                     //CurrentMillDepth = ((CurrentMillDepth + (p.CurrentTool.ToolDepth * 0.025)) < p.MaterialDepth)? (CurrentMillDepth + (p.CurrentTool.ToolDepth * 0.025) ): p.MaterialDepth;
-                    CurrentMillDepth += 0.025;
+                    CurrentMillDepth += 2.5;
                     item.EndDepth = CurrentMillDepth;
-                    those.Add(CutPath(item, p));
+                    those.Add(CutInLine(item));
                 }
             }
             CurrentMillDepth = 0;
@@ -124,8 +126,8 @@ namespace GUI_I2G.GCodeclasses
             double scaleFactorX = p.Eckpunkt[0] / pArrayXLength;
             double scaleFactorY = p.Eckpunkt[1] / pArrayYLength;
             p.ScaleFactor = scaleFactorX <= scaleFactorY ? scaleFactorX : scaleFactorY;
-            p.AddPosX = (p.Eckpunkt[0] - p.ScaleFactor * pArrayXLength) / 2;
-            p.AddPosY = (p.Eckpunkt[1] - p.ScaleFactor * pArrayYLength) / 2;
+            p.AddPosX = ((p.Eckpunkt[0] - p.ScaleFactor * pArrayXLength) * 0.5) - pArrArray[0].StartPoint.X;
+            p.AddPosY = ((p.Eckpunkt[1] - p.ScaleFactor * pArrayYLength) * 0.5) - pArrArray[0].StartPoint.Y;
         }
     }
 }

@@ -40,9 +40,9 @@ namespace GUI_I2G.GCodeclasses
 
         static private string ToXYPoint(Point point, double pZ, Parameter p)
         {
-            return  $"X{(point.X * p.ScaleFactor + p.AddPosX)} ".IsOrSet(ref X) + 
-                    $"Y{(point.Y * p.ScaleFactor + p.AddPosY)} ".IsOrSet(ref Y) + 
-                    $"Z{pZ} ".IsOrSet(ref Z);
+            return  $"X{Math.Round(Math.Round(point.X * p.ScaleFactor + (p.AddPosX)), 3)} ".IsOrSet(ref X) + 
+                    $"Y{Math.Round(point.Y * p.ScaleFactor + p.AddPosY, 3)} ".IsOrSet(ref Y) + 
+                    $"Z{Math.Round(pZ, 3)} ".IsOrSet(ref Z);
         }
         static private string CutInLine(Contour c, Parameter p) => "G1".IsOrSet(ref G0_3) + ToXYPoint(c.EndPoint, c.EndDepth, p);
 
