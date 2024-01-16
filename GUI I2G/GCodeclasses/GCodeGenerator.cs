@@ -14,7 +14,6 @@ namespace GUI_I2G.GCodeclasses
 {
     public static partial class GCodeGenerator
     {
-        //private static Parameter? parameter { get; set; } //this might be stupid but hey not the hardest fix
         private static double CurrentMillDepth {  get; set; }
         /// <summary>
         /// Generates GCode.string[]  with a given List<Contour[]>
@@ -45,13 +44,13 @@ namespace GUI_I2G.GCodeclasses
                 if (CurrentMillDepth + CGroup[j].Length * p.DDFactor < wantedDepth)
                 {
                     CurrentMillDepth += CGroup[j].Length * p.DDFactor;
-                    CGroup[j].EndDepth =  - CurrentMillDepth;
+                    CGroup[j].EndDepth = p.Eckpunkt[2] - CurrentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j], p));
                 }
                 else if (CurrentMillDepth != wantedDepth)
                 {
                     CurrentMillDepth = wantedDepth;
-                    CGroup[j].EndDepth = CurrentMillDepth;
+                    CGroup[j].EndDepth = p.Eckpunkt[2] - CurrentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j], p));
                     if (!Contour.IsClosed(CGroup)) // if IsOpen() because !
                     {
@@ -67,7 +66,7 @@ namespace GUI_I2G.GCodeclasses
                 }
                 else
                 {
-                    CGroup[j].EndDepth = wantedDepth;
+                    CGroup[j].EndDepth = p.Eckpunkt[2] - wantedDepth;
                     GLinesList.Add(CutPath(CGroup[j], p));
                 }
             }
