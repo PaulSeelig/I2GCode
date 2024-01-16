@@ -25,7 +25,7 @@ namespace GUI_I2G.GCodeclasses
             GCode gcode = new(ListOfContArrays); // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
             GetScaleFactor(gcode.GetAllContours()[^1], ref p);
-            DummyGenerateMaterial(ref GLinesList, p);
+            //DummyGenerateMaterial(ref GLinesList, p);
             foreach(Contour[] CGroup in gcode.GetAllContours().SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
             {
                 CurrentMillDepth = 0;
@@ -43,7 +43,7 @@ namespace GUI_I2G.GCodeclasses
             {
                 if (CurrentMillDepth + CGroup[j].Length * p.DDFactor < wantedDepth)
                 {
-                    CurrentMillDepth += CGroup[j].Length * p.DDFactor;
+                    CurrentMillDepth += p.ScaleFactor * CGroup[j].Length * p.DDFactor;
                     CGroup[j].EndDepth = p.Eckpunkt[2] - CurrentMillDepth;
                     GLinesList.Add(CutPath(CGroup[j], p));
                 }
@@ -60,7 +60,7 @@ namespace GUI_I2G.GCodeclasses
                         }
                         for (int k = 0; k <= j; k++)
                         {
-                            GLinesList.AddRange(MoveTo(CGroup[k].Reversed().EndPoint, CurrentMillDepth, p));
+                            GLinesList.AddRange(MoveTo(CGroup[k].Reversed().EndPoint, p.MaterialDepth - CurrentMillDepth, p));
                         }
                     }
                 }
@@ -81,6 +81,9 @@ namespace GUI_I2G.GCodeclasses
                     else
                         wantedDepth = p.CuttingDepth;
                 }
+                else
+                { wantedDepth = wantedDepth; }
+
                 if (Contour.IsClosed(CGroup))
                 {
                     GeneratePerRound(ref GLinesList, CGroup,p,wantedDepth);
