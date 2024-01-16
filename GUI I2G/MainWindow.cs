@@ -61,12 +61,14 @@ namespace GUI_I2G
                 throw new FormatException("Ungültige Eingabe");
             }
         }
-        private void GCodeTextBox(Parameter p)
+        private string[] GCodeTextBox(Parameter p)
         {
-            GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)), p);
+            GCode gCode = new GCode();
+            gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)), p);
+            return gCode.GCodeLines;
         }
-        // Downloads the GCode as .txt file to MyDocuments
-        public void DownloadGcode()
+            // Downloads the GCode as .txt file to MyDocuments
+            public void DownloadGcode()
         {
             // takes the GCode from the TextBox
             string GCodeVorschau = tB_showGCode.Text;
@@ -119,7 +121,8 @@ namespace GUI_I2G
                 Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
 
                 pB_DragDrop.Image = save;
-                GCodeTextBox(p);
+
+                tB_showGCode.Text = GCodeTextBox(p).ToString();
             }
             catch (FormatException)
             {
