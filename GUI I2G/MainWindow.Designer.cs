@@ -172,7 +172,7 @@
             tB_showGCode.Multiline = true;
             tB_showGCode.Name = "tB_showGCode";
             tB_showGCode.ReadOnly = true;
-            tB_showGCode.ScrollBars = ScrollBars.Horizontal;
+            tB_showGCode.ScrollBars = ScrollBars.Both;
             tB_showGCode.Size = new Size(455, 317);
             tB_showGCode.TabIndex = 13;
             // 
