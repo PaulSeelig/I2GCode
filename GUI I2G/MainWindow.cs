@@ -24,9 +24,13 @@ namespace GUI_I2G
         private Image<Rgb, System.Byte> rgbimage;
 
         private double depth;
+
+        private History history = new History();
+
         public I2Gcode()
         {
             InitializeComponent();
+            history.OpenHistoryFromFile(@".\History.json");
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
             // this Eventhandler is used if one hovers over the PictureBox
