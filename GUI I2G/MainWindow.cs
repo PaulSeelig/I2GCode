@@ -70,7 +70,7 @@ namespace GUI_I2G
         private string[] GCodeTextBox(Parameter p)
         {
             GCode gCode = new GCode();
-            gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage),epsilon), p);
+            gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon), p);
             return gCode.GCodeLines;
         }
 
@@ -78,7 +78,7 @@ namespace GUI_I2G
         public void DownloadGcode()
         {
             // takes the GCode from the TextBox
-            string GCodeVorschau = tB_showGCode.Text; 
+            string GCodeVorschau = tB_showGCode.Text;
             // takes the folder path to MyDocuments
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             // puts a file named "GCode .txt" at the destinaetd folderpath
@@ -112,6 +112,7 @@ namespace GUI_I2G
                 CheckInput(tB_Y, out double ykoo1);
                 CheckInput(tB_Z, out double zkoo1);
                 CheckInput(tB_depth, out depth);
+                CheckInput(tB_aproxy, out epsilon);
                 Parameter p = new();
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
@@ -183,6 +184,16 @@ namespace GUI_I2G
         }
 
         private void pB_DragDrop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_X_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbl_depth_Click(object sender, EventArgs e)
         {
 
         }
