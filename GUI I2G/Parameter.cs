@@ -5,6 +5,7 @@ using System.Linq;
 using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
+using GUI_I2G.Contures;
 
 namespace GUI_I2G
 {
@@ -83,6 +84,16 @@ namespace GUI_I2G
         /// </summary>
         public double DDFactor {  get; set; } = 0.05; //idk the correct value, so for now I imamgine it to be 6 mm down per 10 mm in Distance
 
+        public static void SetScaleFactor(Contour[] pArrArray, ref Parameter p)
+        {
+            double pArrayXLength = pArrArray[1].EndPoint.X - pArrArray[0].StartPoint.X;
+            double pArrayYLength = pArrArray[1].EndPoint.Y - pArrArray[0].StartPoint.Y;
+            double scaleFactorX = p.Eckpunkt[0] / pArrayXLength;
+            double scaleFactorY = p.Eckpunkt[1] / pArrayYLength;
+            p.ScaleFactor = scaleFactorX <= scaleFactorY ? scaleFactorX : scaleFactorY;
+            p.AddPosX = ((p.Eckpunkt[0] - p.ScaleFactor * pArrayXLength) * 0.5) - pArrArray[0].StartPoint.X;
+            p.AddPosY = ((p.Eckpunkt[1] - p.ScaleFactor * pArrayYLength) * 0.5) - pArrArray[0].StartPoint.Y;
+        }
         /// <summary>
         /// sets the required values for the GCode, any additional values either have a default or can be set individually
         /// </summary>

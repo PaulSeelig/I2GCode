@@ -24,7 +24,7 @@ namespace GUI_I2G.GCodeclasses
         {
             GCode gcode = new(ListOfContArrays); // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
-            GetScaleFactor(gcode.GetAllContours()[^1], ref p);
+            
             //DummyGenerateMaterial(ref GLinesList, p);
             foreach(Contour[] CGroup in gcode.GetAllContours().SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
             {
@@ -121,15 +121,6 @@ namespace GUI_I2G.GCodeclasses
             }
             CurrentMillDepth = 0;
         }
-        private static void GetScaleFactor(Contour[] pArrArray, ref Parameter p)
-        {
-            double pArrayXLength = pArrArray[1].EndPoint.X - pArrArray[0].StartPoint.X;
-            double pArrayYLength = pArrArray[1].EndPoint.Y - pArrArray[0].StartPoint.Y;
-            double scaleFactorX = p.Eckpunkt[0] / pArrayXLength;
-            double scaleFactorY = p.Eckpunkt[1] / pArrayYLength;
-            p.ScaleFactor = scaleFactorX <= scaleFactorY ? scaleFactorX : scaleFactorY;
-            p.AddPosX = ((p.Eckpunkt[0] - p.ScaleFactor * pArrayXLength) * 0.5) - pArrArray[0].StartPoint.X;
-            p.AddPosY = ((p.Eckpunkt[1] - p.ScaleFactor * pArrayYLength) * 0.5) - pArrArray[0].StartPoint.Y;
-        }
+
     }
 }
