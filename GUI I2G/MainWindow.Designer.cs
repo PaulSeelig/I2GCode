@@ -117,7 +117,6 @@
             lbl_X.Size = new Size(133, 20);
             lbl_X.TabIndex = 6;
             lbl_X.Text = "X- Eckpunkt in mm";
-            lbl_X.Click += lbl_X_Click;
             // 
             // btn_DownloadGCode
             // 
@@ -179,7 +178,6 @@
             lbl_depth.Size = new Size(132, 20);
             lbl_depth.TabIndex = 12;
             lbl_depth.Text = "Graviertiefe in mm";
-            lbl_depth.Click += lbl_depth_Click;
             // 
             // tB_showGCode
             // 
