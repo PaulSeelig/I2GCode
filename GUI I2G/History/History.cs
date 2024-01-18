@@ -109,9 +109,13 @@ public class History :  IHistorySafe
 	/// </summary>
 	/// <param name="jsonFilePath"></param>
 	public void OpenHistoryFromFile(string jsonFilePath) //might need to be static
-	{
-		string json = File.ReadAllText(jsonFilePath);
-        history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
-        history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+	{ 
+        if (File.Exists(jsonFilePath))
+            string json = File.ReadAllText(jsonFilePath);
+			history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
+			history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+		else
+			
+        
     }
 }

@@ -30,7 +30,7 @@ namespace GUI_I2G
         public I2Gcode()
         {
             InitializeComponent();
-            //history.OpenHistoryFromFile(@".\History.json");
+            history.OpenHistoryFromFile(@".\History.json");
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
             // this Eventhandler is used if one hovers over the PictureBox
@@ -71,8 +71,9 @@ namespace GUI_I2G
             gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)), p);
             return gCode.GCodeLines;
         }
-            // Downloads the GCode as .txt file to MyDocuments
-            public void DownloadGcode()
+
+        // Downloads the GCode as .txt file to MyDocuments
+        public void DownloadGcode()
         {
             // takes the GCode from the TextBox
             string GCodeVorschau = tB_showGCode.Text; 
@@ -115,7 +116,7 @@ namespace GUI_I2G
                 p.Eckpunkt[2] = zkoo1;
                 p.CuttingDepth = depth;
 
-                MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
+                //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
                 rgbimage = new(imagepath); //hier wird das rgbimage erstellt
                 string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
