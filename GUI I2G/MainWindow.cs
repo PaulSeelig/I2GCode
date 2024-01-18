@@ -90,20 +90,20 @@ namespace GUI_I2G
         }
         private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
         {
-            if (e.Delta > 0 && zoomLevel < 200) // Zoom in
-            {
-                zoomLevel += 10;
-                pB_DragDrop.BringToFront();
-            }
-            else if (e.Delta < 0 && zoomLevel > 10) // Zoom out
-            {
-                zoomLevel -= 10;
-                pB_DragDrop.SendToBack();
-            }
-            SetZoomLevel();
+            //if (e.Delta > 0 && zoomLevel < 200) // Zoom in
+            //{
+            //    zoomLevel += 10;
+            //    pB_DragDrop.BringToFront();
+            //}
+            //else if (e.Delta < 0 && zoomLevel > 10) // Zoom out
+            //{
+            //    zoomLevel -= 10;
+            //    pB_DragDrop.SendToBack();
+            //}
+            //SetZoomLevel();
         }
         //benenn die doch pls
-        public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren 
+        public void GCodeGenBtn_Click(object sender, EventArgs e)       //Button zum GCode generieren 
         {
             try
             {
@@ -193,5 +193,22 @@ namespace GUI_I2G
         {
             lbl_DragDrop.Visible = true;
         }
+
+        private void lbl_DragDrop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tB_showGCode_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pB_DragDrop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
