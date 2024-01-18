@@ -68,14 +68,20 @@ namespace GUI_I2G.Contures
 
         
         public static List<Contour[]> ContourExtractor(VectorOfVectorOfPoint KonturenArray, double epsilon)
-        {
-            for (int n = 0; n < KonturenArray.Length; n++)
-                CvInvoke.ApproxPolyDP(KonturenArray[n], KonturenArray[n], epsilon, false);
+        {            
+
             Point[][] konturen = KonturenArray.ToArrayOfArray();
+
             List <Contour[]> contours = new();
             
             for(int i = 0; i < konturen.Length; i++)
             {
+                VectorOfPoint aprox = new();
+                aprox.Push(konturen[i]);
+                for (int n = 0; n < KonturenArray.Length; n++)
+                    CvInvoke.ApproxPolyDP(aprox, aprox, epsilon, false);
+                konturen[i]=aprox.ToArray();
+
                 List<Contour> contour = new();
                 for (int j = 0; j < konturen[i].Length -1; j++)
                 {
