@@ -27,7 +27,7 @@ namespace GUI_I2G
 
         private History history = new History();
 
-        private double epsilon = 0.5; // Max mach das weg
+        private double epsilon = 12; // Max mach das weg
 
         public I2Gcode()
         {
