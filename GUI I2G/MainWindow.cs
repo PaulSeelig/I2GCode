@@ -27,6 +27,8 @@ namespace GUI_I2G
 
         private History history = new History();
 
+        private double epsilon = 0.5; // Max mach das weg
+
         public I2Gcode()
         {
             InitializeComponent();
@@ -68,7 +70,7 @@ namespace GUI_I2G
         private string[] GCodeTextBox(Parameter p)
         {
             GCode gCode = new GCode();
-            gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)), p);
+            gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage),epsilon), p);
             return gCode.GCodeLines;
         }
 
