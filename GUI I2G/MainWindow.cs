@@ -27,7 +27,7 @@ namespace GUI_I2G
 
         private History history = new History();
 
-        private double epsilon = 12; // Max mach das weg
+        private double epsilon = 3.4; // Max mach das weg
 
         public I2Gcode()
         {
@@ -48,14 +48,14 @@ namespace GUI_I2G
             // zoom factor is calculated based on zoom level (100) 
             float zoomFactor = zoomLevel / 100f;
             // calculates the new width of the PictureBox after each Zoom
-            int newWidth = (int)(pB_DragDrop.Image.Width * zoomFactor);
+            int newWidth = (int)((pB_DragDrop.Image?.Width ?? 821) * zoomFactor);
             // calculates the new height of the PictureBox after each Zoom
-            int newHeight = (int)(pB_DragDrop.Image.Height * zoomFactor);
+            int newHeight = (int)(pB_DragDrop.Image?.Height ?? 201 * zoomFactor);
 
             // resize the PictureBox
             pB_DragDrop.Size = new Size(newWidth, newHeight);
             // centers the image in the PictureBox
-            pB_DragDrop.Location = new Point((pB_DragDrop.Parent.Width - pB_DragDrop.Width) / 2, (pB_DragDrop.Parent.Height - pB_DragDrop.Height) / 2);
+            //pB_DragDrop.Location = new Point((pB_DragDrop.Image.Width - pB_DragDrop.Width) / 2, (pB_DragDrop.Image.Height - pB_DragDrop.Height) / 2);
         }
         // Checks if the input from the Coordinate TextBox gets parsed into double
         private void CheckInput(TextBox textBox, out double value)
@@ -151,6 +151,7 @@ namespace GUI_I2G
         }
         private void pB_DragDrop_DragDrop(object sender, DragEventArgs e)
         {
+            lbl_DragDrop.Visible = false;
             if (e.Data != null)
             {
                 string files = (e.Data.GetData(DataFormats.FileDrop) as string[])[0];
@@ -183,19 +184,14 @@ namespace GUI_I2G
             pB_DragDrop_Scale();
         }
 
-        private void pB_DragDrop_Click(object sender, EventArgs e)
+        private void pB_DragDrop_DragOver(object sender, DragEventArgs e)
         {
-
+            lbl_DragDrop.Visible = false;
         }
 
-        private void lbl_X_Click(object sender, EventArgs e)
+        private void pB_DragDrop_DragLeave(object sender, EventArgs e)
         {
-
-        }
-
-        private void lbl_depth_Click(object sender, EventArgs e)
-        {
-
+            lbl_DragDrop.Visible = true;
         }
     }
 }

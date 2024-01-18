@@ -44,12 +44,14 @@
             lbl_showGCode = new Label();
             tB_aproxy = new TextBox();
             label1 = new Label();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // btn_GenerateGCode
             // 
-            btn_GenerateGCode.BackColor = SystemColors.ControlDark;
+            btn_GenerateGCode.BackColor = Color.LightSeaGreen;
             btn_GenerateGCode.Location = new Point(70, 533);
             btn_GenerateGCode.Margin = new Padding(3, 2, 3, 2);
             btn_GenerateGCode.Name = "btn_GenerateGCode";
@@ -61,25 +63,31 @@
             // 
             // pB_DragDrop
             // 
-            pB_DragDrop.BackColor = SystemColors.GradientInactiveCaption;
+            pB_DragDrop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pB_DragDrop.BackColor = Color.Gainsboro;
             pB_DragDrop.BackgroundImageLayout = ImageLayout.None;
-            pB_DragDrop.Dock = DockStyle.Top;
+            pB_DragDrop.BorderStyle = BorderStyle.Fixed3D;
             pB_DragDrop.Location = new Point(0, 0);
             pB_DragDrop.Margin = new Padding(3, 2, 3, 2);
+            pB_DragDrop.MinimumSize = new Size(821, 200);
             pB_DragDrop.Name = "pB_DragDrop";
-            pB_DragDrop.Size = new Size(827, 148);
+            pB_DragDrop.Size = new Size(821, 200);
             pB_DragDrop.SizeMode = PictureBoxSizeMode.Zoom;
             pB_DragDrop.TabIndex = 1;
             pB_DragDrop.TabStop = false;
+            pB_DragDrop.Tag = "";
             pB_DragDrop.SizeChanged += pB_DragDrop_SizeChanged;
-            pB_DragDrop.Click += pB_DragDrop_Click;
             pB_DragDrop.DragDrop += pB_DragDrop_DragDrop;
             pB_DragDrop.DragEnter += pB_DragDrop_DragEnter;
+            pB_DragDrop.DragOver += pB_DragDrop_DragOver;
+            pB_DragDrop.DragLeave += pB_DragDrop_DragLeave;
             // 
             // lbl_DragDrop
             // 
             lbl_DragDrop.AutoSize = true;
-            lbl_DragDrop.Location = new Point(241, 98);
+            lbl_DragDrop.BackColor = SystemColors.ActiveCaption;
+            lbl_DragDrop.Enabled = false;
+            lbl_DragDrop.Location = new Point(272, 90);
             lbl_DragDrop.Name = "lbl_DragDrop";
             lbl_DragDrop.Size = new Size(247, 20);
             lbl_DragDrop.TabIndex = 2;
@@ -89,7 +97,7 @@
             // 
             // tB_Y
             // 
-            tB_Y.Location = new Point(158, 385);
+            tB_Y.Location = new Point(176, 385);
             tB_Y.Margin = new Padding(3, 2, 3, 2);
             tB_Y.Name = "tB_Y";
             tB_Y.Size = new Size(110, 27);
@@ -97,7 +105,7 @@
             // 
             // tB_Z
             // 
-            tB_Z.Location = new Point(158, 416);
+            tB_Z.Location = new Point(176, 416);
             tB_Z.Margin = new Padding(3, 2, 3, 2);
             tB_Z.Name = "tB_Z";
             tB_Z.Size = new Size(110, 27);
@@ -111,11 +119,10 @@
             lbl_X.Size = new Size(133, 20);
             lbl_X.TabIndex = 6;
             lbl_X.Text = "X- Eckpunkt in mm";
-            lbl_X.Click += lbl_X_Click;
             // 
             // btn_DownloadGCode
             // 
-            btn_DownloadGCode.BackColor = SystemColors.ControlDark;
+            btn_DownloadGCode.BackColor = Color.LightSeaGreen;
             btn_DownloadGCode.Location = new Point(408, 539);
             btn_DownloadGCode.Name = "btn_DownloadGCode";
             btn_DownloadGCode.Size = new Size(169, 45);
@@ -126,7 +133,7 @@
             // 
             // tB_depth
             // 
-            tB_depth.Location = new Point(158, 447);
+            tB_depth.Location = new Point(176, 447);
             tB_depth.Margin = new Padding(3, 2, 3, 2);
             tB_depth.Name = "tB_depth";
             tB_depth.Size = new Size(110, 27);
@@ -134,7 +141,7 @@
             // 
             // tB_X
             // 
-            tB_X.Location = new Point(158, 354);
+            tB_X.Location = new Point(176, 354);
             tB_X.Margin = new Padding(3, 2, 3, 2);
             tB_X.Name = "tB_X";
             tB_X.Size = new Size(110, 27);
@@ -166,24 +173,23 @@
             lbl_depth.Size = new Size(132, 20);
             lbl_depth.TabIndex = 12;
             lbl_depth.Text = "Graviertiefe in mm";
-            lbl_depth.Click += lbl_depth_Click;
             // 
             // tB_showGCode
             // 
-            tB_showGCode.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tB_showGCode.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tB_showGCode.BackColor = SystemColors.Window;
-            tB_showGCode.Location = new Point(334, 198);
+            tB_showGCode.Location = new Point(334, 232);
             tB_showGCode.Multiline = true;
             tB_showGCode.Name = "tB_showGCode";
             tB_showGCode.ReadOnly = true;
             tB_showGCode.ScrollBars = ScrollBars.Both;
-            tB_showGCode.Size = new Size(455, 317);
+            tB_showGCode.Size = new Size(438, 283);
             tB_showGCode.TabIndex = 13;
             // 
             // lbl_showGCode
             // 
             lbl_showGCode.AutoSize = true;
-            lbl_showGCode.Location = new Point(445, 180);
+            lbl_showGCode.Location = new Point(202, 250);
             lbl_showGCode.Name = "lbl_showGCode";
             lbl_showGCode.Size = new Size(126, 20);
             lbl_showGCode.TabIndex = 14;
@@ -191,7 +197,7 @@
             // 
             // tB_aproxy
             // 
-            tB_aproxy.Location = new Point(158, 478);
+            tB_aproxy.Location = new Point(176, 478);
             tB_aproxy.Margin = new Padding(3, 2, 3, 2);
             tB_aproxy.Name = "tB_aproxy";
             tB_aproxy.Size = new Size(110, 27);
@@ -202,9 +208,24 @@
             label1.AutoSize = true;
             label1.Location = new Point(13, 481);
             label1.Name = "label1";
-            label1.Size = new Size(114, 20);
+            label1.Size = new Size(158, 20);
             label1.TabIndex = 16;
-            label1.Text = "Aproxwert in px";
+            label1.Text = "Aproxwert in px (2-15)";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pictureBox1.BackColor = SystemColors.GradientInactiveCaption;
+            pictureBox1.BackgroundImageLayout = ImageLayout.None;
+            pictureBox1.Location = new Point(424, 0);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(397, 200);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 17;
+            pictureBox1.TabStop = false;
+            pictureBox1.Tag = "";
+            pictureBox1.Visible = false;
             // 
             // I2Gcode
             // 
@@ -212,6 +233,7 @@
             AutoScaleMode = AutoScaleMode.None;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ClientSize = new Size(827, 603);
+            Controls.Add(pictureBox1);
             Controls.Add(label1);
             Controls.Add(tB_aproxy);
             Controls.Add(lbl_showGCode);
@@ -234,6 +256,7 @@
             Text = "I2G-Code";
             Resize += I2Gcode_Resize;
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -258,5 +281,6 @@
         private Label label1;
         private TextBox tb_aproxy;
         private TextBox tB_aproxy;
+        private PictureBox pictureBox1;
     }
 }

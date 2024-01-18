@@ -110,17 +110,17 @@ public class History :  IHistorySafe
 	/// <param name="jsonFilePath"></param>
 	public void OpenHistoryFromFile(string jsonFilePath)
 	{
-		string json = "";
-        if (File.Exists(jsonFilePath))
-		{
-			json = File.ReadAllText(jsonFilePath);
-			history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
-			history = history.OrderByDescending(entry => entry.lastOpened).ToList();
-		} 
-		else
-		{
-            json = JsonSerializer.Serialize(history);
-            File.WriteAllText(jsonFilePath, "[]");
-		}
+		//string json = "";
+  //      if (File.Exists(jsonFilePath))
+		//{
+		//	json = File.ReadAllText(jsonFilePath);
+		//	history = JsonSerializer.Deserialize<List<HistoryEntry>>(json)?? new();
+		//	history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+		//} 
+		//else
+		//{
+  //          json = JsonSerializer.Serialize(history);
+  //          File.WriteAllText(jsonFilePath, "[]");
+		//}
     }
 }
