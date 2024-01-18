@@ -108,14 +108,18 @@ public class History :  IHistorySafe
 	/// creates the History List from safefile
 	/// </summary>
 	/// <param name="jsonFilePath"></param>
-	public void OpenHistoryFromFile(string jsonFilePath) //might need to be static
-	{ 
+	public void OpenHistoryFromFile(string jsonFilePath)
+	{
+		string json = "";
         if (File.Exists(jsonFilePath))
-            string json = File.ReadAllText(jsonFilePath);
+		{
+			json = File.ReadAllText(jsonFilePath);
 			history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
 			history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+		} 
 		else
-			
-        
+		{
+			File.WriteAllText(jsonFilePath, "");
+		}
     }
 }
