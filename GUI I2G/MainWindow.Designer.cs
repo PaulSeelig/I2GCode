@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(I2Gcode));
             btn_GenerateGCode = new Button();
             pB_DragDrop = new PictureBox();
             lbl_DragDrop = new Label();
@@ -51,13 +52,18 @@
             // 
             // btn_GenerateGCode
             // 
-            btn_GenerateGCode.BackColor = Color.LightSeaGreen;
-            btn_GenerateGCode.Location = new Point(70, 533);
+            btn_GenerateGCode.BackColor = SystemColors.ButtonHighlight;
+            btn_GenerateGCode.FlatAppearance.BorderSize = 0;
+            btn_GenerateGCode.FlatStyle = FlatStyle.Flat;
+            btn_GenerateGCode.Image = (Image)resources.GetObject("btn_GenerateGCode.Image");
+            btn_GenerateGCode.Location = new Point(29, 509);
             btn_GenerateGCode.Margin = new Padding(3, 2, 3, 2);
             btn_GenerateGCode.Name = "btn_GenerateGCode";
-            btn_GenerateGCode.Size = new Size(169, 44);
+            btn_GenerateGCode.Size = new Size(239, 83);
             btn_GenerateGCode.TabIndex = 0;
             btn_GenerateGCode.Text = "G-Code generieren";
+            btn_GenerateGCode.TextAlign = ContentAlignment.BottomCenter;
+            btn_GenerateGCode.TextImageRelation = TextImageRelation.ImageAboveText;
             btn_GenerateGCode.UseVisualStyleBackColor = false;
             btn_GenerateGCode.Click += button1_Click;
             // 
@@ -122,12 +128,19 @@
             // 
             // btn_DownloadGCode
             // 
-            btn_DownloadGCode.BackColor = Color.LightSeaGreen;
-            btn_DownloadGCode.Location = new Point(408, 539);
+            btn_DownloadGCode.BackColor = SystemColors.ButtonHighlight;
+            btn_DownloadGCode.BackgroundImageLayout = ImageLayout.Center;
+            btn_DownloadGCode.FlatAppearance.BorderSize = 0;
+            btn_DownloadGCode.FlatStyle = FlatStyle.Flat;
+            btn_DownloadGCode.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btn_DownloadGCode.Image = (Image)resources.GetObject("btn_DownloadGCode.Image");
+            btn_DownloadGCode.Location = new Point(459, 509);
             btn_DownloadGCode.Name = "btn_DownloadGCode";
-            btn_DownloadGCode.Size = new Size(169, 45);
+            btn_DownloadGCode.Size = new Size(239, 83);
             btn_DownloadGCode.TabIndex = 7;
             btn_DownloadGCode.Text = "G-Code downloaden";
+            btn_DownloadGCode.TextAlign = ContentAlignment.BottomCenter;
+            btn_DownloadGCode.TextImageRelation = TextImageRelation.ImageAboveText;
             btn_DownloadGCode.UseVisualStyleBackColor = false;
             btn_DownloadGCode.Click += btn_DownloadGCode_Click;
             // 
@@ -194,6 +207,7 @@
             lbl_showGCode.Size = new Size(126, 20);
             lbl_showGCode.TabIndex = 14;
             lbl_showGCode.Text = "G-Code Vorschau:";
+            lbl_showGCode.Click += lbl_showGCode_Click;
             // 
             // tB_aproxy
             // 
