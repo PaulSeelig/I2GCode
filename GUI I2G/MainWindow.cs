@@ -112,6 +112,7 @@ namespace GUI_I2G
                 CheckInput(tB_Y, out double ykoo1);
                 CheckInput(tB_Z, out double zkoo1);
                 CheckInput(tB_depth, out depth);
+                CheckInput(tB_aproxy, out epsilon);
                 Parameter p = new();
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
