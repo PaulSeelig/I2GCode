@@ -119,7 +119,8 @@ public class History :  IHistorySafe
 		} 
 		else
 		{
-			File.WriteAllText(jsonFilePath, "");
+            json = JsonSerializer.Serialize(history);
+            File.WriteAllText(jsonFilePath, "[]");
 		}
     }
 }
