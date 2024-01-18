@@ -30,7 +30,7 @@ namespace GUI_I2G
         public I2Gcode()
         {
             InitializeComponent();
-            history.OpenHistoryFromFile(@".\History.json");
+            //history.OpenHistoryFromFile(@".\History.json");
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
             // this Eventhandler is used if one hovers over the PictureBox
@@ -75,7 +75,7 @@ namespace GUI_I2G
             public void DownloadGcode()
         {
             // takes the GCode from the TextBox
-            string GCodeVorschau = tB_showGCode.Text;
+            string GCodeVorschau = tB_showGCode.Text; 
             // takes the folder path to MyDocuments
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             // puts a file named "GCode .txt" at the destinaetd folderpath
@@ -99,7 +99,8 @@ namespace GUI_I2G
             }
             SetZoomLevel();
         }
-        public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren
+        //benenn die doch pls
+        public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren 
         {
             try
             {
