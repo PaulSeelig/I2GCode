@@ -24,9 +24,13 @@ namespace GUI_I2G
         private Image<Rgb, System.Byte> rgbimage;
 
         private double depth;
+
+        private History history = new History();
+
         public I2Gcode()
         {
             InitializeComponent();
+            //history.OpenHistoryFromFile(@".\History.json");
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
             // this Eventhandler is used if one hovers over the PictureBox
@@ -61,15 +65,17 @@ namespace GUI_I2G
                 throw new FormatException("Ungültige Eingabe");
             }
         }
-        private void GCodeTextBox(Parameter p)
+        private string[] GCodeTextBox(Parameter p)
         {
-            GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)), p);
+            GCode gCode = new GCode();
+            gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage)), p);
+            return gCode.GCodeLines;
         }
-        // Downloads the GCode as .txt file to MyDocuments
-        public void DownloadGcode()
+            // Downloads the GCode as .txt file to MyDocuments
+            public void DownloadGcode()
         {
             // takes the GCode from the TextBox
-            string GCodeVorschau = tB_showGCode.Text;
+            string GCodeVorschau = tB_showGCode.Text; 
             // takes the folder path to MyDocuments
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             // puts a file named "GCode .txt" at the destinaetd folderpath
@@ -93,7 +99,8 @@ namespace GUI_I2G
             }
             SetZoomLevel();
         }
-        public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren
+        //benenn die doch pls
+        public void button1_Click(object sender, EventArgs e)       //Button zum GCode generieren 
         {
             try
             {
@@ -119,7 +126,13 @@ namespace GUI_I2G
                 Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
 
                 pB_DragDrop.Image = save;
-                GCodeTextBox(p);
+
+                foreach (var item in GCodeTextBox(p))
+                {
+                    if (item.Contains(" "))
+                        tB_showGCode.Text += item + Environment.NewLine;
+                        tB_showGCode.AppendText(item);
+                }
             }
             catch (FormatException)
             {

@@ -77,10 +77,11 @@ namespace GUI_I2G.Contures
                 List<Contour> contour = new();
                 Line vector = new();
                 //contour.Add(new Line(konturen[i][0], konturen[i][^1])); gedanken test hat nicht funktioniert wahrscheinlich wegen der doppelung der Konturen
-                for (int j = 0; j < konturen[i].Length; j++)
+                for (int j = 0; j < konturen[i].Length -1; j++)
                 {
-                    if (j + 2 == konturen[i].Length) // why, actually??
-                        break;
+                    //CvInvoke. aproxparam
+                    //if (j + 2 == konturen[i].Length) // why, actually??
+                    //    break;
                     if (contour.Count > 0 && OnVector((Line)contour.Last(), konturen[i][j + 1]))
                     {
                         contour.Last().EndPoint = konturen[i][j + 1];
