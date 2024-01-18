@@ -127,12 +127,7 @@ namespace GUI_I2G
 
                 pB_DragDrop.Image = save;
 
-                foreach (var item in GCodeTextBox(p))
-                {
-                    if (item.Contains(" "))
-                        tB_showGCode.Text += item + Environment.NewLine;
-                        tB_showGCode.AppendText(item);
-                }
+                tB_showGCode.Lines = GCodeTextBox(p);
             }
             catch (FormatException)
             {

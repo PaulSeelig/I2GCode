@@ -75,8 +75,6 @@ namespace GUI_I2G.Contures
             for(int i = 0; i < konturen.Length; i++)
             {
                 List<Contour> contour = new();
-                Line vector = new();
-                //contour.Add(new Line(konturen[i][0], konturen[i][^1])); gedanken test hat nicht funktioniert wahrscheinlich wegen der doppelung der Konturen
                 for (int j = 0; j < konturen[i].Length -1; j++)
                 {
                     //CvInvoke. aproxparam
