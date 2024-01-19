@@ -110,8 +110,18 @@ public class History :  IHistorySafe
 		if (File.Exists(jsonFilePath))
 		{
 			json = File.ReadAllText(jsonFilePath);
-			history = JsonSerializer.Deserialize<List<HistoryEntry>>(json) ?? new();
-			history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+			try
+			{
+				history = JsonSerializer.Deserialize<List<HistoryEntry>>(json);
+				history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+
+			}
+			catch (Exception)
+			{
+
+				
+			}
+			
 		}
 		else
 		{
