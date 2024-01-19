@@ -22,15 +22,6 @@ public class History :  IHistorySafe
 	}
 
 	/// <summary>
-	/// Method that returns the Last opened Project
-	/// </summary>
-	/// <returns>List sorted by LastOpened</returns>
-    public HistoryEntry GetLastOpened()
-    {
-        return history.OrderByDescending(entry => entry.lastOpened).First();
-    }
-
-	/// <summary>
 	/// returns the HistoryEntry at the spezified index
 	/// </summary>
 	/// <param name="index"></param>
@@ -49,25 +40,30 @@ public class History :  IHistorySafe
 		return history.Count;
 	}
 
-	/// <summary>
-	/// a method to get the last five Projects by Name and Index to display them and find them using GetByIndex()
-	/// should it be called after each save of a project?
-	/// </summary>
-	/// <param name="Indexes"></param>
-	/// <returns>string array and hopefully an int array</returns>
-	public void GetLastFiveOpened(int[] Indexes, string[] output) //Doch List<HistoryEntry>
-	{
-		int testValue = 5;
-        history = history.OrderByDescending(entry => entry.lastOpened).ToList();
-        if (history.Count() < 5) 
-		{
-			testValue = history.Count();
-		}
+    /// <summary>
+    /// Method that returns the Last opened Project
+    /// </summary>
+    /// <returns>List sorted by LastOpened</returns>
+    public HistoryEntry GetLastOpened()
+    {
+        return history.OrderByDescending(entry => entry.lastOpened).First();
+    }
 
-		for(int i = 0; i < testValue; i++)
+    /// <summary>
+    /// a method to get the last five Projects by Name and Index to display them and find them using GetByIndex()
+    /// should it be called after each save of a project?
+    /// </summary>
+    /// <param name="Indexes"></param>
+    /// <returns>string array and hopefully an int array</returns>
+    public void GetLastOpened(string[] output, DateTime[] lastOpened) 
+	{
+		int i = 0;
+        history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+        foreach (var entry in history) 
 		{
-			output[i] = history[i].projectName;
-            Indexes[i] = i;
+			output[i] = entry.projectName;
+			lastOpened[i] = entry.lastOpened;
+			i++;
 		}
 	}
 
@@ -110,17 +106,17 @@ public class History :  IHistorySafe
 	/// <param name="jsonFilePath"></param>
 	public void OpenHistoryFromFile(string jsonFilePath)
 	{
-		//string json = "";
-  //      if (File.Exists(jsonFilePath))
-		//{
-		//	json = File.ReadAllText(jsonFilePath);
-		//	history = JsonSerializer.Deserialize<List<HistoryEntry>>(json)?? new();
-		//	history = history.OrderByDescending(entry => entry.lastOpened).ToList();
-		//} 
-		//else
-		//{
-  //          json = JsonSerializer.Serialize(history);
-  //          File.WriteAllText(jsonFilePath, "[]");
-		//}
-    }
+		string json = "";
+		if (File.Exists(jsonFilePath))
+		{
+			json = File.ReadAllText(jsonFilePath);
+			history = JsonSerializer.Deserialize<List<HistoryEntry>>(json) ?? new();
+			history = history.OrderByDescending(entry => entry.lastOpened).ToList();
+		}
+		else
+		{
+			json = JsonSerializer.Serialize(history);
+			File.WriteAllText(jsonFilePath, "[]");
+		}
+	}
 }

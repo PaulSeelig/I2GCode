@@ -27,7 +27,7 @@ namespace GUI_I2G
 
         private History history = new History();
 
-        private double epsilon = 3.4; // Max mach das weg
+        private double epsilon = 3.4;
 
         public I2Gcode()
         {
@@ -41,6 +41,9 @@ namespace GUI_I2G
             pB_DragDrop.DragDrop += new DragEventHandler(pB_DragDrop_DragDrop);
             // this is needed bcs in VS2022 this event does not exist until its manually added
             pB_DragDrop.MouseWheel += PB_DragDrop_MouseWheel;
+            //CreateHistoryList();
+
+
         }
         // sets the zoom level of the picture box 
         private void SetZoomLevel()
@@ -87,6 +90,9 @@ namespace GUI_I2G
             File.WriteAllText(filePath, GCodeVorschau);
             // opens the explorer and selects the saved file
             Process.Start("explorer.exe", "/select," + filePath);
+
+            //Diplays History inside ViewBox
+            UpdateHistory();
         }
         private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
         {
@@ -209,6 +215,28 @@ namespace GUI_I2G
 
         }
 
+        private void UpdateHistory()
+        {
+            HistoryDisplayBox.BeginUpdate();
 
+            string[] names = new string[5];
+            DateTime[] dates = new DateTime[5];
+            int i = 0;
+
+            history.GetLastOpened(names, dates);
+
+            foreach (string name in names)
+            {
+                ListViewItem item = new ListViewItem(new[] { name, dates[i].ToString() });
+                HistoryDisplayBox.Items.Add(item);
+                i++;
+            }
+            HistoryDisplayBox.EndUpdate();
+        }
+
+        private void HistoryDisplayBox_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

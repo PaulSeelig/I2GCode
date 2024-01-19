@@ -44,6 +44,7 @@
             tB_showGCode = new TextBox();
             tB_aproxy = new TextBox();
             label1 = new Label();
+            HistoryDisplayBox = new ListView();
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             SuspendLayout();
             // 
@@ -94,7 +95,7 @@
             lbl_DragDrop.Enabled = false;
             lbl_DragDrop.Location = new Point(207, 381);
             lbl_DragDrop.Name = "lbl_DragDrop";
-            lbl_DragDrop.Size = new Size(247, 20);
+            lbl_DragDrop.Size = new Size(194, 15);
             lbl_DragDrop.TabIndex = 2;
             lbl_DragDrop.Text = "Bild hier via Drag n Drop hochladen";
             lbl_DragDrop.TextAlign = ContentAlignment.MiddleCenter;
@@ -109,7 +110,7 @@
             tB_Y.Margin = new Padding(3, 2, 3, 2);
             tB_Y.MaximumSize = new Size(110, 27);
             tB_Y.Name = "tB_Y";
-            tB_Y.Size = new Size(110, 27);
+            tB_Y.Size = new Size(110, 23);
             tB_Y.TabIndex = 4;
             // 
             // tB_Z
@@ -119,7 +120,7 @@
             tB_Z.Margin = new Padding(3, 2, 3, 2);
             tB_Z.MaximumSize = new Size(110, 27);
             tB_Z.Name = "tB_Z";
-            tB_Z.Size = new Size(110, 27);
+            tB_Z.Size = new Size(110, 23);
             tB_Z.TabIndex = 5;
             // 
             // lbl_X
@@ -128,7 +129,7 @@
             lbl_X.AutoSize = true;
             lbl_X.Location = new Point(713, 464);
             lbl_X.Name = "lbl_X";
-            lbl_X.Size = new Size(133, 20);
+            lbl_X.Size = new Size(109, 15);
             lbl_X.TabIndex = 6;
             lbl_X.Text = "X- Eckpunkt in mm";
             // 
@@ -159,7 +160,7 @@
             tB_depth.Margin = new Padding(3, 2, 3, 2);
             tB_depth.MaximumSize = new Size(110, 27);
             tB_depth.Name = "tB_depth";
-            tB_depth.Size = new Size(110, 27);
+            tB_depth.Size = new Size(110, 23);
             tB_depth.TabIndex = 8;
             // 
             // tB_X
@@ -169,7 +170,7 @@
             tB_X.Margin = new Padding(3, 2, 3, 2);
             tB_X.MaximumSize = new Size(110, 27);
             tB_X.Name = "tB_X";
-            tB_X.Size = new Size(110, 27);
+            tB_X.Size = new Size(110, 23);
             tB_X.TabIndex = 9;
             // 
             // lbl_Y
@@ -178,7 +179,7 @@
             lbl_Y.AutoSize = true;
             lbl_Y.Location = new Point(713, 495);
             lbl_Y.Name = "lbl_Y";
-            lbl_Y.Size = new Size(132, 20);
+            lbl_Y.Size = new Size(109, 15);
             lbl_Y.TabIndex = 10;
             lbl_Y.Text = "Y- Eckpunkt in mm";
             // 
@@ -188,7 +189,7 @@
             lbl_Z.AutoSize = true;
             lbl_Z.Location = new Point(713, 526);
             lbl_Z.Name = "lbl_Z";
-            lbl_Z.Size = new Size(133, 20);
+            lbl_Z.Size = new Size(109, 15);
             lbl_Z.TabIndex = 11;
             lbl_Z.Text = "Z- Eckpunkt in mm";
             // 
@@ -198,7 +199,7 @@
             lbl_depth.AutoSize = true;
             lbl_depth.Location = new Point(714, 557);
             lbl_depth.Name = "lbl_depth";
-            lbl_depth.Size = new Size(132, 20);
+            lbl_depth.Size = new Size(105, 15);
             lbl_depth.TabIndex = 12;
             lbl_depth.Text = "Graviertiefe in mm";
             // 
@@ -206,14 +207,14 @@
             // 
             tB_showGCode.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tB_showGCode.BackColor = SystemColors.Window;
-            tB_showGCode.Location = new Point(1044, 15);
+            tB_showGCode.Location = new Point(1044, 5);
             tB_showGCode.MaximumSize = new Size(312, 2770);
             tB_showGCode.Multiline = true;
             tB_showGCode.Name = "tB_showGCode";
             tB_showGCode.ReadOnly = true;
             tB_showGCode.RightToLeft = RightToLeft.No;
             tB_showGCode.ScrollBars = ScrollBars.Vertical;
-            tB_showGCode.Size = new Size(312, 699);
+            tB_showGCode.Size = new Size(312, 709);
             tB_showGCode.TabIndex = 13;
             tB_showGCode.TextChanged += tB_showGCode_TextChanged;
             // 
@@ -224,7 +225,7 @@
             tB_aproxy.Margin = new Padding(3, 2, 3, 2);
             tB_aproxy.MaximumSize = new Size(110, 27);
             tB_aproxy.Name = "tB_aproxy";
-            tB_aproxy.Size = new Size(110, 27);
+            tB_aproxy.Size = new Size(110, 23);
             tB_aproxy.TabIndex = 15;
             // 
             // label1
@@ -233,9 +234,21 @@
             label1.AutoSize = true;
             label1.Location = new Point(714, 588);
             label1.Name = "label1";
-            label1.Size = new Size(158, 20);
+            label1.Size = new Size(125, 15);
             label1.TabIndex = 16;
             label1.Text = "Aproxwert in px (2-15)";
+            // 
+            // HistoryDisplayBox
+            // 
+            HistoryDisplayBox.BackColor = SystemColors.MenuText;
+            HistoryDisplayBox.ForeColor = SystemColors.Info;
+            HistoryDisplayBox.Location = new Point(697, 5);
+            HistoryDisplayBox.Name = "HistoryDisplayBox";
+            HistoryDisplayBox.Size = new Size(341, 451);
+            HistoryDisplayBox.TabIndex = 17;
+            HistoryDisplayBox.UseCompatibleStateImageBehavior = false;
+            HistoryDisplayBox.DoubleClick += HistoryDisplayBox_Enter;
+            HistoryDisplayBox.Enter += HistoryDisplayBox_Enter;
             // 
             // I2Gcode
             // 
@@ -245,6 +258,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.AntiqueWhite;
             ClientSize = new Size(1362, 729);
+            Controls.Add(HistoryDisplayBox);
             Controls.Add(label1);
             Controls.Add(tB_aproxy);
             Controls.Add(tB_showGCode);
@@ -291,5 +305,6 @@
         private Label label1;
         private TextBox tb_aproxy;
         private TextBox tB_aproxy;
+        private ListView HistoryDisplayBox;
     }
 }
