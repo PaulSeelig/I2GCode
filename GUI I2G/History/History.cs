@@ -41,30 +41,15 @@ public class History :  IHistorySafe
 	}
 
     /// <summary>
-    /// Method that returns the Last opened Project
-    /// </summary>
-    /// <returns>List sorted by LastOpened</returns>
-    public HistoryEntry GetLastOpened()
-    {
-        return history.OrderByDescending(entry => entry.lastOpened).First();
-    }
-
-    /// <summary>
     /// a method to get the last five Projects by Name and Index to display them and find them using GetByIndex()
     /// should it be called after each save of a project?
     /// </summary>
     /// <param name="Indexes"></param>
     /// <returns>string array and hopefully an int array</returns>
-    public void GetLastOpened(string[] output, DateTime[] lastOpened) 
+    public HistoryEntry[] GetLastOpened() 
 	{
-		int i = 0;
         history = history.OrderByDescending(entry => entry.lastOpened).ToList();
-        foreach (var entry in history) 
-		{
-			output[i] = entry.projectName;
-			lastOpened[i] = entry.lastOpened;
-			i++;
-		}
+        return history.ToArray();
 	}
 
     /// <summary>

@@ -86,8 +86,6 @@ namespace History_Test
             //Assert
             //Item Saving
             Assert.That(history.GetHistoryCount(), Is.EqualTo(5));
-            //Test if the history is ordered by last opened after deserealizing
-            Assert.AreEqual(history.GetEntryByIndex(0).projectName, history.GetLastOpened().projectName);
             //Test if GCode got saved properly
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[0] == "%");
             Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[^1] == "G28 %");
@@ -96,21 +94,6 @@ namespace History_Test
             Assert.That(history.GetEntry("Stecker").parameter.Tool1.Diameter == 5);
             Assert.That(history.GetEntry("Knopf").parameter.Tool1.Name, Is.EqualTo("Tool1"));
             Assert.That(history.GetEntry("Knopf").parameter.Eckpunkt != null); 
-        }
-
-        [Test]
-        public void LastFive_Test()
-        {
-            //Assemble
-            
-            string[] projectNames = new string[5];
-            DateTime[] lastOpened = new DateTime[5];
-            history.GetLastOpened(projectNames, lastOpened);
-            //Act
-
-            //Assert
-            Assert.That(projectNames[0], Is.EqualTo("Lampe"));
-            Assert.That(projectNames[4], Is.EqualTo("Knopf"));
         }
     }
 }

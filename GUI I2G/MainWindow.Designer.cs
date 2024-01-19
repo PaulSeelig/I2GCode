@@ -1,4 +1,6 @@
-﻿namespace GUI_I2G
+﻿using System.Xml.Linq;
+
+namespace GUI_I2G
 {
     partial class I2Gcode
     {
@@ -45,6 +47,7 @@
             tB_aproxy = new TextBox();
             label1 = new Label();
             HistoryDisplayBox = new ListView();
+            ProjectSaveButton = new Button();
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             SuspendLayout();
             // 
@@ -56,10 +59,10 @@
             btn_GenerateGCode.FlatAppearance.BorderSize = 0;
             btn_GenerateGCode.FlatStyle = FlatStyle.Flat;
             btn_GenerateGCode.ForeColor = SystemColors.ButtonHighlight;
-            btn_GenerateGCode.Location = new Point(735, 651);
+            btn_GenerateGCode.Location = new Point(735, 628);
             btn_GenerateGCode.Margin = new Padding(3, 2, 3, 2);
             btn_GenerateGCode.Name = "btn_GenerateGCode";
-            btn_GenerateGCode.Size = new Size(169, 47);
+            btn_GenerateGCode.Size = new Size(169, 34);
             btn_GenerateGCode.TabIndex = 0;
             btn_GenerateGCode.Text = "G-Code generieren";
             btn_GenerateGCode.UseVisualStyleBackColor = false;
@@ -248,8 +251,26 @@
             HistoryDisplayBox.Size = new Size(341, 451);
             HistoryDisplayBox.TabIndex = 17;
             HistoryDisplayBox.UseCompatibleStateImageBehavior = false;
+            HistoryDisplayBox.View = View.Details;
             HistoryDisplayBox.DoubleClick += HistoryDisplayBox_Enter;
             HistoryDisplayBox.Enter += HistoryDisplayBox_Enter;
+            // 
+            // ProjectSaveButton
+            // 
+            ProjectSaveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ProjectSaveButton.BackColor = Color.LightSeaGreen;
+            ProjectSaveButton.BackgroundImageLayout = ImageLayout.Center;
+            ProjectSaveButton.FlatAppearance.BorderSize = 0;
+            ProjectSaveButton.FlatStyle = FlatStyle.Flat;
+            ProjectSaveButton.ForeColor = SystemColors.ButtonHighlight;
+            ProjectSaveButton.Location = new Point(735, 677);
+            ProjectSaveButton.Margin = new Padding(3, 2, 3, 2);
+            ProjectSaveButton.Name = "ProjectSaveButton";
+            ProjectSaveButton.Size = new Size(169, 32);
+            ProjectSaveButton.TabIndex = 18;
+            ProjectSaveButton.Text = "Project Speichern";
+            ProjectSaveButton.UseVisualStyleBackColor = false;
+            ProjectSaveButton.Click += ProjectSaveButton_Click;
             // 
             // I2Gcode
             // 
@@ -259,6 +280,7 @@
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BackColor = Color.AntiqueWhite;
             ClientSize = new Size(1362, 729);
+            Controls.Add(ProjectSaveButton);
             Controls.Add(HistoryDisplayBox);
             Controls.Add(label1);
             Controls.Add(tB_aproxy);
@@ -281,6 +303,7 @@
             Padding = new Padding(3);
             RightToLeft = RightToLeft.Yes;
             Text = "I2G-Code";
+            FormClosing += LastForm_FormClosing;
             Resize += I2Gcode_Resize;
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).EndInit();
             ResumeLayout(false);
@@ -307,5 +330,7 @@
         private TextBox tb_aproxy;
         private TextBox tB_aproxy;
         private ListView HistoryDisplayBox;
+        private Button button1;
+        private Button ProjectSaveButton;
     }
 }

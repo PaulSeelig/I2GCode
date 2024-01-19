@@ -30,10 +30,23 @@ namespace GUI_I2G
 
         private double epsilon = 3.4;
 
+        private Parameter p = new();
+
+        private GCode CurrentGCode = new();
+
         public I2Gcode()
         {
             InitializeComponent();
-            history.OpenHistoryFromFile(@".\History.json");
+            if (File.Exists(@".\History.json"))
+            {
+                history.OpenHistoryFromFile(@".\History.json");
+                UpdateHistory();
+            }
+
+            //Adds Colums to HistoryDisplayBox
+            HistoryDisplayBox.Columns.Add("Project Name", HistoryDisplayBox.Width / 2);
+            HistoryDisplayBox.Columns.Add("Last Opened", HistoryDisplayBox.Width / 2);
+
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
             // this Eventhandler is used if one hovers over the PictureBox
@@ -71,11 +84,11 @@ namespace GUI_I2G
                 throw new FormatException("Ungültige Eingabe");
             }
         }
-        private string[] GCodeTextBox(Parameter p)
+        private GCode GCodeTextBox(Parameter p)
         {
             GCode gCode = new GCode();
             gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon), p);
-            return gCode.GCodeLines;
+            return gCode;
         }
 
         // Downloads the GCode as .txt file to MyDocuments
@@ -91,9 +104,6 @@ namespace GUI_I2G
             File.WriteAllText(filePath, GCodeVorschau);
             // opens the explorer and selects the saved file
             Process.Start("explorer.exe", "/select," + filePath);
-
-            //Diplays History inside ViewBox
-            UpdateHistory();
         }
         private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
         {
@@ -120,7 +130,7 @@ namespace GUI_I2G
                 CheckInput(tB_Z, out double zkoo1);
                 CheckInput(tB_depth, out depth);
                 CheckInput(tB_aproxy, out epsilon);
-                Parameter p = new();
+
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
@@ -137,8 +147,8 @@ namespace GUI_I2G
                 Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
 
                 pB_DragDrop.Image = save;
-
-                tB_showGCode.Lines = GCodeTextBox(p);
+                CurrentGCode = GCodeTextBox(p);
+                tB_showGCode.Lines = CurrentGCode.GCodeLines;
             }
             catch (FormatException)
             {
@@ -220,17 +230,13 @@ namespace GUI_I2G
         {
             HistoryDisplayBox.BeginUpdate();
 
-            string[] names = new string[5];
-            DateTime[] dates = new DateTime[5];
-            int i = 0;
+            HistoryEntry[] entries = history.GetLastOpened();
 
-            history.GetLastOpened(names, dates);
-
-            foreach (string name in names)
+            foreach (HistoryEntry entry in entries)
             {
-                ListViewItem item = new ListViewItem(new[] { name, dates[i].ToString() });
+                ListViewItem item = new ListViewItem(entry.projectName);
+                item.SubItems.Add(entry.lastOpened.Date.ToString());
                 HistoryDisplayBox.Items.Add(item);
-                i++;
             }
             HistoryDisplayBox.EndUpdate();
         }
@@ -255,6 +261,32 @@ namespace GUI_I2G
                 tB_showGCode.Lines = OpenedEntry.Gcode.GCodeLines;
                 pB_DragDrop.ImageLocation = OpenedEntry.imagePath;
             }
+        }
+
+        private void ProjectSaveButton_Click(object sender, EventArgs e)
+        {
+            using (InputDialog inputDialog = new InputDialog("Enter a Project Name:"))
+            {
+                if (inputDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string userInput = inputDialog.UserInput;
+                    MessageBox.Show($"User entered: {userInput}");
+                    history.SaveGcodeProject(new(userInput, p, CurrentGCode, imagepath));
+                    //Diplays History inside ViewBox
+                    UpdateHistory();
+                }
+                else
+                {
+                    // User clicked Cancel or closed the dialog
+                    MessageBox.Show("User canceled the input.");
+                }
+            }
+        }
+
+        //Method that gets Called with the closing of the View
+        private void LastForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            history.SaveHistoryToFile(@".\History.json");
         }
     }
 }
