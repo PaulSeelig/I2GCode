@@ -9,6 +9,7 @@ using System.Drawing.Text;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GUI_I2G
 {
@@ -61,7 +62,7 @@ namespace GUI_I2G
             //pB_DragDrop.Location = new Point((pB_DragDrop.Image.Width - pB_DragDrop.Width) / 2, (pB_DragDrop.Image.Height - pB_DragDrop.Height) / 2);
         }
         // Checks if the input from the Coordinate TextBox gets parsed into double
-        private void CheckInput(TextBox textBox, out double value)
+        private void CheckInput(System.Windows.Forms.TextBox textBox, out double value)
         {
             if (double.TryParse(textBox.Text, out value))
             { }
@@ -236,7 +237,24 @@ namespace GUI_I2G
 
         private void HistoryDisplayBox_Enter(object sender, EventArgs e)
         {
+            // Check if any item is selected
+            if (HistoryDisplayBox.SelectedItems.Count > 0)
+            {
+                // Retrieve the selected item
+                ListViewItem selectedItem = HistoryDisplayBox.SelectedItems[0];
 
+                HistoryEntry OpenedEntry = history.GetEntry(selectedItem.SubItems[0].Text);
+
+                //Displays values from Parameter
+                tB_X.Text = OpenedEntry.parameter.Eckpunkt[0].ToString();
+                tB_Y.Text = OpenedEntry.parameter.Eckpunkt[1].ToString();
+                tB_Z.Text = OpenedEntry.parameter.Eckpunkt[2].ToString();
+
+                tB_depth.Text = OpenedEntry.parameter.CuttingDepth.ToString();
+
+                tB_showGCode.Lines = OpenedEntry.Gcode.GCodeLines;
+                pB_DragDrop.ImageLocation = OpenedEntry.imagePath;
+            }
         }
     }
 }

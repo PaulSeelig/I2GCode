@@ -240,8 +240,9 @@
             // 
             // HistoryDisplayBox
             // 
-            HistoryDisplayBox.BackColor = SystemColors.MenuText;
-            HistoryDisplayBox.ForeColor = SystemColors.Info;
+            HistoryDisplayBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            HistoryDisplayBox.BackColor = SystemColors.Info;
+            HistoryDisplayBox.ForeColor = SystemColors.ControlText;
             HistoryDisplayBox.Location = new Point(697, 5);
             HistoryDisplayBox.Name = "HistoryDisplayBox";
             HistoryDisplayBox.Size = new Size(341, 451);
