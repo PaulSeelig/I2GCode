@@ -69,7 +69,8 @@
             Controls.Add(Confirm);
             Controls.Add(InputTextBox);
             Name = "InputDialog";
-            Text = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Save";
             ResumeLayout(false);
             PerformLayout();
         }

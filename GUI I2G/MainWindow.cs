@@ -243,7 +243,7 @@ namespace GUI_I2G
             HistoryDisplayBox.EndUpdate();
         }
 
-        private void HistoryDisplayBox_Enter(object sender, EventArgs e)
+        private void HistoryDisplayBox_Enter(object sender, EventArgs e) //might need a dialog option to delte selected from history
         {
             // Check if any item is selected
             if (HistoryDisplayBox.SelectedItems.Count > 0)
@@ -258,10 +258,10 @@ namespace GUI_I2G
                 tB_Y.Text = OpenedEntry.parameter.Eckpunkt[1].ToString();
                 tB_Z.Text = OpenedEntry.parameter.Eckpunkt[2].ToString();
 
-                tB_depth.Text = OpenedEntry.parameter.CuttingDepth.ToString();
+                tB_depth.Text = OpenedEntry.parameter.CuttingDepth.ToString(); //doesnt get saved?
 
                 tB_showGCode.Lines = OpenedEntry.Gcode.GCodeLines;
-                pB_DragDrop.ImageLocation = OpenedEntry.imagePath;
+                imagepath = OpenedEntry.imagePath;
             }
         }
 
