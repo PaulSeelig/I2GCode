@@ -28,6 +28,8 @@ namespace GUI_I2G
 
         private History history = new History();
 
+        private string historyfilePath = @".\History.json";
+
         private double epsilon = 3.4;
 
         private Parameter p = new();
@@ -37,9 +39,9 @@ namespace GUI_I2G
         public I2Gcode()
         {
             InitializeComponent();
-            if (File.Exists(@".\History.json"))
+            if (File.Exists(historyfilePath))
             {
-                history.OpenHistoryFromFile(@".\History.json");
+                history.OpenHistoryFromFile(historyfilePath);
                 UpdateHistory();
             }
 
