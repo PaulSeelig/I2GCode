@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputDialog));
             InputTextBox = new TextBox();
             Confirm = new Button();
             Dialog_Label = new Label();
@@ -68,6 +69,7 @@
             Controls.Add(Dialog_Label);
             Controls.Add(Confirm);
             Controls.Add(InputTextBox);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "InputDialog";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Save";

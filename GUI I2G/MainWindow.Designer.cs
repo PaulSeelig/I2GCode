@@ -297,6 +297,7 @@ namespace GUI_I2G
             Controls.Add(lbl_DragDrop);
             Controls.Add(pB_DragDrop);
             Controls.Add(btn_GenerateGCode);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 2, 3, 2);
             MaximumSize = new Size(7002, 3760);
             Name = "I2Gcode";
