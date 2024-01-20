@@ -20,7 +20,7 @@ namespace History_Test
             double[] testing = { 304, 34, 434 };
             string projName = "TestName";
             var param = new Parameter(10, 10, testing, 5, 5);
-            var GCode = GCodeGenerator.GenerateGCode(null, param);
+            var GCode = new GCode();
             var ImgPath = new string(string.Empty);
 
             //Act

@@ -272,7 +272,7 @@ namespace GUI_I2G
                 if (inputDialog.ShowDialog() == DialogResult.OK)
                 {
                     string userInput = inputDialog.UserInput;
-                    MessageBox.Show($"User entered: {userInput}");
+                    MessageBox.Show($"User entered: {userInput}"); //Should be removed before release
                     history.SaveGcodeProject(new(userInput, p, CurrentGCode, imagepath));
                     //Diplays History inside ViewBox
                     UpdateHistory();
@@ -280,7 +280,7 @@ namespace GUI_I2G
                 else
                 {
                     // User clicked Cancel or closed the dialog
-                    MessageBox.Show("User canceled the input.");
+                    MessageBox.Show("User canceled the input."); //Should be removed before release
                 }
             }
         }
