@@ -212,22 +212,16 @@ namespace GUI_I2G
         {
             lbl_DragDrop.Visible = true;
         }
-
-        private void lbl_DragDrop_Click(object sender, EventArgs e)
+        private void btnLogo_Click(object sender, EventArgs e)
         {
-
+            pB_DragDrop.Image = null;
+            tB_showGCode.Text = null;
+            tB_X.Text = null;
+            tB_Y.Text = null;
+            tB_Z.Text = null;
+            tB_depth.Text = null;
+            //approxy cant be cleared bcs of "null" exception, has to be changed manually
         }
-
-        private void tB_showGCode_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pB_DragDrop_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void UpdateHistory()
         {
             HistoryDisplayBox.BeginUpdate();
