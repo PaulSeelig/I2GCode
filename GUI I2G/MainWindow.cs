@@ -136,21 +136,29 @@ namespace GUI_I2G
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
-                p.CuttingDepth = depth;
+                if (depth < zkoo1)
+                    p.CuttingDepth = depth;
+                else
+                    MessageBox.Show("Geben sie einen Wert kleiner als die Material Dicke an!");
 
                 //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
-                rgbimage = new(imagepath); //hier wird das rgbimage erstellt
-                string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
+                if (pB_DragDrop.Image != null)
+                {
+                    rgbimage = new(imagepath); //hier wird das rgbimage erstellt
+                    string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
 
-                CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
+                    CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
 
-                CvInvoke.Imwrite("draw" + name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
-                Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
+                    CvInvoke.Imwrite("draw" + name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
+                    Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
 
-                pB_DragDrop.Image = save;
-                CurrentGCode = GCodeTextBox(p);
-                tB_showGCode.Lines = CurrentGCode.GCodeLines;
+                    pB_DragDrop.Image = save;
+                    CurrentGCode = GCodeTextBox(p);
+                    tB_showGCode.Lines = CurrentGCode.GCodeLines;
+                }
+                else
+                    MessageBox.Show("SIe müssen ein Bild eingeben, bitte per drag and drop in das mittlere Feld");
             }
             catch (FormatException)
             {

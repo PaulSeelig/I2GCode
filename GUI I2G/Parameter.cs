@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 using GUI_I2G.Contures;
+using Newtonsoft.Json;
 
 namespace GUI_I2G
 {
@@ -24,8 +25,6 @@ namespace GUI_I2G
         public Tool? Tool2 { get; set; } 
         public Tool? Tool3 { get; set; }
 
-        // public Tool CurrentTool { get => SaveCurrentTool; set => SaveCurrentTool = value ?? Tool1; }
-
         public Tool? CurrentTool { get; set; } = new Tool("T1", 10);
 
         public double AddPosX { get; set; }
@@ -33,22 +32,13 @@ namespace GUI_I2G
 
         public double ScaleFactor {  get; set; }
 
-
-        //public double ToolDepth => CurrentTool.ToolDepth;
-        //public double ToolDiameter => CurrentTool.Diameter;
-
         /// <summary>
         /// Customising how deep the cuts will be in mm
         /// </summary>
-        public double SaveCuttingDepth { get; set; }//less or equal? or do we leave room?
+        private double SaveCuttingDepth;//less or equal? or do we leave room?
 
-        public double CuttingDepth { get => SaveCuttingDepth; set => SaveCuttingDepth = value < MaterialDepth ? value : Allert(); }
+        public double CuttingDepth { get => SaveCuttingDepth; set => SaveCuttingDepth = value; }
 
-        public double Allert() 
-        {
-            //MessageBox message 
-            return MaterialDepth;
-        }
         //public double SaveCutDepthPerRound { get; set; }
         /// <summary>
         /// is actually unnecessary if (toolDepth >= CuttingDepth), how ever if not, it is set by the function SetCutDepthPerRound(), 
@@ -108,12 +98,7 @@ namespace GUI_I2G
         }
         public Parameter()
         {
-            //TableWidth = 300;
-            //TableLength = 400;
-            //Eckpunkt = new[] { new(200), new(200), new(-200), new(200, -200) };
-            //Tool1 = new("Tool1", 30, 20);
-            //CuttingDepth = 50;
-            //CurrentTool = Tool1;
+ 
         }
     }
 }
