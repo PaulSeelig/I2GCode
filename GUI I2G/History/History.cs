@@ -16,7 +16,7 @@ public class History :  IHistorySafe
 	/// returns the history entry with the given Project Name
 	/// </summary>
 	/// <param name="projectName"> the name required for the search </param>
-	public HistoryEntry GetEntry(string projectName)
+	public HistoryEntry GetEntryByName(string projectName)
 	{ 
 		return history.Where(e => e.projectName == projectName).FirstOrDefault(); 
 	}
@@ -72,6 +72,11 @@ public class History :  IHistorySafe
 			entry.UpdateLastOpened();
 			history.Add(entry); 
 		}
+	}
+
+	public void DeleteGcodeProject(int index)
+	{
+		history.RemoveAt(index);
 	}
 
     /// <summary>

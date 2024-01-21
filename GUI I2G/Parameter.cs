@@ -32,6 +32,8 @@ namespace GUI_I2G
 
         public double ScaleFactor {  get; set; }
 
+        public double AproxValue { get; set; }
+
         /// <summary>
         /// Customising how deep the cuts will be in mm
         /// </summary>

@@ -140,6 +140,7 @@ namespace GUI_I2G
                     p.CuttingDepth = depth;
                 else
                     MessageBox.Show("Geben sie einen Wert kleiner als die Material Dicke an!");
+                p.AproxValue = epsilon;
 
                 //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
@@ -233,7 +234,8 @@ namespace GUI_I2G
         private void UpdateHistory()
         {
             HistoryDisplayBox.BeginUpdate();
-            HistoryDisplayBox.Clear();
+            HistoryDisplayBox.Items.Clear();
+
             HistoryEntry[] entries = history.GetLastOpened();
 
             foreach (HistoryEntry entry in entries)
@@ -243,9 +245,10 @@ namespace GUI_I2G
                 HistoryDisplayBox.Items.Add(item);
             }
             HistoryDisplayBox.EndUpdate();
+            HistoryDisplayBox.Refresh();
         }
 
-        private void HistoryDisplayBox_Enter(object sender, EventArgs e) //might need a dialog option to delte selected from history
+        private void HistoryDisplayBox_Enter(object sender, EventArgs e)
         {
             // Check if any item is selected
             if (HistoryDisplayBox.SelectedItems.Count > 0)
@@ -253,14 +256,16 @@ namespace GUI_I2G
                 // Retrieve the selected item
                 ListViewItem selectedItem = HistoryDisplayBox.SelectedItems[0];
 
-                HistoryEntry OpenedEntry = history.GetEntry(selectedItem.SubItems[0].Text);
+                HistoryEntry OpenedEntry = history.GetEntryByName(selectedItem.SubItems[0].Text);
 
                 //Displays values from Parameter
                 tB_X.Text = OpenedEntry.parameter.Eckpunkt[0].ToString();
                 tB_Y.Text = OpenedEntry.parameter.Eckpunkt[1].ToString();
                 tB_Z.Text = OpenedEntry.parameter.Eckpunkt[2].ToString();
 
-                tB_depth.Text = OpenedEntry.parameter.CuttingDepth.ToString(); //doesnt get saved?
+                tB_depth.Text = OpenedEntry.parameter.CuttingDepth.ToString();
+
+                tB_aproxy.Text = OpenedEntry.parameter.AproxValue.ToString();
 
                 tB_showGCode.Lines = OpenedEntry.Gcode.GCodeLines;
                 imagepath = OpenedEntry.imagePath;
@@ -291,6 +296,12 @@ namespace GUI_I2G
         private void LastForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             history.SaveHistoryToFile(@".\History.json");
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            history.DeleteGcodeProject(HistoryDisplayBox.FocusedItem.Index);
+            UpdateHistory();
         }
     }
 }

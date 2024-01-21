@@ -36,7 +36,7 @@ namespace History_Test
         public void GetEntry_Entry_All()
         {
             //Assemble
-            HistoryEntry entry = history.GetEntry("Lampe");
+            HistoryEntry entry = history.GetEntryByName("Lampe");
 
             //Assert
             Assert.That(entry.projectName == "Lampe");
@@ -59,7 +59,7 @@ namespace History_Test
 
             //Assert
             Assert.That(history.GetHistoryCount() == 6);
-            Assert.That(history.GetEntry("Platte").parameter.TableWidth == 4);
+            Assert.That(history.GetEntryByName("Platte").parameter.TableWidth == 4);
             Assert.That(history.GetEntryByIndex(4).parameter.TableWidth, Is.EqualTo(5));
         }
 
@@ -92,10 +92,10 @@ namespace History_Test
             //Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines[^1] == "G28 %");
             //Assert.That(history.GetEntry("Lampe").Gcode.GCodeLines.Length == 44);
             //Test if Parameter object saved
-            Assert.That(history.GetEntry("Stecker").parameter.Tool1.Diameter == 5);
-            Assert.That(history.GetEntry("Knopf").parameter.Tool1.Name, Is.EqualTo("Tool1"));
-            Assert.That(history.GetEntry("Knopf").parameter.Eckpunkt != null); 
-            Assert.That(history.GetEntry("Knopf").parameter.CuttingDepth == 0); //Small problem
+            Assert.That(history.GetEntryByName("Stecker").parameter.Tool1.Diameter == 5);
+            Assert.That(history.GetEntryByName("Knopf").parameter.Tool1.Name, Is.EqualTo("Tool1"));
+            Assert.That(history.GetEntryByName("Knopf").parameter.Eckpunkt != null); 
+            Assert.That(history.GetEntryByName("Knopf").parameter.CuttingDepth == 10); 
         }
     }
 }

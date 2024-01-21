@@ -49,6 +49,7 @@ namespace GUI_I2G
             HistoryDisplayBox = new ListView();
             ProjectSaveButton = new Button();
             panelSideBar = new Panel();
+            DeleteButton = new Button();
             btnLogo = new Button();
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             panelSideBar.SuspendLayout();
@@ -154,10 +155,13 @@ namespace GUI_I2G
             btn_DownloadGCode.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btn_DownloadGCode.BackColor = Color.Transparent;
             btn_DownloadGCode.BackgroundImageLayout = ImageLayout.Center;
+            btn_DownloadGCode.FlatAppearance.BorderColor = Color.White;
             btn_DownloadGCode.FlatAppearance.BorderSize = 0;
+            btn_DownloadGCode.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_DownloadGCode.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btn_DownloadGCode.FlatStyle = FlatStyle.Flat;
             btn_DownloadGCode.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btn_DownloadGCode.ForeColor = Color.White;
+            btn_DownloadGCode.ForeColor = Color.FromArgb(64, 64, 64);
             btn_DownloadGCode.Image = (Image)resources.GetObject("btn_DownloadGCode.Image");
             btn_DownloadGCode.Location = new Point(188, 500);
             btn_DownloadGCode.Name = "btn_DownloadGCode";
@@ -167,7 +171,6 @@ namespace GUI_I2G
             btn_DownloadGCode.TextAlign = ContentAlignment.BottomCenter;
             btn_DownloadGCode.TextImageRelation = TextImageRelation.ImageAboveText;
             btn_DownloadGCode.UseVisualStyleBackColor = false;
-            btn_DownloadGCode.UseWaitCursor = true;
             btn_DownloadGCode.Click += btn_DownloadGCode_Click;
             // 
             // tB_depth
@@ -306,6 +309,7 @@ namespace GUI_I2G
             // panelSideBar
             // 
             panelSideBar.BackColor = Color.FromArgb(64, 64, 64);
+            panelSideBar.Controls.Add(DeleteButton);
             panelSideBar.Controls.Add(btnLogo);
             panelSideBar.Controls.Add(ProjectSaveButton);
             panelSideBar.Controls.Add(tB_X);
@@ -325,6 +329,24 @@ namespace GUI_I2G
             panelSideBar.Name = "panelSideBar";
             panelSideBar.Size = new Size(352, 723);
             panelSideBar.TabIndex = 19;
+            // 
+            // DeleteButton
+            // 
+            DeleteButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            DeleteButton.BackColor = Color.LightSeaGreen;
+            DeleteButton.BackgroundImageLayout = ImageLayout.Center;
+            DeleteButton.FlatAppearance.BorderSize = 0;
+            DeleteButton.FlatStyle = FlatStyle.Flat;
+            DeleteButton.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            DeleteButton.ForeColor = SystemColors.ButtonHighlight;
+            DeleteButton.Location = new Point(13, 615);
+            DeleteButton.Margin = new Padding(3, 2, 3, 2);
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.Size = new Size(169, 40);
+            DeleteButton.TabIndex = 20;
+            DeleteButton.Text = "Project Entfernen";
+            DeleteButton.UseVisualStyleBackColor = false;
+            DeleteButton.Click += DeleteButton_Click;
             // 
             // btnLogo
             // 
@@ -392,5 +414,6 @@ namespace GUI_I2G
         private Button ProjectSaveButton;
         private Panel panelSideBar;
         private Button btnLogo;
+        private Button DeleteButton;
     }
 }
