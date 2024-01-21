@@ -233,7 +233,7 @@ namespace GUI_I2G
         private void UpdateHistory()
         {
             HistoryDisplayBox.BeginUpdate();
-
+            HistoryDisplayBox.Clear();
             HistoryEntry[] entries = history.GetLastOpened();
 
             foreach (HistoryEntry entry in entries)
