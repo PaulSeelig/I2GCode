@@ -35,7 +35,9 @@ namespace GUI_I2G
 
         private GCode CurrentGCode = new();
 
-        private string userInput;
+        private string CurrentProjectName;
+
+        private HistoryEntry CurrentProject;
 
         public I2Gcode()
         {
@@ -106,7 +108,7 @@ namespace GUI_I2G
             // takes the folder path to MyDocuments
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             // puts a file named "GCode .txt" at the destinaetd folderpath
-            string filePath = Path.Combine(folderPath, userInput);
+            string filePath = Path.Combine(folderPath, CurrentProjectName);
             // writes the GCode into the file
             File.WriteAllText(filePath, GCodeVorschau);
             // opens the explorer and selects the saved file
@@ -140,14 +142,17 @@ namespace GUI_I2G
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
+
                 if (depth < zkoo1)
                 {
                     p.CuttingDepth = depth;
+
                     //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
 
                     if (pB_DragDrop.Image != null)
                     {
                         rgbimage = new(imagepath); //hier wird das rgbimage erstellt
+                        CurrentProject.imagePath = imagepath;
                         string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
 
                         CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
@@ -157,7 +162,9 @@ namespace GUI_I2G
 
                         pB_DragDrop.Image = save;
                         CurrentGCode = GCodeTextBox(p);
+                        CurrentProject.parameter = p;
                         tB_showGCode.Lines = CurrentGCode.GCodeLines;
+                        CurrentProject.Gcode = CurrentGCode;
                     }
                     else
                         MessageBox.Show("SIe müssen ein Bild eingeben, bitte per drag and drop in das mittlere Feld");
@@ -261,33 +268,53 @@ namespace GUI_I2G
                 // Retrieve the selected item
                 ListViewItem selectedItem = HistoryDisplayBox.SelectedItems[0];
 
-                HistoryEntry OpenedEntry = history.GetEntryByName(selectedItem.SubItems[0].Text);
+                CurrentProject = history.GetEntryByName(selectedItem.SubItems[0].Text);
 
-                userInput = OpenedEntry.projectName;
+                CurrentProjectName = CurrentProject.projectName;
 
                 //Displays values from Parameter
-                tB_X.Text = OpenedEntry.parameter.Eckpunkt[0].ToString();
-                tB_Y.Text = OpenedEntry.parameter.Eckpunkt[1].ToString();
-                tB_Z.Text = OpenedEntry.parameter.Eckpunkt[2].ToString();
+                tB_X.Text = CurrentProject.parameter.Eckpunkt[0].ToString();
+                tB_Y.Text = CurrentProject.parameter.Eckpunkt[1].ToString();
+                tB_Z.Text = CurrentProject.parameter.Eckpunkt[2].ToString();
 
-                tB_depth.Text = OpenedEntry.parameter.CuttingDepth.ToString();
+                tB_depth.Text = CurrentProject.parameter.CuttingDepth.ToString();
 
-                tB_aproxy.Text = OpenedEntry.parameter.AproxValue.ToString();
+                tB_aproxy.Text = CurrentProject.parameter.AproxValue.ToString();
 
-                tB_showGCode.Lines = OpenedEntry.Gcode.GCodeLines;
-                imagepath = OpenedEntry.imagePath;
+                tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
+                imagepath = CurrentProject.imagePath;
+                pB_DragDrop.Image = Image.FromFile(imagepath);
             }
         }
 
         private void ProjectSaveButton_Click(object sender, EventArgs e)
         {
-            using (InputDialog inputDialog = new InputDialog("Enter a Project Name:"))
+            string Instruction;
+            if(CurrentProjectName !=  null) 
+            { 
+                Instruction = "Momentanes Projekt speichern?";
+            }
+            else
+            {
+                Instruction = "Bitte Projectnamen eingeben";
+            }
+            using (InputDialog inputDialog = new InputDialog(Instruction, CurrentProjectName))
             {
                 if (inputDialog.ShowDialog() == DialogResult.OK)
-                {
-                    userInput = inputDialog.UserInput;
-                    MessageBox.Show($"User entered: {userInput}"); //Should be removed before release
-                    history.SaveGcodeProject(new(userInput, p, CurrentGCode, imagepath));
+                { 
+                    CurrentProject.UpdateLastOpened();
+                    if (CurrentProjectName == inputDialog.UserInput)
+                    {
+                        history.SaveGcodeProject(CurrentProject);
+                    }
+                    else
+                    {
+                        CurrentProject.projectName = inputDialog.UserInput;
+                        history.SaveGcodeProject(new(CurrentProject));
+                    }
+                    
+                    //MessageBox.Show($"User entered: {userInput}"); //Should be removed before release
+                    
                     //Diplays History inside ViewBox
                     UpdateHistory();
                 }

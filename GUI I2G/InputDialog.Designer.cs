@@ -40,7 +40,6 @@
             InputTextBox.Name = "InputTextBox";
             InputTextBox.Size = new Size(304, 23);
             InputTextBox.TabIndex = 0;
-            InputTextBox.TextChanged += textBox1_TextChanged;
             // 
             // Confirm
             // 
@@ -54,12 +53,14 @@
             // 
             // Dialog_Label
             // 
+            Dialog_Label.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             Dialog_Label.AutoSize = true;
-            Dialog_Label.Location = new Point(232, 20);
+            Dialog_Label.Location = new Point(228, 19);
             Dialog_Label.Name = "Dialog_Label";
             Dialog_Label.Size = new Size(101, 15);
             Dialog_Label.TabIndex = 2;
             Dialog_Label.Text = "Name Thy Project";
+            Dialog_Label.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // InputDialog
             // 

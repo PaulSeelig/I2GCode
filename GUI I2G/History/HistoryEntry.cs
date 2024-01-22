@@ -10,6 +10,7 @@ using System.IO;
 using System.Text.Json;
 using GUI_I2G.GCodeclasses;
 using System.Text.Json.Serialization;
+using System.Security.Cryptography.Xml;
 
 //Authored by Paul Seelig s0578706
 namespace GUI_I2G
@@ -59,6 +60,16 @@ namespace GUI_I2G
             this.lastOpened = DateTime.Now;
             this.imagePath = imagePath;
         }
+
+        public HistoryEntry(HistoryEntry entry)
+        {
+            this.projectName = entry.projectName;
+            this.parameter = entry.parameter;
+            this.Gcode = entry.Gcode;
+            this.lastOpened = entry.lastOpened;
+            this.imagePath = entry.imagePath;
+        }
+
         [JsonConstructor]
         public HistoryEntry()
         {

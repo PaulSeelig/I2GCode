@@ -13,22 +13,26 @@ namespace GUI_I2G
     public partial class InputDialog : Form
     {
         public string UserInput { get; set; }
-        public InputDialog(string prompt)
+        public InputDialog(string prompt, string? Currentprojectname)
         {
             InitializeComponent();
             Dialog_Label.Text = prompt;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            if (Currentprojectname != null)
+            {
+                InputTextBox.Text = Currentprojectname;
+            }
         }
 
         private void Confirm_Click(object sender, EventArgs e)
         {
             UserInput = InputTextBox.Text;
-            DialogResult = DialogResult.OK;
-            Close();
+            if (UserInput.Length < 20)
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+                MessageBox.Show("Bitte Namen mit wniger Charakteren eingeben!");
         }
     }
 }
