@@ -45,9 +45,13 @@ namespace GUI_I2G
                 UpdateHistory();
             }
 
+
+
             //Adds Colums to HistoryDisplayBox
-            HistoryDisplayBox.Columns.Add("Project Name", HistoryDisplayBox.Width / 2);
-            HistoryDisplayBox.Columns.Add("Last Opened", HistoryDisplayBox.Width / 2);
+
+            HistoryDisplayBox.Columns.Add("Project Name", HistoryDisplayBox.Width * 3 / 5);
+            HistoryDisplayBox.Columns.Add("Last Opened", (int)(HistoryDisplayBox.Width * 1.5 / 5));
+
 
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
@@ -126,7 +130,6 @@ namespace GUI_I2G
         {
             try
             {
-
                 CheckInput(tB_X, out double xkoo1);
                 CheckInput(tB_Y, out double ykoo1);
                 CheckInput(tB_Z, out double zkoo1);
@@ -241,7 +244,7 @@ namespace GUI_I2G
             foreach (HistoryEntry entry in entries)
             {
                 ListViewItem item = new ListViewItem(entry.projectName);
-                item.SubItems.Add(entry.lastOpened.Date.ToString());
+                item.SubItems.Add(entry.lastOpened.ToString("dd-MM-yyyy"));
                 HistoryDisplayBox.Items.Add(item);
             }
             HistoryDisplayBox.EndUpdate();
@@ -302,6 +305,11 @@ namespace GUI_I2G
         {
             history.DeleteGcodeProject(HistoryDisplayBox.FocusedItem.Index);
             UpdateHistory();
+        }
+
+        private void panelSideBar_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

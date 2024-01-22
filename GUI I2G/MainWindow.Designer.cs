@@ -58,13 +58,13 @@ namespace GUI_I2G
             // btn_GenerateGCode
             // 
             btn_GenerateGCode.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btn_GenerateGCode.BackColor = Color.LightSeaGreen;
+            btn_GenerateGCode.BackColor = Color.DarkCyan;
             btn_GenerateGCode.BackgroundImageLayout = ImageLayout.Center;
             btn_GenerateGCode.FlatAppearance.BorderSize = 0;
             btn_GenerateGCode.FlatStyle = FlatStyle.Flat;
             btn_GenerateGCode.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             btn_GenerateGCode.ForeColor = SystemColors.ButtonHighlight;
-            btn_GenerateGCode.Location = new Point(13, 500);
+            btn_GenerateGCode.Location = new Point(13, 506);
             btn_GenerateGCode.Margin = new Padding(3, 2, 3, 2);
             btn_GenerateGCode.Name = "btn_GenerateGCode";
             btn_GenerateGCode.Size = new Size(169, 44);
@@ -79,11 +79,11 @@ namespace GUI_I2G
             pB_DragDrop.BackColor = Color.Gray;
             pB_DragDrop.BackgroundImageLayout = ImageLayout.None;
             pB_DragDrop.BorderStyle = BorderStyle.Fixed3D;
-            pB_DragDrop.Location = new Point(376, 6);
+            pB_DragDrop.Location = new Point(373, 3);
             pB_DragDrop.Margin = new Padding(3, 2, 3, 2);
             pB_DragDrop.MinimumSize = new Size(521, 200);
             pB_DragDrop.Name = "pB_DragDrop";
-            pB_DragDrop.Size = new Size(620, 709);
+            pB_DragDrop.Size = new Size(626, 715);
             pB_DragDrop.SizeMode = PictureBoxSizeMode.Zoom;
             pB_DragDrop.TabIndex = 1;
             pB_DragDrop.TabStop = false;
@@ -102,9 +102,9 @@ namespace GUI_I2G
             lbl_DragDrop.Enabled = false;
             lbl_DragDrop.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lbl_DragDrop.ForeColor = Color.White;
-            lbl_DragDrop.Location = new Point(557, 342);
+            lbl_DragDrop.Location = new Point(560, 345);
             lbl_DragDrop.Name = "lbl_DragDrop";
-            lbl_DragDrop.Size = new Size(227, 19);
+            lbl_DragDrop.Size = new Size(283, 23);
             lbl_DragDrop.TabIndex = 2;
             lbl_DragDrop.Text = "Bild hier via Drag n Drop hochladen";
             lbl_DragDrop.TextAlign = ContentAlignment.MiddleCenter;
@@ -117,12 +117,14 @@ namespace GUI_I2G
             tB_Y.BackColor = SystemColors.InactiveCaptionText;
             tB_Y.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_Y.ForeColor = Color.White;
-            tB_Y.Location = new Point(177, 364);
+            tB_Y.Location = new Point(201, 370);
             tB_Y.Margin = new Padding(3, 2, 3, 2);
             tB_Y.MaximumSize = new Size(110, 27);
             tB_Y.Name = "tB_Y";
-            tB_Y.Size = new Size(110, 25);
+            tB_Y.RightToLeft = RightToLeft.No;
+            tB_Y.Size = new Size(110, 27);
             tB_Y.TabIndex = 4;
+            tB_Y.TextAlign = HorizontalAlignment.Center;
             // 
             // tB_Z
             // 
@@ -130,12 +132,14 @@ namespace GUI_I2G
             tB_Z.BackColor = SystemColors.InactiveCaptionText;
             tB_Z.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_Z.ForeColor = Color.White;
-            tB_Z.Location = new Point(177, 395);
+            tB_Z.Location = new Point(201, 401);
             tB_Z.Margin = new Padding(3, 2, 3, 2);
             tB_Z.MaximumSize = new Size(110, 27);
             tB_Z.Name = "tB_Z";
-            tB_Z.Size = new Size(110, 25);
+            tB_Z.RightToLeft = RightToLeft.No;
+            tB_Z.Size = new Size(110, 27);
             tB_Z.TabIndex = 5;
+            tB_Z.TextAlign = HorizontalAlignment.Center;
             // 
             // lbl_X
             // 
@@ -143,9 +147,9 @@ namespace GUI_I2G
             lbl_X.AutoSize = true;
             lbl_X.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lbl_X.ForeColor = Color.White;
-            lbl_X.Location = new Point(13, 336);
+            lbl_X.Location = new Point(13, 342);
             lbl_X.Name = "lbl_X";
-            lbl_X.Size = new Size(126, 19);
+            lbl_X.Size = new Size(155, 23);
             lbl_X.TabIndex = 6;
             lbl_X.Text = "X- Eckpunkt in mm";
             // 
@@ -155,21 +159,19 @@ namespace GUI_I2G
             btn_DownloadGCode.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             btn_DownloadGCode.BackColor = Color.Transparent;
             btn_DownloadGCode.BackgroundImageLayout = ImageLayout.Center;
-            btn_DownloadGCode.FlatAppearance.BorderColor = Color.White;
+            btn_DownloadGCode.FlatAppearance.BorderColor = Color.FromArgb(64, 64, 64);
             btn_DownloadGCode.FlatAppearance.BorderSize = 0;
-            btn_DownloadGCode.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btn_DownloadGCode.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btn_DownloadGCode.FlatAppearance.MouseOverBackColor = Color.FromArgb(70, 70, 70);
             btn_DownloadGCode.FlatStyle = FlatStyle.Flat;
             btn_DownloadGCode.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             btn_DownloadGCode.ForeColor = Color.FromArgb(64, 64, 64);
             btn_DownloadGCode.Image = (Image)resources.GetObject("btn_DownloadGCode.Image");
-            btn_DownloadGCode.Location = new Point(188, 500);
+            btn_DownloadGCode.Location = new Point(215, 568);
             btn_DownloadGCode.Name = "btn_DownloadGCode";
-            btn_DownloadGCode.Size = new Size(161, 102);
+            btn_DownloadGCode.Size = new Size(96, 102);
             btn_DownloadGCode.TabIndex = 7;
-            btn_DownloadGCode.Text = "Download G-Code";
             btn_DownloadGCode.TextAlign = ContentAlignment.BottomCenter;
-            btn_DownloadGCode.TextImageRelation = TextImageRelation.ImageAboveText;
             btn_DownloadGCode.UseVisualStyleBackColor = false;
             btn_DownloadGCode.Click += btn_DownloadGCode_Click;
             // 
@@ -179,12 +181,14 @@ namespace GUI_I2G
             tB_depth.BackColor = SystemColors.InactiveCaptionText;
             tB_depth.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_depth.ForeColor = Color.White;
-            tB_depth.Location = new Point(177, 426);
+            tB_depth.Location = new Point(201, 432);
             tB_depth.Margin = new Padding(3, 2, 3, 2);
             tB_depth.MaximumSize = new Size(110, 27);
             tB_depth.Name = "tB_depth";
-            tB_depth.Size = new Size(110, 25);
+            tB_depth.RightToLeft = RightToLeft.No;
+            tB_depth.Size = new Size(110, 27);
             tB_depth.TabIndex = 8;
+            tB_depth.TextAlign = HorizontalAlignment.Center;
             // 
             // tB_X
             // 
@@ -192,12 +196,14 @@ namespace GUI_I2G
             tB_X.BackColor = SystemColors.InactiveCaptionText;
             tB_X.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_X.ForeColor = Color.White;
-            tB_X.Location = new Point(177, 333);
+            tB_X.Location = new Point(201, 339);
             tB_X.Margin = new Padding(3, 2, 3, 2);
             tB_X.MaximumSize = new Size(110, 27);
             tB_X.Name = "tB_X";
-            tB_X.Size = new Size(110, 25);
+            tB_X.RightToLeft = RightToLeft.No;
+            tB_X.Size = new Size(110, 27);
             tB_X.TabIndex = 9;
+            tB_X.TextAlign = HorizontalAlignment.Center;
             // 
             // lbl_Y
             // 
@@ -205,9 +211,9 @@ namespace GUI_I2G
             lbl_Y.AutoSize = true;
             lbl_Y.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lbl_Y.ForeColor = Color.White;
-            lbl_Y.Location = new Point(13, 367);
+            lbl_Y.Location = new Point(13, 373);
             lbl_Y.Name = "lbl_Y";
-            lbl_Y.Size = new Size(126, 19);
+            lbl_Y.Size = new Size(154, 23);
             lbl_Y.TabIndex = 10;
             lbl_Y.Text = "Y- Eckpunkt in mm";
             // 
@@ -217,9 +223,9 @@ namespace GUI_I2G
             lbl_Z.AutoSize = true;
             lbl_Z.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lbl_Z.ForeColor = Color.White;
-            lbl_Z.Location = new Point(13, 398);
+            lbl_Z.Location = new Point(13, 404);
             lbl_Z.Name = "lbl_Z";
-            lbl_Z.Size = new Size(126, 19);
+            lbl_Z.Size = new Size(155, 23);
             lbl_Z.TabIndex = 11;
             lbl_Z.Text = "Z- Eckpunkt in mm";
             // 
@@ -229,9 +235,9 @@ namespace GUI_I2G
             lbl_depth.AutoSize = true;
             lbl_depth.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lbl_depth.ForeColor = Color.White;
-            lbl_depth.Location = new Point(14, 429);
+            lbl_depth.Location = new Point(14, 435);
             lbl_depth.Name = "lbl_depth";
-            lbl_depth.Size = new Size(122, 19);
+            lbl_depth.Size = new Size(151, 23);
             lbl_depth.TabIndex = 12;
             lbl_depth.Text = "Graviertiefe in mm";
             // 
@@ -240,14 +246,14 @@ namespace GUI_I2G
             tB_showGCode.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tB_showGCode.BackColor = Color.Gray;
             tB_showGCode.ForeColor = Color.White;
-            tB_showGCode.Location = new Point(1022, 243);
+            tB_showGCode.Location = new Point(1025, 240);
             tB_showGCode.MaximumSize = new Size(312, 2770);
             tB_showGCode.Multiline = true;
             tB_showGCode.Name = "tB_showGCode";
             tB_showGCode.ReadOnly = true;
             tB_showGCode.RightToLeft = RightToLeft.No;
             tB_showGCode.ScrollBars = ScrollBars.Vertical;
-            tB_showGCode.Size = new Size(312, 471);
+            tB_showGCode.Size = new Size(312, 477);
             tB_showGCode.TabIndex = 13;
             // 
             // tB_aproxy
@@ -256,12 +262,14 @@ namespace GUI_I2G
             tB_aproxy.BackColor = SystemColors.InactiveCaptionText;
             tB_aproxy.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_aproxy.ForeColor = Color.White;
-            tB_aproxy.Location = new Point(177, 457);
+            tB_aproxy.Location = new Point(201, 463);
             tB_aproxy.Margin = new Padding(3, 2, 3, 2);
             tB_aproxy.MaximumSize = new Size(110, 27);
             tB_aproxy.Name = "tB_aproxy";
-            tB_aproxy.Size = new Size(110, 25);
+            tB_aproxy.RightToLeft = RightToLeft.No;
+            tB_aproxy.Size = new Size(110, 27);
             tB_aproxy.TabIndex = 15;
+            tB_aproxy.TextAlign = HorizontalAlignment.Center;
             // 
             // label1
             // 
@@ -269,20 +277,26 @@ namespace GUI_I2G
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(14, 460);
+            label1.Location = new Point(14, 466);
             label1.Name = "label1";
-            label1.Size = new Size(147, 19);
+            label1.Size = new Size(179, 23);
             label1.TabIndex = 16;
             label1.Text = "Aproxwert in px (2-15)";
             // 
             // HistoryDisplayBox
             // 
+            HistoryDisplayBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             HistoryDisplayBox.BackColor = Color.FromArgb(64, 64, 64);
             HistoryDisplayBox.ForeColor = Color.White;
-            HistoryDisplayBox.Location = new Point(1022, 6);
+            HistoryDisplayBox.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            HistoryDisplayBox.Location = new Point(1025, 2);
+            HistoryDisplayBox.Margin = new Padding(0);
+            HistoryDisplayBox.MultiSelect = false;
             HistoryDisplayBox.Name = "HistoryDisplayBox";
+            HistoryDisplayBox.RightToLeft = RightToLeft.No;
             HistoryDisplayBox.Size = new Size(312, 232);
             HistoryDisplayBox.TabIndex = 17;
+            HistoryDisplayBox.TileSize = new Size(150, 10);
             HistoryDisplayBox.UseCompatibleStateImageBehavior = false;
             HistoryDisplayBox.View = View.Details;
             HistoryDisplayBox.DoubleClick += HistoryDisplayBox_Enter;
@@ -291,13 +305,13 @@ namespace GUI_I2G
             // ProjectSaveButton
             // 
             ProjectSaveButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            ProjectSaveButton.BackColor = Color.LightSeaGreen;
+            ProjectSaveButton.BackColor = Color.DarkCyan;
             ProjectSaveButton.BackgroundImageLayout = ImageLayout.Center;
             ProjectSaveButton.FlatAppearance.BorderSize = 0;
             ProjectSaveButton.FlatStyle = FlatStyle.Flat;
             ProjectSaveButton.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             ProjectSaveButton.ForeColor = SystemColors.ButtonHighlight;
-            ProjectSaveButton.Location = new Point(13, 562);
+            ProjectSaveButton.Location = new Point(13, 568);
             ProjectSaveButton.Margin = new Padding(3, 2, 3, 2);
             ProjectSaveButton.Name = "ProjectSaveButton";
             ProjectSaveButton.Size = new Size(169, 40);
@@ -325,21 +339,22 @@ namespace GUI_I2G
             panelSideBar.Controls.Add(tB_depth);
             panelSideBar.Controls.Add(lbl_Y);
             panelSideBar.Dock = DockStyle.Left;
-            panelSideBar.Location = new Point(3, 3);
+            panelSideBar.Location = new Point(0, 0);
             panelSideBar.Name = "panelSideBar";
-            panelSideBar.Size = new Size(352, 723);
+            panelSideBar.Size = new Size(352, 729);
             panelSideBar.TabIndex = 19;
+            panelSideBar.Paint += panelSideBar_Paint;
             // 
             // DeleteButton
             // 
             DeleteButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            DeleteButton.BackColor = Color.LightSeaGreen;
+            DeleteButton.BackColor = Color.DarkCyan;
             DeleteButton.BackgroundImageLayout = ImageLayout.Center;
             DeleteButton.FlatAppearance.BorderSize = 0;
             DeleteButton.FlatStyle = FlatStyle.Flat;
             DeleteButton.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             DeleteButton.ForeColor = SystemColors.ButtonHighlight;
-            DeleteButton.Location = new Point(13, 615);
+            DeleteButton.Location = new Point(13, 621);
             DeleteButton.Margin = new Padding(3, 2, 3, 2);
             DeleteButton.Name = "DeleteButton";
             DeleteButton.Size = new Size(169, 40);
@@ -378,7 +393,6 @@ namespace GUI_I2G
             Margin = new Padding(3, 2, 3, 2);
             MaximumSize = new Size(7002, 3760);
             Name = "I2Gcode";
-            Padding = new Padding(3);
             RightToLeft = RightToLeft.Yes;
             Text = "I2G-Code";
             FormClosing += LastForm_FormClosing;
