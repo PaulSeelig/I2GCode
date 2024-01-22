@@ -289,7 +289,7 @@ namespace GUI_I2G
             HistoryDisplayBox.BackColor = Color.FromArgb(64, 64, 64);
             HistoryDisplayBox.ForeColor = Color.White;
             HistoryDisplayBox.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            HistoryDisplayBox.Location = new Point(1025, 2);
+            HistoryDisplayBox.Location = new Point(1025, 3);
             HistoryDisplayBox.Margin = new Padding(0);
             HistoryDisplayBox.MultiSelect = false;
             HistoryDisplayBox.Name = "HistoryDisplayBox";
@@ -367,6 +367,7 @@ namespace GUI_I2G
             // 
             btnLogo.BackgroundImage = (Image)resources.GetObject("btnLogo.BackgroundImage");
             btnLogo.BackgroundImageLayout = ImageLayout.Zoom;
+            btnLogo.FlatAppearance.BorderSize = 0;
             btnLogo.FlatStyle = FlatStyle.Flat;
             btnLogo.ForeColor = Color.Transparent;
             btnLogo.Location = new Point(0, 24);

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.Json;
 using GUI_I2G.GCodeclasses;
+using System.Text.Json.Serialization;
 
 //Authored by Paul Seelig s0578706
 namespace GUI_I2G
@@ -24,16 +25,16 @@ namespace GUI_I2G
             {
                 return privprojectName;
             }
-            private set => privprojectName = value; 
+            set => privprojectName = value; 
         } 
         
-        public DateTime lastOpened {  get; private set; } //updated after every openeing
+        public DateTime lastOpened {  get; set; } //updated after every openeing
 
-        public Parameter parameter { get; private set; }
+        public Parameter parameter { get; set; }
 
-        public GCode Gcode { get; private set; }
+        public GCode Gcode { get; set; }
 
-        public string imagePath { get; private set; }
+        public string imagePath { get; set; }
 
         //DO we safe the contours aswell?
 
@@ -57,6 +58,11 @@ namespace GUI_I2G
             this.Gcode = gcode;
             this.lastOpened = DateTime.Now;
             this.imagePath = imagePath;
+        }
+        [JsonConstructor]
+        public HistoryEntry()
+        {
+
         }
     }
 }

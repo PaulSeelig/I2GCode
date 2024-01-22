@@ -50,7 +50,7 @@ namespace GUI_I2G
             //Adds Colums to HistoryDisplayBox
 
             HistoryDisplayBox.Columns.Add("Project Name", HistoryDisplayBox.Width * 3 / 5);
-            HistoryDisplayBox.Columns.Add("Last Opened", (int)(HistoryDisplayBox.Width * 1.5 / 5));
+            HistoryDisplayBox.Columns.Add("Last Opened", (int)(HistoryDisplayBox.Width * 1.6 / 5));
 
 
             // allows to drop pictures into the PictureBox 
@@ -244,7 +244,7 @@ namespace GUI_I2G
             foreach (HistoryEntry entry in entries)
             {
                 ListViewItem item = new ListViewItem(entry.projectName);
-                item.SubItems.Add(entry.lastOpened.ToString("dd-MM-yyyy"));
+                item.SubItems.Add(entry.lastOpened.ToString("dd-MM-yyyy HH:mm"));
                 HistoryDisplayBox.Items.Add(item);
             }
             HistoryDisplayBox.EndUpdate();
