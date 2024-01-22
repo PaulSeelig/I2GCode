@@ -343,7 +343,6 @@ namespace GUI_I2G
             panelSideBar.Name = "panelSideBar";
             panelSideBar.Size = new Size(352, 729);
             panelSideBar.TabIndex = 19;
-            panelSideBar.Paint += panelSideBar_Paint;
             // 
             // DeleteButton
             // 

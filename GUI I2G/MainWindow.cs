@@ -17,8 +17,7 @@ namespace GUI_I2G
     {
         // zoom level is needed for the SetZoomLevel Method, defines the speed of zooming
         private int zoomLevel = 100;
-        // "a" is used to download the GCode, it represents the numbers of GCodes created
-        private int a = 0;
+       
         // this imagepath is the path of the image that gets dropped intp the PictureBox, its used to draw the contours in button1_Click
         private string imagepath;
 
@@ -35,6 +34,8 @@ namespace GUI_I2G
         private Parameter p = new();
 
         private GCode CurrentGCode = new();
+
+        private string userInput;
 
         public I2Gcode()
         {
@@ -105,7 +106,7 @@ namespace GUI_I2G
             // takes the folder path to MyDocuments
             string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             // puts a file named "GCode .txt" at the destinaetd folderpath
-            string filePath = Path.Combine(folderPath, $"Gcode{a}.txt");
+            string filePath = Path.Combine(folderPath, userInput);
             // writes the GCode into the file
             File.WriteAllText(filePath, GCodeVorschau);
             // opens the explorer and selects the saved file
@@ -140,29 +141,30 @@ namespace GUI_I2G
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
                 if (depth < zkoo1)
+                {
                     p.CuttingDepth = depth;
+                    //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
+
+                    if (pB_DragDrop.Image != null)
+                    {
+                        rgbimage = new(imagepath); //hier wird das rgbimage erstellt
+                        string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
+
+                        CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
+
+                        CvInvoke.Imwrite("draw" + name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
+                        Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
+
+                        pB_DragDrop.Image = save;
+                        CurrentGCode = GCodeTextBox(p);
+                        tB_showGCode.Lines = CurrentGCode.GCodeLines;
+                    }
+                    else
+                        MessageBox.Show("SIe müssen ein Bild eingeben, bitte per drag and drop in das mittlere Feld");
+                }
                 else
                     MessageBox.Show("Geben sie einen Wert kleiner als die Material Dicke an!");
                 p.AproxValue = epsilon;
-
-                //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
-
-                if (pB_DragDrop.Image != null)
-                {
-                    rgbimage = new(imagepath); //hier wird das rgbimage erstellt
-                    string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
-
-                    CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
-
-                    CvInvoke.Imwrite("draw" + name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
-                    Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
-
-                    pB_DragDrop.Image = save;
-                    CurrentGCode = GCodeTextBox(p);
-                    tB_showGCode.Lines = CurrentGCode.GCodeLines;
-                }
-                else
-                    MessageBox.Show("SIe müssen ein Bild eingeben, bitte per drag and drop in das mittlere Feld");
             }
             catch (FormatException)
             {
@@ -208,7 +210,6 @@ namespace GUI_I2G
         private void btn_DownloadGCode_Click(object sender, EventArgs e)
         {
             DownloadGcode();
-            a++;
         }
         private void pB_DragDrop_SizeChanged(object sender, EventArgs e)
         {
@@ -232,6 +233,7 @@ namespace GUI_I2G
             tB_Y.Text = null;
             tB_Z.Text = null;
             tB_depth.Text = null;
+            //tb_aproxy.Text = null;
             //approxy cant be cleared bcs of "null" exception, has to be changed manually
         }
         private void UpdateHistory()
@@ -261,6 +263,8 @@ namespace GUI_I2G
 
                 HistoryEntry OpenedEntry = history.GetEntryByName(selectedItem.SubItems[0].Text);
 
+                userInput = OpenedEntry.projectName;
+
                 //Displays values from Parameter
                 tB_X.Text = OpenedEntry.parameter.Eckpunkt[0].ToString();
                 tB_Y.Text = OpenedEntry.parameter.Eckpunkt[1].ToString();
@@ -281,7 +285,7 @@ namespace GUI_I2G
             {
                 if (inputDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string userInput = inputDialog.UserInput;
+                    userInput = inputDialog.UserInput;
                     MessageBox.Show($"User entered: {userInput}"); //Should be removed before release
                     history.SaveGcodeProject(new(userInput, p, CurrentGCode, imagepath));
                     //Diplays History inside ViewBox
@@ -303,13 +307,11 @@ namespace GUI_I2G
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            history.DeleteGcodeProject(HistoryDisplayBox.FocusedItem.Index);
-            UpdateHistory();
-        }
-
-        private void panelSideBar_Paint(object sender, PaintEventArgs e)
-        {
-
+            if (HistoryDisplayBox.FocusedItem != null)
+            {
+                history.DeleteGcodeProject(HistoryDisplayBox.FocusedItem.Index);
+                UpdateHistory();
+            }
         }
     }
 }
