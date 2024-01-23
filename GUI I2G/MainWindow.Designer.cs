@@ -421,7 +421,6 @@ namespace GUI_I2G
         private TextBox tB_showGCode;
         private TextBox textBox1;
         private Label label1;
-        private TextBox tb_aproxy;
         private TextBox tB_aproxy;
         private ListView HistoryDisplayBox;
         private Button button1;

@@ -48,13 +48,10 @@ namespace GUI_I2G
                 UpdateHistory();
             }
 
-
-
             //Adds Colums to HistoryDisplayBox
 
             HistoryDisplayBox.Columns.Add("Project Name", HistoryDisplayBox.Width * 3 / 5);
             HistoryDisplayBox.Columns.Add("Last Opened", (int)(HistoryDisplayBox.Width * 1.6 / 5));
-
 
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
@@ -64,9 +61,6 @@ namespace GUI_I2G
             pB_DragDrop.DragDrop += new DragEventHandler(pB_DragDrop_DragDrop);
             // this is needed bcs in VS2022 this event does not exist until its manually added
             pB_DragDrop.MouseWheel += PB_DragDrop_MouseWheel;
-            //CreateHistoryList();
-
-
         }
         // sets the zoom level of the picture box 
         private void SetZoomLevel()
@@ -128,7 +122,7 @@ namespace GUI_I2G
             //}
             //SetZoomLevel();
         }
-        //benenn die doch pls
+
         public void GCodeGenBtn_Click(object sender, EventArgs e)       //Button zum GCode generieren 
         {
             try
@@ -240,8 +234,8 @@ namespace GUI_I2G
             tB_Y.Text = null;
             tB_Z.Text = null;
             tB_depth.Text = null;
-            //tb_aproxy.Text = null;
-            //approxy cant be cleared bcs of "null" exception, has to be changed manually
+            tB_aproxy.Text = null;
+                //approxy cant be cleared bcs of "null" exception, has to be changed manually
         }
         private void UpdateHistory()
         {
