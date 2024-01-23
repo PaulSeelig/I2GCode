@@ -26,13 +26,13 @@ namespace GUI_I2G
         private void Confirm_Click(object sender, EventArgs e)
         {
             UserInput = InputTextBox.Text;
-            if (UserInput.Length < 20)
+            if (UserInput.Length <= 20)
             {
                 DialogResult = DialogResult.OK;
                 Close();
             }
             else
-                MessageBox.Show("Bitte Namen mit wniger Charakteren eingeben!");
+                MessageBox.Show("Bitte Namen mit weniger Charakteren eingeben!");
         }
     }
 }

@@ -284,6 +284,7 @@ namespace GUI_I2G
                 tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
                 imagepath = CurrentProject.imagePath;
                 pB_DragDrop.Image = Image.FromFile(imagepath);
+                lbl_DragDrop.Visible = false;
             }
         }
 
@@ -309,8 +310,9 @@ namespace GUI_I2G
                     }
                     else
                     {
-                        CurrentProject.projectName = inputDialog.UserInput;
-                        history.SaveGcodeProject(new(CurrentProject));
+                        HistoryEntry ToSafe = new(CurrentProject);//I think it has something to do with String pointers or class pointers
+                        ToSafe.projectName = inputDialog.UserInput;
+                        history.SaveGcodeProject(ToSafe);
                     }
                     
                     //MessageBox.Show($"User entered: {userInput}"); //Should be removed before release
