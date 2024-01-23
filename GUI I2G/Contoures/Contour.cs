@@ -85,9 +85,6 @@ namespace GUI_I2G.Contures
                 List<Contour> contour = new();
                 for (int j = 0; j < konturen[i].Length -1; j++)
                 {
-                    //CvInvoke. aproxparam
-                    //if (j + 2 == konturen[i].Length) // why, actually??
-                    //    break;
                     if (contour.Count > 0 && OnVector((Line)contour.Last(), konturen[i][j + 1]))
                     {
                         contour.Last().EndPoint = konturen[i][j + 1];
@@ -149,17 +146,6 @@ namespace GUI_I2G.Contures
         {
 
             return new List <Contour[]>();
-        }
-        public void WriteOutContures(Contour[] contures)
-        {
-            foreach (Contour conture in contures)
-            {
-                Console.WriteLine(conture.StartPoint.ToString() + " : " + conture.EndPoint.ToString());
-                if (conture.GetType() == typeof(Curve))
-                    Console.Write(" : " + (conture as Curve).Radius.ToString());
-                if (conture is Line)
-                    Console.WriteLine((conture as Line).Length.ToString());
-            }
         }
     }
 }

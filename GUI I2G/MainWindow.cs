@@ -201,7 +201,6 @@ namespace GUI_I2G
             if (pB_DragDrop.Image != null)
             {
                 pB_DragDrop.SizeMode = PictureBoxSizeMode.Zoom;
-                //pB_DragDrop.Size = this.Size;
             }
         }
         private void I2Gcode_Resize(object sender, EventArgs e)
@@ -235,7 +234,6 @@ namespace GUI_I2G
             tB_Z.Text = null;
             tB_depth.Text = null;
             tB_aproxy.Text = null;
-                //approxy cant be cleared bcs of "null" exception, has to be changed manually
         }
         private void UpdateHistory()
         {
@@ -304,20 +302,11 @@ namespace GUI_I2G
                     }
                     else
                     {
-                        HistoryEntry ToSafe = new(CurrentProject);//I think it has something to do with String pointers or class pointers
+                        HistoryEntry ToSafe = new(CurrentProject);
                         ToSafe.projectName = inputDialog.UserInput;
                         history.SaveGcodeProject(ToSafe);
                     }
-                    
-                    //MessageBox.Show($"User entered: {userInput}"); //Should be removed before release
-                    
-                    //Diplays History inside ViewBox
                     UpdateHistory();
-                }
-                else
-                {
-                    // User clicked Cancel or closed the dialog
-                    MessageBox.Show("User canceled the input."); //Should be removed before release
                 }
             }
         }
