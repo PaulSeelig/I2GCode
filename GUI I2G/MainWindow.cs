@@ -17,7 +17,7 @@ namespace GUI_I2G
     {
         // zoom level is needed for the SetZoomLevel Method, defines the speed of zooming
         private int zoomLevel = 100;
-       
+
         // this imagepath is the path of the image that gets dropped intp the PictureBox, its used to draw the contours in button1_Click
         private string imagepath;
 
@@ -240,7 +240,7 @@ namespace GUI_I2G
             tB_Y.Text = null;
             tB_Z.Text = null;
             tB_depth.Text = null;
-            //tb_aproxy.Text = null;
+            tB_aproxy.Text = null;
             //approxy cant be cleared bcs of "null" exception, has to be changed manually
         }
         private void UpdateHistory()
@@ -291,8 +291,8 @@ namespace GUI_I2G
         private void ProjectSaveButton_Click(object sender, EventArgs e)
         {
             string Instruction;
-            if(CurrentProjectName !=  null) 
-            { 
+            if (CurrentProjectName != null)
+            {
                 Instruction = "Momentanes Projekt speichern?";
             }
             else
@@ -302,7 +302,7 @@ namespace GUI_I2G
             using (InputDialog inputDialog = new InputDialog(Instruction, CurrentProjectName))
             {
                 if (inputDialog.ShowDialog() == DialogResult.OK)
-                { 
+                {
                     CurrentProject.UpdateLastOpened();
                     if (CurrentProjectName == inputDialog.UserInput)
                     {
@@ -314,9 +314,9 @@ namespace GUI_I2G
                         ToSafe.projectName = inputDialog.UserInput;
                         history.SaveGcodeProject(ToSafe);
                     }
-                    
+
                     //MessageBox.Show($"User entered: {userInput}"); //Should be removed before release
-                    
+
                     //Diplays History inside ViewBox
                     UpdateHistory();
                 }
@@ -341,6 +341,51 @@ namespace GUI_I2G
                 history.DeleteGcodeProject(HistoryDisplayBox.FocusedItem.Index);
                 UpdateHistory();
             }
+        }
+
+        private void panelSideBar_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void saveFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void fr‰ﬂBohrkopf1ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Btn_Setting_Click(object sender, EventArgs e)
+        {
+            (btnLogo.Visible, Settings.Visible) = (Settings.Visible, btnLogo.Visible);
         }
     }
 }
