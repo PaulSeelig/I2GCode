@@ -385,7 +385,14 @@ namespace GUI_I2G
 
         private void Btn_Setting_Click(object sender, EventArgs e)
         {
-            (btnLogo.Visible, Settings.Visible) = (Settings.Visible, btnLogo.Visible);
+            btnLogo.Visible = true;
+            //(btnLogo.Visible, Settings.Visible) = (Settings.Visible, btnLogo.Visible);
+            Settings.Visible = !Settings.Visible;
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

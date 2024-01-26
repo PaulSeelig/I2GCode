@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="lbl_DragDrop.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btn_DownloadGCode.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -185,7 +188,7 @@
   <data name="Btn_Setting.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABsAAAAeCAYAAADdGWXmAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAABpJJREFUSEutVl1Mm2UUhhbGEDKD02Xq1YhR/LkwOl0QdzPjhTNe7DdLHGFExxxj
+        vAAADrwBlbxySQAABpJJREFUSEutVl1Mm2UUhhbGEDKD02Xq1YhR/LkwOl0QdzPjhTNe7DdLHGFExxxj
         QEdXaEv/f2ih0JbR0pYO2vLTH1oYjN+xwlh0arwwu1PnEi+2XRgvzNzmjfH4nJeyiODQhZOcvN/3fu/7
         nvOe85znfFnrSDY0N6P8nCWVSiUYCqD5y3MbIdklJSXPqVSqqmPHjlXgvQjKhra7XK6OUCh0HvPFvHAj
         RBoMBpVXrlyhS5cuPdi/f38D5nZVVlZq+J3n6+vryyUSiTQbwmNOTs7/uqkU+gR0E3QLjAUXFhZobm6O

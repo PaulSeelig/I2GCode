@@ -49,6 +49,7 @@ namespace GUI_I2G
             HistoryDisplayBox = new ListView();
             ProjectSaveButton = new Button();
             panelSideBar = new Panel();
+            label10 = new Label();
             Settings = new Panel();
             label3 = new Label();
             textBox1 = new TextBox();
@@ -69,9 +70,11 @@ namespace GUI_I2G
             button2 = new Button();
             DeleteButton = new Button();
             btnLogo = new Button();
+            panel2 = new Panel();
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             panelSideBar.SuspendLayout();
             Settings.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // btn_GenerateGCode
@@ -98,12 +101,11 @@ namespace GUI_I2G
             pB_DragDrop.BackColor = Color.Gray;
             pB_DragDrop.BackgroundImageLayout = ImageLayout.None;
             pB_DragDrop.BorderStyle = BorderStyle.Fixed3D;
-            pB_DragDrop.Location = new Point(358, 3);
+            pB_DragDrop.Location = new Point(358, 6);
             pB_DragDrop.Margin = new Padding(3, 2, 3, 2);
             pB_DragDrop.MinimumSize = new Size(521, 200);
             pB_DragDrop.Name = "pB_DragDrop";
             pB_DragDrop.Size = new Size(664, 715);
-            pB_DragDrop.SizeMode = PictureBoxSizeMode.Zoom;
             pB_DragDrop.TabIndex = 1;
             pB_DragDrop.TabStop = false;
             pB_DragDrop.Tag = "";
@@ -115,12 +117,14 @@ namespace GUI_I2G
             // 
             // lbl_DragDrop
             // 
-            lbl_DragDrop.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lbl_DragDrop.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lbl_DragDrop.AutoSize = true;
             lbl_DragDrop.BackColor = Color.Gray;
             lbl_DragDrop.Enabled = false;
+            lbl_DragDrop.FlatStyle = FlatStyle.Flat;
             lbl_DragDrop.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lbl_DragDrop.ForeColor = Color.White;
+            lbl_DragDrop.LiveSetting = System.Windows.Forms.Automation.AutomationLiveSetting.Assertive;
             lbl_DragDrop.Location = new Point(560, 345);
             lbl_DragDrop.Name = "lbl_DragDrop";
             lbl_DragDrop.Size = new Size(283, 23);
@@ -200,7 +204,7 @@ namespace GUI_I2G
             tB_depth.BackColor = SystemColors.InactiveCaptionText;
             tB_depth.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_depth.ForeColor = Color.White;
-            tB_depth.Location = new Point(212, 465);
+            tB_depth.Location = new Point(212, 476);
             tB_depth.Margin = new Padding(3, 2, 3, 2);
             tB_depth.MaximumSize = new Size(110, 27);
             tB_depth.Name = "tB_depth";
@@ -254,7 +258,7 @@ namespace GUI_I2G
             lbl_depth.AutoSize = true;
             lbl_depth.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             lbl_depth.ForeColor = Color.White;
-            lbl_depth.Location = new Point(14, 468);
+            lbl_depth.Location = new Point(14, 479);
             lbl_depth.Name = "lbl_depth";
             lbl_depth.Size = new Size(151, 23);
             lbl_depth.TabIndex = 12;
@@ -265,7 +269,7 @@ namespace GUI_I2G
             tB_showGCode.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tB_showGCode.BackColor = Color.Gray;
             tB_showGCode.ForeColor = Color.White;
-            tB_showGCode.Location = new Point(1025, 240);
+            tB_showGCode.Location = new Point(7, 239);
             tB_showGCode.MaximumSize = new Size(312, 2770);
             tB_showGCode.Multiline = true;
             tB_showGCode.Name = "tB_showGCode";
@@ -281,7 +285,7 @@ namespace GUI_I2G
             tB_aproxy.BackColor = SystemColors.InactiveCaptionText;
             tB_aproxy.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_aproxy.ForeColor = Color.White;
-            tB_aproxy.Location = new Point(212, 496);
+            tB_aproxy.Location = new Point(212, 507);
             tB_aproxy.Margin = new Padding(3, 2, 3, 2);
             tB_aproxy.MaximumSize = new Size(110, 27);
             tB_aproxy.Name = "tB_aproxy";
@@ -296,7 +300,7 @@ namespace GUI_I2G
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(14, 499);
+            label1.Location = new Point(14, 510);
             label1.Name = "label1";
             label1.Size = new Size(179, 23);
             label1.TabIndex = 16;
@@ -308,7 +312,7 @@ namespace GUI_I2G
             HistoryDisplayBox.BackColor = Color.FromArgb(64, 64, 64);
             HistoryDisplayBox.ForeColor = Color.White;
             HistoryDisplayBox.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            HistoryDisplayBox.Location = new Point(1025, 3);
+            HistoryDisplayBox.Location = new Point(7, 3);
             HistoryDisplayBox.Margin = new Padding(0);
             HistoryDisplayBox.MultiSelect = false;
             HistoryDisplayBox.Name = "HistoryDisplayBox";
@@ -342,12 +346,12 @@ namespace GUI_I2G
             // panelSideBar
             // 
             panelSideBar.BackColor = Color.FromArgb(64, 64, 64);
+            panelSideBar.Controls.Add(label10);
             panelSideBar.Controls.Add(Settings);
             panelSideBar.Controls.Add(panel1);
             panelSideBar.Controls.Add(Btn_Setting);
             panelSideBar.Controls.Add(button2);
             panelSideBar.Controls.Add(DeleteButton);
-            panelSideBar.Controls.Add(btnLogo);
             panelSideBar.Controls.Add(ProjectSaveButton);
             panelSideBar.Controls.Add(tB_X);
             panelSideBar.Controls.Add(btn_GenerateGCode);
@@ -361,6 +365,7 @@ namespace GUI_I2G
             panelSideBar.Controls.Add(lbl_Z);
             panelSideBar.Controls.Add(tB_depth);
             panelSideBar.Controls.Add(lbl_Y);
+            panelSideBar.Controls.Add(btnLogo);
             panelSideBar.Dock = DockStyle.Left;
             panelSideBar.Location = new Point(0, 0);
             panelSideBar.Margin = new Padding(10, 3, 3, 3);
@@ -369,8 +374,22 @@ namespace GUI_I2G
             panelSideBar.TabIndex = 19;
             panelSideBar.Paint += panelSideBar_Paint;
             // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(12, 346);
+            label10.Name = "label10";
+            label10.Size = new Size(193, 23);
+            label10.TabIndex = 43;
+            label10.Text = "Materialeigenschaften:";
+            label10.Click += label10_Click;
+            // 
             // Settings
             // 
+            Settings.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             Settings.Controls.Add(label3);
             Settings.Controls.Add(textBox1);
             Settings.Controls.Add(textBox2);
@@ -385,9 +404,9 @@ namespace GUI_I2G
             Settings.Controls.Add(label5);
             Settings.Controls.Add(textBox6);
             Settings.Controls.Add(label6);
-            Settings.Location = new Point(14, 48);
+            Settings.Location = new Point(14, 64);
             Settings.Name = "Settings";
-            Settings.Size = new Size(319, 316);
+            Settings.Size = new Size(319, 260);
             Settings.TabIndex = 23;
             Settings.Visible = false;
             // 
@@ -397,7 +416,7 @@ namespace GUI_I2G
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(6, 112);
+            label3.Location = new Point(6, 102);
             label3.Name = "label3";
             label3.Size = new Size(189, 23);
             label3.TabIndex = 53;
@@ -409,7 +428,7 @@ namespace GUI_I2G
             textBox1.BackColor = SystemColors.InactiveCaptionText;
             textBox1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.ForeColor = Color.White;
-            textBox1.Location = new Point(204, 109);
+            textBox1.Location = new Point(204, 99);
             textBox1.Margin = new Padding(3, 2, 3, 2);
             textBox1.MaximumSize = new Size(110, 27);
             textBox1.Name = "textBox1";
@@ -424,7 +443,7 @@ namespace GUI_I2G
             textBox2.BackColor = SystemColors.InactiveCaptionText;
             textBox2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBox2.ForeColor = Color.White;
-            textBox2.Location = new Point(204, 47);
+            textBox2.Location = new Point(204, 37);
             textBox2.Margin = new Padding(3, 2, 3, 2);
             textBox2.MaximumSize = new Size(110, 27);
             textBox2.Name = "textBox2";
@@ -439,7 +458,7 @@ namespace GUI_I2G
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(6, 81);
+            label7.Location = new Point(6, 71);
             label7.Name = "label7";
             label7.Size = new Size(163, 23);
             label7.TabIndex = 51;
@@ -451,7 +470,7 @@ namespace GUI_I2G
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(5, 50);
+            label8.Location = new Point(5, 40);
             label8.Name = "label8";
             label8.Size = new Size(56, 23);
             label8.TabIndex = 50;
@@ -463,7 +482,7 @@ namespace GUI_I2G
             textBox3.BackColor = SystemColors.InactiveCaptionText;
             textBox3.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBox3.ForeColor = Color.White;
-            textBox3.Location = new Point(204, 78);
+            textBox3.Location = new Point(204, 68);
             textBox3.Margin = new Padding(3, 2, 3, 2);
             textBox3.MaximumSize = new Size(110, 27);
             textBox3.Name = "textBox3";
@@ -478,7 +497,7 @@ namespace GUI_I2G
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(5, 19);
+            label9.Location = new Point(5, 9);
             label9.Name = "label9";
             label9.Size = new Size(143, 23);
             label9.TabIndex = 49;
@@ -490,7 +509,7 @@ namespace GUI_I2G
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(6, 235);
+            label2.Location = new Point(6, 225);
             label2.Name = "label2";
             label2.Size = new Size(130, 23);
             label2.TabIndex = 46;
@@ -502,7 +521,7 @@ namespace GUI_I2G
             textBox4.BackColor = SystemColors.InactiveCaptionText;
             textBox4.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBox4.ForeColor = Color.White;
-            textBox4.Location = new Point(204, 232);
+            textBox4.Location = new Point(204, 222);
             textBox4.Margin = new Padding(3, 2, 3, 2);
             textBox4.MaximumSize = new Size(110, 27);
             textBox4.Name = "textBox4";
@@ -517,7 +536,7 @@ namespace GUI_I2G
             textBox5.BackColor = SystemColors.InactiveCaptionText;
             textBox5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBox5.ForeColor = Color.White;
-            textBox5.Location = new Point(204, 170);
+            textBox5.Location = new Point(204, 160);
             textBox5.Margin = new Padding(3, 2, 3, 2);
             textBox5.MaximumSize = new Size(110, 27);
             textBox5.Name = "textBox5";
@@ -532,7 +551,7 @@ namespace GUI_I2G
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(6, 204);
+            label4.Location = new Point(6, 194);
             label4.Name = "label4";
             label4.Size = new Size(124, 23);
             label4.TabIndex = 44;
@@ -544,7 +563,7 @@ namespace GUI_I2G
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(5, 173);
+            label5.Location = new Point(5, 163);
             label5.Name = "label5";
             label5.Size = new Size(133, 23);
             label5.TabIndex = 43;
@@ -556,7 +575,7 @@ namespace GUI_I2G
             textBox6.BackColor = SystemColors.InactiveCaptionText;
             textBox6.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             textBox6.ForeColor = Color.White;
-            textBox6.Location = new Point(204, 201);
+            textBox6.Location = new Point(204, 191);
             textBox6.Margin = new Padding(3, 2, 3, 2);
             textBox6.MaximumSize = new Size(110, 27);
             textBox6.Name = "textBox6";
@@ -571,7 +590,7 @@ namespace GUI_I2G
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(5, 142);
+            label6.Location = new Point(5, 132);
             label6.Name = "label6";
             label6.Size = new Size(121, 23);
             label6.TabIndex = 42;
@@ -590,7 +609,7 @@ namespace GUI_I2G
             Btn_Setting.FlatAppearance.BorderColor = Color.FromArgb(128, 128, 255);
             Btn_Setting.FlatAppearance.BorderSize = 0;
             Btn_Setting.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            Btn_Setting.FlatAppearance.MouseOverBackColor = Color.DimGray;
+            Btn_Setting.FlatAppearance.MouseOverBackColor = Color.FromArgb(74, 74, 74);
             Btn_Setting.FlatStyle = FlatStyle.Flat;
             Btn_Setting.Image = (Image)resources.GetObject("Btn_Setting.Image");
             Btn_Setting.Location = new Point(12, 12);
@@ -606,7 +625,7 @@ namespace GUI_I2G
             button2.BackColor = Color.Black;
             button2.BackgroundImageLayout = ImageLayout.Center;
             button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 64, 64);
+            button2.FlatAppearance.MouseOverBackColor = Color.FromArgb(24, 24, 24);
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             button2.ForeColor = SystemColors.ButtonHighlight;
@@ -651,16 +670,24 @@ namespace GUI_I2G
             btnLogo.TabIndex = 19;
             btnLogo.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            panel2.Controls.Add(HistoryDisplayBox);
+            panel2.Controls.Add(tB_showGCode);
+            panel2.Dock = DockStyle.Right;
+            panel2.Location = new Point(1031, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(331, 729);
+            panel2.TabIndex = 20;
+            // 
             // I2Gcode
             // 
             AllowDrop = true;
-            AutoScaleMode = AutoScaleMode.None;
-            AutoSize = true;
-            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(1362, 729);
-            Controls.Add(HistoryDisplayBox);
-            Controls.Add(tB_showGCode);
+            Controls.Add(panel2);
             Controls.Add(lbl_DragDrop);
             Controls.Add(pB_DragDrop);
             Controls.Add(panelSideBar);
@@ -668,14 +695,16 @@ namespace GUI_I2G
             Margin = new Padding(3, 2, 3, 2);
             MaximumSize = new Size(7002, 3760);
             Name = "I2Gcode";
+            Opacity = 0.98D;
             Text = "I2G-Code";
             FormClosing += LastForm_FormClosing;
-            Resize += I2Gcode_Resize;
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).EndInit();
             panelSideBar.ResumeLayout(false);
             panelSideBar.PerformLayout();
             Settings.ResumeLayout(false);
             Settings.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -721,5 +750,7 @@ namespace GUI_I2G
         private TextBox textBox6;
         private Label label6;
         private Panel panel1;
+        private Label label10;
+        private Panel panel2;
     }
 }
