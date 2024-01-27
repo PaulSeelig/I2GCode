@@ -44,15 +44,16 @@ namespace GUI_I2G
             lbl_Z = new Label();
             lbl_depth = new Label();
             tB_showGCode = new TextBox();
-            tB_aproxy = new TextBox();
             label1 = new Label();
             HistoryDisplayBox = new ListView();
             ProjectSaveButton = new Button();
             panelSideBar = new Panel();
+            tB_aproxy = new NumericUpDown();
             DeleteButton = new Button();
             btnLogo = new Button();
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             panelSideBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tB_aproxy).BeginInit();
             SuspendLayout();
             // 
             // btn_GenerateGCode
@@ -79,11 +80,11 @@ namespace GUI_I2G
             pB_DragDrop.BackColor = Color.Gray;
             pB_DragDrop.BackgroundImageLayout = ImageLayout.None;
             pB_DragDrop.BorderStyle = BorderStyle.Fixed3D;
-            pB_DragDrop.Location = new Point(373, 3);
+            pB_DragDrop.Location = new Point(393, 3);
             pB_DragDrop.Margin = new Padding(3, 2, 3, 2);
             pB_DragDrop.MinimumSize = new Size(521, 200);
             pB_DragDrop.Name = "pB_DragDrop";
-            pB_DragDrop.Size = new Size(626, 715);
+            pB_DragDrop.Size = new Size(626, 714);
             pB_DragDrop.SizeMode = PictureBoxSizeMode.Zoom;
             pB_DragDrop.TabIndex = 1;
             pB_DragDrop.TabStop = false;
@@ -108,11 +109,11 @@ namespace GUI_I2G
             lbl_DragDrop.TabIndex = 2;
             lbl_DragDrop.Text = "Bild hier via Drag n Drop hochladen";
             lbl_DragDrop.TextAlign = ContentAlignment.MiddleCenter;
-            lbl_DragDrop.DragDrop += pB_DragDrop_DragDrop;
             lbl_DragDrop.DragEnter += pB_DragDrop_DragEnter;
             // 
             // tB_Y
             // 
+            tB_Y.AccessibleName = "Tiefe ihres Materials";
             tB_Y.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             tB_Y.BackColor = SystemColors.InactiveCaptionText;
             tB_Y.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -128,6 +129,7 @@ namespace GUI_I2G
             // 
             // tB_Z
             // 
+            tB_Z.AccessibleName = "Z/Höhe ihres Materials";
             tB_Z.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             tB_Z.BackColor = SystemColors.InactiveCaptionText;
             tB_Z.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -149,9 +151,9 @@ namespace GUI_I2G
             lbl_X.ForeColor = Color.White;
             lbl_X.Location = new Point(13, 342);
             lbl_X.Name = "lbl_X";
-            lbl_X.Size = new Size(155, 23);
+            lbl_X.Size = new Size(133, 23);
             lbl_X.TabIndex = 6;
-            lbl_X.Text = "X- Eckpunkt in mm";
+            lbl_X.Text = "Breite (X) in mm";
             // 
             // btn_DownloadGCode
             // 
@@ -177,6 +179,7 @@ namespace GUI_I2G
             // 
             // tB_depth
             // 
+            tB_depth.AccessibleName = "Graviertiefe";
             tB_depth.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             tB_depth.BackColor = SystemColors.InactiveCaptionText;
             tB_depth.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -192,6 +195,7 @@ namespace GUI_I2G
             // 
             // tB_X
             // 
+            tB_X.AccessibleName = "Breite (X) ihres Materials";
             tB_X.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             tB_X.BackColor = SystemColors.InactiveCaptionText;
             tB_X.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -213,9 +217,9 @@ namespace GUI_I2G
             lbl_Y.ForeColor = Color.White;
             lbl_Y.Location = new Point(13, 373);
             lbl_Y.Name = "lbl_Y";
-            lbl_Y.Size = new Size(154, 23);
+            lbl_Y.Size = new Size(124, 23);
             lbl_Y.TabIndex = 10;
-            lbl_Y.Text = "Y- Eckpunkt in mm";
+            lbl_Y.Text = "Tiefe (Y) in mm";
             // 
             // lbl_Z
             // 
@@ -225,9 +229,9 @@ namespace GUI_I2G
             lbl_Z.ForeColor = Color.White;
             lbl_Z.Location = new Point(13, 404);
             lbl_Z.Name = "lbl_Z";
-            lbl_Z.Size = new Size(155, 23);
+            lbl_Z.Size = new Size(130, 23);
             lbl_Z.TabIndex = 11;
-            lbl_Z.Text = "Z- Eckpunkt in mm";
+            lbl_Z.Text = "Höhe (Z) in mm";
             // 
             // lbl_depth
             // 
@@ -256,32 +260,19 @@ namespace GUI_I2G
             tB_showGCode.Size = new Size(312, 477);
             tB_showGCode.TabIndex = 13;
             // 
-            // tB_aproxy
-            // 
-            tB_aproxy.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            tB_aproxy.BackColor = SystemColors.InactiveCaptionText;
-            tB_aproxy.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            tB_aproxy.ForeColor = Color.White;
-            tB_aproxy.Location = new Point(201, 463);
-            tB_aproxy.Margin = new Padding(3, 2, 3, 2);
-            tB_aproxy.MaximumSize = new Size(110, 27);
-            tB_aproxy.Name = "tB_aproxy";
-            tB_aproxy.RightToLeft = RightToLeft.No;
-            tB_aproxy.Size = new Size(110, 27);
-            tB_aproxy.TabIndex = 15;
-            tB_aproxy.TextAlign = HorizontalAlignment.Center;
-            // 
             // label1
             // 
+            label1.AccessibleDescription = "Lalelu";
+            label1.AccessibleName = "Aproxywert für Bilderkennung";
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label1.ForeColor = Color.White;
             label1.Location = new Point(14, 466);
             label1.Name = "label1";
-            label1.Size = new Size(179, 23);
+            label1.Size = new Size(187, 23);
             label1.TabIndex = 16;
-            label1.Text = "Aproxwert in px (2-15)";
+            label1.Text = "Aproxywert in px (2-15)";
             // 
             // HistoryDisplayBox
             // 
@@ -323,6 +314,7 @@ namespace GUI_I2G
             // panelSideBar
             // 
             panelSideBar.BackColor = Color.FromArgb(64, 64, 64);
+            panelSideBar.Controls.Add(tB_aproxy);
             panelSideBar.Controls.Add(DeleteButton);
             panelSideBar.Controls.Add(btnLogo);
             panelSideBar.Controls.Add(ProjectSaveButton);
@@ -330,7 +322,6 @@ namespace GUI_I2G
             panelSideBar.Controls.Add(btn_GenerateGCode);
             panelSideBar.Controls.Add(label1);
             panelSideBar.Controls.Add(tB_Y);
-            panelSideBar.Controls.Add(tB_aproxy);
             panelSideBar.Controls.Add(tB_Z);
             panelSideBar.Controls.Add(lbl_X);
             panelSideBar.Controls.Add(lbl_depth);
@@ -343,6 +334,24 @@ namespace GUI_I2G
             panelSideBar.Name = "panelSideBar";
             panelSideBar.Size = new Size(352, 729);
             panelSideBar.TabIndex = 19;
+            // 
+            // tB_aproxy
+            // 
+            tB_aproxy.BackColor = SystemColors.InactiveCaptionText;
+            tB_aproxy.DecimalPlaces = 1;
+            tB_aproxy.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            tB_aproxy.ForeColor = Color.White;
+            tB_aproxy.ImeMode = ImeMode.On;
+            tB_aproxy.Location = new Point(201, 466);
+            tB_aproxy.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
+            tB_aproxy.Name = "tB_aproxy";
+            tB_aproxy.RightToLeft = RightToLeft.No;
+            tB_aproxy.Size = new Size(110, 30);
+            tB_aproxy.TabIndex = 21;
+            tB_aproxy.TextAlign = HorizontalAlignment.Center;
+            tB_aproxy.UpDownAlign = LeftRightAlignment.Left;
+            tB_aproxy.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            tB_aproxy.ValueChanged += tB_aproxy_TextChanged;
             // 
             // DeleteButton
             // 
@@ -400,6 +409,7 @@ namespace GUI_I2G
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).EndInit();
             panelSideBar.ResumeLayout(false);
             panelSideBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tB_aproxy).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -421,12 +431,12 @@ namespace GUI_I2G
         private TextBox tB_showGCode;
         private TextBox textBox1;
         private Label label1;
-        private TextBox tB_aproxy;
         private ListView HistoryDisplayBox;
         private Button button1;
         private Button ProjectSaveButton;
         private Panel panelSideBar;
         private Button btnLogo;
         private Button DeleteButton;
+        private NumericUpDown tB_aproxy;
     }
 }

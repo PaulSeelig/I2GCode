@@ -4,7 +4,9 @@ using GUI_I2G.Contures;
 using GUI_I2G.GCodeclasses;
 using GUI_I2G.Tests;
 using Microsoft.VisualBasic;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -17,9 +19,11 @@ namespace GUI_I2G
     {
         // zoom level is needed for the SetZoomLevel Method, defines the speed of zooming
         private int zoomLevel = 100;
-       
+
         // this imagepath is the path of the image that gets dropped intp the PictureBox, its used to draw the contours in button1_Click
         private string imagepath;
+
+        private Graphics graphics;
 
         private Image<Rgb, System.Byte> rgbimage;
 
@@ -29,6 +33,8 @@ namespace GUI_I2G
 
         private string historyfilePath = @".\History.json";
 
+        private string ImageLocationhold { get; set; }
+
         private double epsilon = 3.4;
 
         private Parameter p = new();
@@ -37,7 +43,7 @@ namespace GUI_I2G
 
         private string CurrentProjectName;
 
-        private HistoryEntry CurrentProject;
+        private HistoryEntry CurrentProject = new();
 
         public I2Gcode()
         {
@@ -56,42 +62,25 @@ namespace GUI_I2G
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
             // this Eventhandler is used if one hovers over the PictureBox
-            pB_DragDrop.DragEnter += new DragEventHandler(pB_DragDrop_DragEnter);
+            //pB_DragDrop.DragEnter += new DragEventHandler(pB_DragDrop_DragEnter);
             // this Eventhandler is used after a Drag and drop process is complete
-            pB_DragDrop.DragDrop += new DragEventHandler(pB_DragDrop_DragDrop);
+            //pB_DragDrop.DragDrop += new DragEventHandler(pB_DragDrop_DragDrop);
             // this is needed bcs in VS2022 this event does not exist until its manually added
             pB_DragDrop.MouseWheel += PB_DragDrop_MouseWheel;
-        }
-        // sets the zoom level of the picture box 
-        private void SetZoomLevel()
-        {
-            // zoom factor is calculated based on zoom level (100) 
-            float zoomFactor = zoomLevel / 100f;
-            // calculates the new width of the PictureBox after each Zoom
-            int newWidth = (int)((pB_DragDrop.Image?.Width ?? 821) * zoomFactor);
-            // calculates the new height of the PictureBox after each Zoom
-            int newHeight = (int)(pB_DragDrop.Image?.Height ?? 201 * zoomFactor);
-
-            // resize the PictureBox
-            pB_DragDrop.Size = new Size(newWidth, newHeight);
-            // centers the image in the PictureBox
-            //pB_DragDrop.Location = new Point((pB_DragDrop.Image.Width - pB_DragDrop.Width) / 2, (pB_DragDrop.Image.Height - pB_DragDrop.Height) / 2);
         }
         // Checks if the input from the Coordinate TextBox gets parsed into double
         private void CheckInput(System.Windows.Forms.TextBox textBox, out double value)
         {
-            if (double.TryParse(textBox.Text, out value))
-            { }
-            else
+            if ((!double.TryParse(textBox.Text, out value)) || value < 0)
             {
-                throw new FormatException("Ungültige Eingabe");
+                throw new FormatException($"bitte geben Sie in '{textBox.AccessibleName}' nur (positive) Zahlen ein");
             }
         }
-        private GCode GCodeTextBox(Parameter p)
+        private void CheckInput(System.Windows.Forms.TextBox textBox, out double value, double max)
         {
-            GCode gCode = new GCode();
-            gCode = GCodeGenerator.GenerateGCode(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon), p);
-            return gCode;
+            CheckInput(textBox, out value);
+            if (value > max)
+                throw new FormatException("Please choose an CuttingDepth, that is less or equal than the chosen Z/Height of the material");
         }
 
         // Downloads the GCode as .txt file to MyDocuments
@@ -130,46 +119,39 @@ namespace GUI_I2G
                 CheckInput(tB_X, out double xkoo1);
                 CheckInput(tB_Y, out double ykoo1);
                 CheckInput(tB_Z, out double zkoo1);
-                CheckInput(tB_depth, out depth);
-                CheckInput(tB_aproxy, out epsilon);
+                CheckInput(tB_depth, out depth, zkoo1);
+                System.Windows.Forms.TextBox t = new() { Text = tB_aproxy.Text };
+                CheckInput(t, out epsilon);
+                if (pB_DragDrop.Image == null)
+                    throw new FormatException("Sie müssen ein Bild per drag and drop in das mittlere Feld eingeben");
 
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
-
-                if (depth < zkoo1)
-                {
-                    p.CuttingDepth = depth;
-
-                    //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
-
-                    if (pB_DragDrop.Image != null)
-                    {
-                        rgbimage = new(imagepath); //hier wird das rgbimage erstellt
-                        CurrentProject.imagePath = imagepath;
-                        string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
-
-                        CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
-
-                        CvInvoke.Imwrite("draw" + name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
-                        Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
-
-                        pB_DragDrop.Image = save;
-                        CurrentGCode = GCodeTextBox(p);
-                        CurrentProject.parameter = p;
-                        tB_showGCode.Lines = CurrentGCode.GCodeLines;
-                        CurrentProject.Gcode = CurrentGCode;
-                    }
-                    else
-                        MessageBox.Show("SIe müssen ein Bild eingeben, bitte per drag and drop in das mittlere Feld");
-                }
-                else
-                    MessageBox.Show("Geben sie einen Wert kleiner als die Material Dicke an!");
+                p.CuttingDepth = depth;
                 p.AproxValue = epsilon;
+
+
+                //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
+
+
+
+                //CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
+
+                //CvInvoke.Imwrite("draw" + name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
+                //Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
+
+                //pB_DragDrop.Image = save;
+                CurrentGCode = GCodeGenerator.GenerateGCode(CurrentGCode.GetAllContours(), p);
+
+
+                CurrentProject.parameter = p;
+                tB_showGCode.Lines = CurrentGCode.GCodeLines;
+                CurrentProject.Gcode = CurrentGCode;
             }
-            catch (FormatException)
+            catch (FormatException ex)
             {
-                MessageBox.Show("Ungültige Eingabe, bitte geben Sie die Koordinaten, eines Eckpunkts Ihres Werkstücks in mm ein.");
+                MessageBox.Show($"Ungültige Eingabe, {ex.Message}");
             }
         }
         private void pB_DragDrop_DragEnter(object sender, DragEventArgs e)
@@ -193,6 +175,53 @@ namespace GUI_I2G
                 {
                     pB_DragDrop.ImageLocation = files;
                     imagepath = files;
+                }
+                ImageLocationhold = pB_DragDrop.ImageLocation;
+                ContourArrAndDraw();
+                pB_DragDrop.ImageLocation = null;
+            }
+        }
+        private void ContourArrAndDraw()
+        {
+            epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value : 10;
+            rgbimage = new(imagepath); //hier wird das rgbimage erstellt
+            CurrentProject.imagePath = imagepath;
+            string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
+            CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
+
+            int H = CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
+            int W = CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
+            Bitmap Drawnimage = new(W, H);
+
+            // Erstellen eines Graphics-Objekts aus der erstellten Bitmap
+            using (Graphics g = Graphics.FromImage(Drawnimage))
+            {
+                Pen pen = new(Color.Red, 3);
+                DrawOnPicBox(CurrentGCode.GetAllContours(), g);
+            }
+            pB_DragDrop.Image = Drawnimage;
+        }
+        public void DrawOnPicBox(List<Contour[]> Arr, Graphics graphics)
+        {
+            // graphics = pB_DragDrop.CreateGraphics();
+            Point[][] pArrArr = new Point[Arr.Count][];
+            for (int i = 0; i < Arr.Count; i++)
+            {
+                Point[] pArr = new Point[Arr[i].Length];
+                for (int j = 0; j < Arr[i].Length; j++)
+                {
+                    pArr[j] = Arr[i][j].StartPoint;
+                }
+                pArr[^1] = Arr[i][^1].EndPoint;
+                pArrArr[i] = pArr;
+            }
+
+
+            foreach (Point[] pArr in pArrArr.SkipLast(1))
+            {
+                if (pArr.Length > 1)
+                {
+                    graphics.DrawLines(new(Color.Black), pArr);
                 }
             }
         }
@@ -233,7 +262,7 @@ namespace GUI_I2G
             tB_Y.Text = null;
             tB_Z.Text = null;
             tB_depth.Text = null;
-            tB_aproxy.Text = null;
+            tB_aproxy.Text = "3";
         }
         private void UpdateHistory()
         {
@@ -275,7 +304,7 @@ namespace GUI_I2G
 
                 tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
                 imagepath = CurrentProject.imagePath;
-                pB_DragDrop.Image = Image.FromFile(imagepath);
+                pB_DragDrop.ImageLocation = imagepath;
                 lbl_DragDrop.Visible = false;
             }
         }
@@ -283,8 +312,8 @@ namespace GUI_I2G
         private void ProjectSaveButton_Click(object sender, EventArgs e)
         {
             string Instruction;
-            if(CurrentProjectName !=  null) 
-            { 
+            if (CurrentProjectName != null)
+            {
                 Instruction = "Momentanes Projekt speichern?";
             }
             else
@@ -294,17 +323,20 @@ namespace GUI_I2G
             using (InputDialog inputDialog = new InputDialog(Instruction, CurrentProjectName))
             {
                 if (inputDialog.ShowDialog() == DialogResult.OK)
-                { 
+                {
                     CurrentProject.UpdateLastOpened();
                     if (CurrentProjectName == inputDialog.UserInput)
                     {
                         history.SaveGcodeProject(CurrentProject);
                     }
+                    if ("" == inputDialog.UserInput)
+                        MessageBox.Show("Couldn't save Project, due insufficent Name");
                     else
                     {
                         HistoryEntry ToSafe = new(CurrentProject);
                         ToSafe.projectName = inputDialog.UserInput;
-                        history.SaveGcodeProject(ToSafe);
+                        if (ToSafe.projectName == "")
+                            history.SaveGcodeProject(ToSafe);
                     }
                     UpdateHistory();
                 }
@@ -323,6 +355,20 @@ namespace GUI_I2G
             {
                 history.DeleteGcodeProject(HistoryDisplayBox.FocusedItem.Index);
                 UpdateHistory();
+            }
+        }
+
+        private void tB_aproxy_TextChanged(object sender, EventArgs e)
+        {
+            if (ImageLocationhold != "" && ImageLocationhold != null)
+            {
+                pB_DragDrop.ImageLocation ??= ImageLocationhold;
+            }
+            if (pB_DragDrop.ImageLocation != null)
+            {
+                ImageLocationhold = pB_DragDrop.ImageLocation;
+                ContourArrAndDraw();
+                pB_DragDrop.ImageLocation = null;
             }
         }
     }
