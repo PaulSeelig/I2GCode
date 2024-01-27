@@ -86,9 +86,11 @@ namespace GUI_I2G
         // Downloads the GCode as .txt file to MyDocuments
         public void DownloadGcode()
         {
-            ProjectSaveButton_Click(null, null);
-            if(tB_showGCode.Text != null)
+            try
             {
+                if (string.IsNullOrEmpty(tB_showGCode.Text) || tB_showGCode.Text.Any(Char.IsWhiteSpace))
+                    throw (new FormatException("Bitte Werte eingeben vor dem Speichern"));
+                ProjectSaveButton_Click(null, null);
                 // takes the GCode from the TextBox
                 string GCodeVorschau = tB_showGCode.Text;
                 // takes the folder path to MyDocuments
@@ -99,6 +101,10 @@ namespace GUI_I2G
                 File.WriteAllText(filePath, GCodeVorschau);
                 // opens the explorer and selects the saved file
                 Process.Start("explorer.exe", "/select," + filePath);
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show($"Ungültige Eingabe, {ex.Message}");
             }
         }
         private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
@@ -269,7 +275,7 @@ namespace GUI_I2G
             tB_Y.Text = null;
             tB_Z.Text = null;
             tB_depth.Text = null;
-            tB_aproxy.Text = "3";
+            tB_aproxy.Text = "1";
         }
         private void UpdateHistory()
         {
