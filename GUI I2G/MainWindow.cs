@@ -183,7 +183,7 @@ namespace GUI_I2G
         }
         private void ContourArrAndDraw()
         {
-            epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value : 10;
+            epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value * 0.1 : 3;
             rgbimage = new(imagepath); //hier wird das rgbimage erstellt
             CurrentProject.imagePath = imagepath;
             string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen

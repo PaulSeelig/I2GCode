@@ -338,12 +338,11 @@ namespace GUI_I2G
             // tB_aproxy
             // 
             tB_aproxy.BackColor = SystemColors.InactiveCaptionText;
-            tB_aproxy.DecimalPlaces = 1;
             tB_aproxy.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_aproxy.ForeColor = Color.White;
             tB_aproxy.ImeMode = ImeMode.On;
             tB_aproxy.Location = new Point(201, 466);
-            tB_aproxy.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
+            tB_aproxy.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
             tB_aproxy.Name = "tB_aproxy";
             tB_aproxy.RightToLeft = RightToLeft.No;
             tB_aproxy.Size = new Size(110, 30);
