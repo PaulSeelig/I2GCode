@@ -307,7 +307,7 @@ namespace GUI_I2G
 
                 tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
                 imagepath = CurrentProject.imagePath;
-                pB_DragDrop.ImageLocation = imagepath;
+                ContourArrAndDraw();
                 lbl_DragDrop.Visible = false;
             }
         }
@@ -338,8 +338,8 @@ namespace GUI_I2G
                     {
                         HistoryEntry ToSafe = new(CurrentProject);
                         ToSafe.projectName = inputDialog.UserInput;
-                        if (ToSafe.projectName == "")
-                            history.SaveGcodeProject(ToSafe);
+                        CurrentProjectName = inputDialog.UserInput;
+                        history.SaveGcodeProject(ToSafe);
                     }
                     UpdateHistory();
                 }
