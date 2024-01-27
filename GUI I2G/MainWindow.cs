@@ -86,16 +86,19 @@ namespace GUI_I2G
         // Downloads the GCode as .txt file to MyDocuments
         public void DownloadGcode()
         {
-            // takes the GCode from the TextBox
-            string GCodeVorschau = tB_showGCode.Text;
-            // takes the folder path to MyDocuments
-            string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            // puts a file named "GCode .txt" at the destinaetd folderpath
-            string filePath = Path.Combine(folderPath, CurrentProjectName);
-            // writes the GCode into the file
-            File.WriteAllText(filePath, GCodeVorschau);
-            // opens the explorer and selects the saved file
-            Process.Start("explorer.exe", "/select," + filePath);
+            if(tB_showGCode.Text != null)
+            {
+                // takes the GCode from the TextBox
+                string GCodeVorschau = tB_showGCode.Text;
+                // takes the folder path to MyDocuments
+                string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                // puts a file named "GCode .txt" at the destinaetd folderpath
+                string filePath = Path.Combine(folderPath, CurrentProjectName);
+                // writes the GCode into the file
+                File.WriteAllText(filePath, GCodeVorschau);
+                // opens the explorer and selects the saved file
+                Process.Start("explorer.exe", "/select," + filePath);
+            }
         }
         private void PB_DragDrop_MouseWheel(object? sender, MouseEventArgs e)
         {
