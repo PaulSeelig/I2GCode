@@ -43,7 +43,7 @@ namespace GUI_I2G
 
         private string CurrentProjectName;
 
-        private HistoryEntry CurrentProject = new();
+        private HistoryEntry CurrentProject = new HistoryEntry("", new(0, 0, new double[] { 0, 0, 0 }), new(), "");
 
         public I2Gcode()
         {
@@ -86,6 +86,7 @@ namespace GUI_I2G
         // Downloads the GCode as .txt file to MyDocuments
         public void DownloadGcode()
         {
+            ProjectSaveButton_Click(null, null);
             if(tB_showGCode.Text != null)
             {
                 // takes the GCode from the TextBox
@@ -186,23 +187,26 @@ namespace GUI_I2G
         }
         private void ContourArrAndDraw()
         {
-            epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value * 0.1 : 3;
-            rgbimage = new(imagepath); //hier wird das rgbimage erstellt
-            CurrentProject.imagePath = imagepath;
-            string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
-            CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
+           if(!string.IsNullOrEmpty(imagepath))
+           {
+                epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value * 0.1 : 3;
+                rgbimage = new(imagepath); //hier wird das rgbimage erstellt
+                CurrentProject.imagePath = imagepath;
+                string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
+                CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
 
-            int H = CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
-            int W = CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
-            Bitmap Drawnimage = new(W, H);
+                int H = CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
+                int W = CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
+                Bitmap Drawnimage = new(W, H);
 
-            // Erstellen eines Graphics-Objekts aus der erstellten Bitmap
-            using (Graphics g = Graphics.FromImage(Drawnimage))
-            {
-                Pen pen = new(Color.Red, 3);
-                DrawOnPicBox(CurrentGCode.GetAllContours(), g);
-            }
-            pB_DragDrop.Image = Drawnimage;
+                // Erstellen eines Graphics-Objekts aus der erstellten Bitmap
+                using (Graphics g = Graphics.FromImage(Drawnimage))
+                {
+                    Pen pen = new(Color.Red, 3);
+                    DrawOnPicBox(CurrentGCode.GetAllContours(), g);
+                }
+                pB_DragDrop.Image = Drawnimage;
+           }
         }
         public void DrawOnPicBox(List<Contour[]> Arr, Graphics graphics)
         {
@@ -284,7 +288,7 @@ namespace GUI_I2G
             HistoryDisplayBox.Refresh();
         }
 
-        private void HistoryDisplayBox_Enter(object sender, EventArgs e)
+        private void HistoryDisplayBox_Enter(object? sender, EventArgs? e)
         {
             // Check if any item is selected
             if (HistoryDisplayBox.SelectedItems.Count > 0)
@@ -332,8 +336,6 @@ namespace GUI_I2G
                     {
                         history.SaveGcodeProject(CurrentProject);
                     }
-                    if ("" == inputDialog.UserInput)
-                        MessageBox.Show("Couldn't save Project, due insufficent Name");
                     else
                     {
                         HistoryEntry ToSafe = new(CurrentProject);

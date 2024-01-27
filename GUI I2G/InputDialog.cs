@@ -26,13 +26,18 @@ namespace GUI_I2G
         private void Confirm_Click(object sender, EventArgs e)
         {
             UserInput = InputTextBox.Text;
-            if (UserInput.Length <= 20)
+            if (UserInput == "")
+                MessageBox.Show("Bitte einen Namen eingeben!");
+            else if(UserInput.Length > 20) 
+                MessageBox.Show("Bitte Namen mit weniger Charakteren eingeben!");
+            else if (UserInput.Any(Char.IsWhiteSpace))
+                MessageBox.Show("Bitte Namen ohne Leerzeichen eingeben!");
+            else
             {
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            else
-                MessageBox.Show("Bitte Namen mit weniger Charakteren eingeben!");
+            
         }
     }
 }
