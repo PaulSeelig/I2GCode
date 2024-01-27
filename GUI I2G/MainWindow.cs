@@ -71,9 +71,9 @@ namespace GUI_I2G
         // Checks if the input from the Coordinate TextBox gets parsed into double
         private void CheckInput(System.Windows.Forms.TextBox textBox, out double value)
         {
-            if ((!double.TryParse(textBox.Text, out value)) || value < 0)
+            if ((!double.TryParse(textBox.Text, out value)) || value <= 0)
             {
-                throw new FormatException($"bitte geben Sie in '{textBox.AccessibleName}' nur (positive) Zahlen ein");
+                throw new FormatException($"bitte geben Sie in '{textBox.AccessibleName}' nur Zahlen größer als Null ein");
             }
         }
         private void CheckInput(System.Windows.Forms.TextBox textBox, out double value, double max)
