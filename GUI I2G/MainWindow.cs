@@ -202,13 +202,17 @@ namespace GUI_I2G
                 CurrentProject.imagePath = imagepath;
                 string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
                 CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
-
                 DrawOnPicBox();
-                for (int i = 0; i < CurrentGCode.GetAllContours().Count - 1; i++)
-                {
-                    ListViewItem item = new($"Contour {i}");
-                    ContourListBox.Items.Add(item);
-                }
+                FillContourListBox();
+            }
+        }
+        private void FillContourListBox()
+        {
+            ContourListBox.Items.Clear();
+            for (int i = 0; i < CurrentGCode.GetAllContours().Count - 1; i++)
+            {
+                ListViewItem item = new($"Contour {i}");
+                ContourListBox.Items.Add(item);
             }
         }
         public void DrawOnPicBox(int index = -1)
@@ -406,7 +410,26 @@ namespace GUI_I2G
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             ContourListBox.Visible = checkBox1.Checked;
+            btn_ContLösch.Visible = checkBox1.Checked;
             btnLogo.Visible = !checkBox1.Checked;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_ContLösch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Contour[]> a = CurrentGCode.GetAllContours();
+                a.RemoveAt(ContourListBox.SelectedIndex);
+                CurrentGCode.SetAllContours(a);
+                DrawOnPicBox();
+                FillContourListBox();
+            }
+            catch(Exception) { }
         }
     }
 }

@@ -48,11 +48,12 @@ namespace GUI_I2G
             HistoryDisplayBox = new ListView();
             ProjectSaveButton = new Button();
             panelSideBar = new Panel();
+            checkBox1 = new CheckBox();
             ContourListBox = new ListBox();
             tB_aproxy = new NumericUpDown();
             DeleteButton = new Button();
             btnLogo = new Button();
-            checkBox1 = new CheckBox();
+            btn_ContLösch = new Button();
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             panelSideBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tB_aproxy).BeginInit();
@@ -317,6 +318,7 @@ namespace GUI_I2G
             // panelSideBar
             // 
             panelSideBar.BackColor = Color.FromArgb(64, 64, 64);
+            panelSideBar.Controls.Add(btn_ContLösch);
             panelSideBar.Controls.Add(checkBox1);
             panelSideBar.Controls.Add(ContourListBox);
             panelSideBar.Controls.Add(tB_aproxy);
@@ -339,6 +341,17 @@ namespace GUI_I2G
             panelSideBar.Name = "panelSideBar";
             panelSideBar.Size = new Size(352, 729);
             panelSideBar.TabIndex = 19;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(205, 9);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(106, 24);
+            checkBox1.TabIndex = 24;
+            checkBox1.Text = "ContourList";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // ContourListBox
             // 
@@ -402,16 +415,24 @@ namespace GUI_I2G
             btnLogo.UseVisualStyleBackColor = true;
             btnLogo.Click += btnLogo_Click;
             // 
-            // checkBox1
+            // btn_ContLösch
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(205, 9);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(106, 24);
-            checkBox1.TabIndex = 24;
-            checkBox1.Text = "ContourList";
-            checkBox1.UseVisualStyleBackColor = true;
-            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            btn_ContLösch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btn_ContLösch.BackColor = Color.DarkCyan;
+            btn_ContLösch.BackgroundImageLayout = ImageLayout.Center;
+            btn_ContLösch.FlatAppearance.BorderSize = 0;
+            btn_ContLösch.FlatStyle = FlatStyle.Flat;
+            btn_ContLösch.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btn_ContLösch.ForeColor = SystemColors.ButtonHighlight;
+            btn_ContLösch.Location = new Point(26, 41);
+            btn_ContLösch.Margin = new Padding(3, 2, 3, 2);
+            btn_ContLösch.Name = "btn_ContLösch";
+            btn_ContLösch.Size = new Size(169, 31);
+            btn_ContLösch.TabIndex = 25;
+            btn_ContLösch.Text = "Contour Löschen";
+            btn_ContLösch.UseVisualStyleBackColor = false;
+            btn_ContLösch.Visible = false;
+            btn_ContLösch.Click += btn_ContLösch_Click;
             // 
             // I2Gcode
             // 
@@ -468,5 +489,6 @@ namespace GUI_I2G
         private NumericUpDown tB_aproxy;
         private ListBox ContourListBox;
         private CheckBox checkBox1;
+        private Button btn_ContLösch;
     }
 }
