@@ -199,7 +199,6 @@ namespace GUI_I2G
             {
                 epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value * 0.1 : 3;
                 rgbimage = new(imagepath); //hier wird das rgbimage erstellt
-                CurrentProject.imagePath = imagepath;
                 string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
                 CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
                 DrawOnPicBox();
@@ -336,7 +335,7 @@ namespace GUI_I2G
                 tB_aproxy.Text = CurrentProject.parameter.AproxValue.ToString();
 
                 tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
-                imagepath = CurrentProject.imagePath;
+                imagepath = CurrentProject.imagePath; 
                 ContourArrAndDraw();
                 lbl_DragDrop.Visible = false;
             }
@@ -357,6 +356,7 @@ namespace GUI_I2G
             {
                 if (inputDialog.ShowDialog() == DialogResult.OK)
                 {
+                    CurrentProject.imagePath = imagepath;
                     CurrentProject.UpdateLastOpened();
                     if (CurrentProjectName == inputDialog.UserInput)
                     {
