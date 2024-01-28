@@ -39,6 +39,10 @@ namespace GUI_I2G
 
         private Parameter p = new();
 
+        private Pen Normal { get; set; } = new(Color.Black);
+
+        private Pen HighLight { get; set; } = new(Color.White);
+
         private GCode CurrentGCode = new();
 
         private string CurrentProjectName;
@@ -130,8 +134,6 @@ namespace GUI_I2G
                 CheckInput(tB_Y, out double ykoo1);
                 CheckInput(tB_Z, out double zkoo1);
                 CheckInput(tB_depth, out depth, zkoo1);
-                System.Windows.Forms.TextBox t = new() { Text = tB_aproxy.Text };
-                CheckInput(t, out epsilon);
                 if (pB_DragDrop.Image == null)
                     throw new FormatException("Sie müssen ein Bild per drag and drop in das mittlere Feld eingeben");
 
@@ -193,48 +195,62 @@ namespace GUI_I2G
         }
         private void ContourArrAndDraw()
         {
-           if(!string.IsNullOrEmpty(imagepath))
-           {
+            if (!string.IsNullOrEmpty(imagepath))
+            {
                 epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value * 0.1 : 3;
                 rgbimage = new(imagepath); //hier wird das rgbimage erstellt
                 CurrentProject.imagePath = imagepath;
                 string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
                 CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
 
-                int H = CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
-                int W = CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
-                Bitmap Drawnimage = new(W, H);
-
-                // Erstellen eines Graphics-Objekts aus der erstellten Bitmap
-                using (Graphics g = Graphics.FromImage(Drawnimage))
+                DrawOnPicBox();
+                for (int i = 0; i < CurrentGCode.GetAllContours().Count - 1; i++)
                 {
-                    Pen pen = new(Color.Red, 3);
-                    DrawOnPicBox(CurrentGCode.GetAllContours(), g);
+                    ListViewItem item = new($"Contour {i}");
+                    ContourListBox.Items.Add(item);
                 }
-                pB_DragDrop.Image = Drawnimage;
-           }
-        }
-        public void DrawOnPicBox(List<Contour[]> Arr, Graphics graphics)
-        {
-            // graphics = pB_DragDrop.CreateGraphics();
-            Point[][] pArrArr = new Point[Arr.Count][];
-            for (int i = 0; i < Arr.Count; i++)
-            {
-                Point[] pArr = new Point[Arr[i].Length];
-                for (int j = 0; j < Arr[i].Length; j++)
-                {
-                    pArr[j] = Arr[i][j].StartPoint;
-                }
-                pArr[^1] = Arr[i][^1].EndPoint;
-                pArrArr[i] = pArr;
             }
+        }
+        public void DrawOnPicBox(int index = -1)
+        {
+            List<Contour[]> Arr = CurrentGCode.GetAllContours();
+            int H = CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
+            int W = CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
+            Bitmap Drawnimage = new(W, H);
 
-
-            foreach (Point[] pArr in pArrArr.SkipLast(1))
+            // Erstellen eines Graphics-Objekts aus der erstellten Bitmap
+            using (Graphics g = Graphics.FromImage(Drawnimage))
             {
-                if (pArr.Length > 1)
+                //Pen pen = new(Color.Red, 3);
+                //DrawOnPicBox(CurrentGCode.GetAllContours(), g);
+
+                pB_DragDrop.Image = Drawnimage;
+                // graphics = pB_DragDrop.CreateGraphics();
+                Point[][] pArrArr = new Point[Arr.Count][];
+                for (int i = 0; i < Arr.Count; i++)
                 {
-                    graphics.DrawLines(new(Color.Black), pArr);
+                    Point[] pArr = new Point[Arr[i].Length];
+                    for (int j = 0; j < Arr[i].Length; j++)
+                    {
+                        pArr[j] = Arr[i][j].StartPoint;
+                    }
+                    pArr[^1] = Arr[i][^1].EndPoint;
+                    pArrArr[i] = pArr;
+                }
+
+                int pArrInd = 0;
+                foreach (Point[] pArr in pArrArr.SkipLast(1))
+                {
+                    if (pArr.Length > 1)
+                    {
+                        Pen currentPen = index == pArrInd ? HighLight : Normal;
+                        for (int i = 0; i < pArr.Length - 1; i++)
+                        {
+                            g.DrawLine(currentPen, pArr[i], pArr[i + 1]);
+                            //g.DrawLines(new(Color.Black), pArr);
+                        }
+                    }
+                    pArrInd++;
                 }
             }
         }
@@ -380,6 +396,17 @@ namespace GUI_I2G
                 ContourArrAndDraw();
                 pB_DragDrop.ImageLocation = null;
             }
+        }
+
+        private void listBox1_Click(object sender, EventArgs e)
+        {
+            DrawOnPicBox(ContourListBox.SelectedIndex);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            ContourListBox.Visible = checkBox1.Checked;
+            btnLogo.Visible = !checkBox1.Checked;
         }
     }
 }

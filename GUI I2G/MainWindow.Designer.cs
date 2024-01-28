@@ -48,9 +48,11 @@ namespace GUI_I2G
             HistoryDisplayBox = new ListView();
             ProjectSaveButton = new Button();
             panelSideBar = new Panel();
+            ContourListBox = new ListBox();
             tB_aproxy = new NumericUpDown();
             DeleteButton = new Button();
             btnLogo = new Button();
+            checkBox1 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             panelSideBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tB_aproxy).BeginInit();
@@ -80,11 +82,11 @@ namespace GUI_I2G
             pB_DragDrop.BackColor = Color.Gray;
             pB_DragDrop.BackgroundImageLayout = ImageLayout.None;
             pB_DragDrop.BorderStyle = BorderStyle.Fixed3D;
-            pB_DragDrop.Location = new Point(393, 3);
+            pB_DragDrop.Location = new Point(355, 3);
             pB_DragDrop.Margin = new Padding(3, 2, 3, 2);
             pB_DragDrop.MinimumSize = new Size(521, 200);
             pB_DragDrop.Name = "pB_DragDrop";
-            pB_DragDrop.Size = new Size(626, 714);
+            pB_DragDrop.Size = new Size(664, 714);
             pB_DragDrop.SizeMode = PictureBoxSizeMode.Zoom;
             pB_DragDrop.TabIndex = 1;
             pB_DragDrop.TabStop = false;
@@ -249,6 +251,7 @@ namespace GUI_I2G
             // 
             tB_showGCode.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             tB_showGCode.BackColor = Color.Gray;
+            tB_showGCode.Cursor = Cursors.Cross;
             tB_showGCode.ForeColor = Color.White;
             tB_showGCode.Location = new Point(1025, 240);
             tB_showGCode.MaximumSize = new Size(312, 2770);
@@ -314,6 +317,8 @@ namespace GUI_I2G
             // panelSideBar
             // 
             panelSideBar.BackColor = Color.FromArgb(64, 64, 64);
+            panelSideBar.Controls.Add(checkBox1);
+            panelSideBar.Controls.Add(ContourListBox);
             panelSideBar.Controls.Add(tB_aproxy);
             panelSideBar.Controls.Add(DeleteButton);
             panelSideBar.Controls.Add(btnLogo);
@@ -334,6 +339,19 @@ namespace GUI_I2G
             panelSideBar.Name = "panelSideBar";
             panelSideBar.Size = new Size(352, 729);
             panelSideBar.TabIndex = 19;
+            // 
+            // ContourListBox
+            // 
+            ContourListBox.BackColor = Color.FromArgb(64, 64, 64);
+            ContourListBox.FormattingEnabled = true;
+            ContourListBox.ItemHeight = 20;
+            ContourListBox.Location = new Point(201, 39);
+            ContourListBox.Name = "ContourListBox";
+            ContourListBox.RightToLeft = RightToLeft.No;
+            ContourListBox.Size = new Size(110, 284);
+            ContourListBox.TabIndex = 23;
+            ContourListBox.Visible = false;
+            ContourListBox.SelectedIndexChanged += listBox1_Click;
             // 
             // tB_aproxy
             // 
@@ -383,6 +401,17 @@ namespace GUI_I2G
             btnLogo.TabIndex = 19;
             btnLogo.UseVisualStyleBackColor = true;
             btnLogo.Click += btnLogo_Click;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(205, 9);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(106, 24);
+            checkBox1.TabIndex = 24;
+            checkBox1.Text = "ContourList";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // I2Gcode
             // 
@@ -437,5 +466,7 @@ namespace GUI_I2G
         private Button btnLogo;
         private Button DeleteButton;
         private NumericUpDown tB_aproxy;
+        private ListBox ContourListBox;
+        private CheckBox checkBox1;
     }
 }
