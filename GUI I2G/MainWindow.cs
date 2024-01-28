@@ -59,7 +59,7 @@ namespace GUI_I2G
             }
 
             //Adds Colums to HistoryDisplayBox
-
+            AproxyToolTip.SetToolTip(tB_aproxy, "Veränderungen dieses Wertes verändern wie die Konturen Erfasst werden");
             HistoryDisplayBox.Columns.Add("Project Name", HistoryDisplayBox.Width * 3 / 5);
             HistoryDisplayBox.Columns.Add("Last Opened", (int)(HistoryDisplayBox.Width * 1.6 / 5));
 
@@ -335,7 +335,7 @@ namespace GUI_I2G
                 tB_aproxy.Text = CurrentProject.parameter.AproxValue.ToString();
 
                 tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
-                imagepath = CurrentProject.imagePath; 
+                imagepath = CurrentProject.imagePath;
                 ContourArrAndDraw();
                 lbl_DragDrop.Visible = false;
             }
@@ -429,7 +429,7 @@ namespace GUI_I2G
                 DrawOnPicBox();
                 FillContourListBox();
             }
-            catch(Exception) { }
+            catch (Exception) { }
         }
     }
 }

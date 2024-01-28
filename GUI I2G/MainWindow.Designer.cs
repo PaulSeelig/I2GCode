@@ -30,6 +30,7 @@ namespace GUI_I2G
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(I2Gcode));
             btn_GenerateGCode = new Button();
             pB_DragDrop = new PictureBox();
@@ -48,12 +49,13 @@ namespace GUI_I2G
             HistoryDisplayBox = new ListView();
             ProjectSaveButton = new Button();
             panelSideBar = new Panel();
+            btn_ContLösch = new Button();
             checkBox1 = new CheckBox();
             ContourListBox = new ListBox();
             tB_aproxy = new NumericUpDown();
             DeleteButton = new Button();
             btnLogo = new Button();
-            btn_ContLösch = new Button();
+            AproxyToolTip = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             panelSideBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tB_aproxy).BeginInit();
@@ -108,7 +110,7 @@ namespace GUI_I2G
             lbl_DragDrop.ForeColor = Color.White;
             lbl_DragDrop.Location = new Point(560, 345);
             lbl_DragDrop.Name = "lbl_DragDrop";
-            lbl_DragDrop.Size = new Size(283, 23);
+            lbl_DragDrop.Size = new Size(227, 19);
             lbl_DragDrop.TabIndex = 2;
             lbl_DragDrop.Text = "Bild hier via Drag n Drop hochladen";
             lbl_DragDrop.TextAlign = ContentAlignment.MiddleCenter;
@@ -126,7 +128,7 @@ namespace GUI_I2G
             tB_Y.MaximumSize = new Size(110, 27);
             tB_Y.Name = "tB_Y";
             tB_Y.RightToLeft = RightToLeft.No;
-            tB_Y.Size = new Size(110, 27);
+            tB_Y.Size = new Size(110, 25);
             tB_Y.TabIndex = 4;
             tB_Y.TextAlign = HorizontalAlignment.Center;
             // 
@@ -142,7 +144,7 @@ namespace GUI_I2G
             tB_Z.MaximumSize = new Size(110, 27);
             tB_Z.Name = "tB_Z";
             tB_Z.RightToLeft = RightToLeft.No;
-            tB_Z.Size = new Size(110, 27);
+            tB_Z.Size = new Size(110, 25);
             tB_Z.TabIndex = 5;
             tB_Z.TextAlign = HorizontalAlignment.Center;
             // 
@@ -154,7 +156,7 @@ namespace GUI_I2G
             lbl_X.ForeColor = Color.White;
             lbl_X.Location = new Point(13, 342);
             lbl_X.Name = "lbl_X";
-            lbl_X.Size = new Size(133, 23);
+            lbl_X.Size = new Size(107, 19);
             lbl_X.TabIndex = 6;
             lbl_X.Text = "Breite (X) in mm";
             // 
@@ -192,7 +194,7 @@ namespace GUI_I2G
             tB_depth.MaximumSize = new Size(110, 27);
             tB_depth.Name = "tB_depth";
             tB_depth.RightToLeft = RightToLeft.No;
-            tB_depth.Size = new Size(110, 27);
+            tB_depth.Size = new Size(110, 25);
             tB_depth.TabIndex = 8;
             tB_depth.TextAlign = HorizontalAlignment.Center;
             // 
@@ -208,7 +210,7 @@ namespace GUI_I2G
             tB_X.MaximumSize = new Size(110, 27);
             tB_X.Name = "tB_X";
             tB_X.RightToLeft = RightToLeft.No;
-            tB_X.Size = new Size(110, 27);
+            tB_X.Size = new Size(110, 25);
             tB_X.TabIndex = 9;
             tB_X.TextAlign = HorizontalAlignment.Center;
             // 
@@ -220,7 +222,7 @@ namespace GUI_I2G
             lbl_Y.ForeColor = Color.White;
             lbl_Y.Location = new Point(13, 373);
             lbl_Y.Name = "lbl_Y";
-            lbl_Y.Size = new Size(124, 23);
+            lbl_Y.Size = new Size(100, 19);
             lbl_Y.TabIndex = 10;
             lbl_Y.Text = "Tiefe (Y) in mm";
             // 
@@ -232,7 +234,7 @@ namespace GUI_I2G
             lbl_Z.ForeColor = Color.White;
             lbl_Z.Location = new Point(13, 404);
             lbl_Z.Name = "lbl_Z";
-            lbl_Z.Size = new Size(130, 23);
+            lbl_Z.Size = new Size(105, 19);
             lbl_Z.TabIndex = 11;
             lbl_Z.Text = "Höhe (Z) in mm";
             // 
@@ -244,7 +246,7 @@ namespace GUI_I2G
             lbl_depth.ForeColor = Color.White;
             lbl_depth.Location = new Point(14, 435);
             lbl_depth.Name = "lbl_depth";
-            lbl_depth.Size = new Size(151, 23);
+            lbl_depth.Size = new Size(122, 19);
             lbl_depth.TabIndex = 12;
             lbl_depth.Text = "Graviertiefe in mm";
             // 
@@ -274,9 +276,9 @@ namespace GUI_I2G
             label1.ForeColor = Color.White;
             label1.Location = new Point(14, 466);
             label1.Name = "label1";
-            label1.Size = new Size(187, 23);
+            label1.Size = new Size(112, 19);
             label1.TabIndex = 16;
-            label1.Text = "Aproxywert in px (2-15)";
+            label1.Text = "Aproxywert in px";
             // 
             // HistoryDisplayBox
             // 
@@ -342,12 +344,31 @@ namespace GUI_I2G
             panelSideBar.Size = new Size(352, 729);
             panelSideBar.TabIndex = 19;
             // 
+            // btn_ContLösch
+            // 
+            btn_ContLösch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btn_ContLösch.BackColor = Color.DarkCyan;
+            btn_ContLösch.BackgroundImageLayout = ImageLayout.Center;
+            btn_ContLösch.FlatAppearance.BorderSize = 0;
+            btn_ContLösch.FlatStyle = FlatStyle.Flat;
+            btn_ContLösch.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btn_ContLösch.ForeColor = SystemColors.ButtonHighlight;
+            btn_ContLösch.Location = new Point(26, 41);
+            btn_ContLösch.Margin = new Padding(3, 2, 3, 2);
+            btn_ContLösch.Name = "btn_ContLösch";
+            btn_ContLösch.Size = new Size(169, 31);
+            btn_ContLösch.TabIndex = 25;
+            btn_ContLösch.Text = "Contour Löschen";
+            btn_ContLösch.UseVisualStyleBackColor = false;
+            btn_ContLösch.Visible = false;
+            btn_ContLösch.Click += btn_ContLösch_Click;
+            // 
             // checkBox1
             // 
             checkBox1.AutoSize = true;
             checkBox1.Location = new Point(205, 9);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(106, 24);
+            checkBox1.Size = new Size(88, 19);
             checkBox1.TabIndex = 24;
             checkBox1.Text = "ContourList";
             checkBox1.UseVisualStyleBackColor = true;
@@ -357,11 +378,11 @@ namespace GUI_I2G
             // 
             ContourListBox.BackColor = Color.FromArgb(64, 64, 64);
             ContourListBox.FormattingEnabled = true;
-            ContourListBox.ItemHeight = 20;
+            ContourListBox.ItemHeight = 15;
             ContourListBox.Location = new Point(201, 39);
             ContourListBox.Name = "ContourListBox";
             ContourListBox.RightToLeft = RightToLeft.No;
-            ContourListBox.Size = new Size(110, 284);
+            ContourListBox.Size = new Size(110, 274);
             ContourListBox.TabIndex = 23;
             ContourListBox.Visible = false;
             ContourListBox.SelectedIndexChanged += listBox1_Click;
@@ -376,7 +397,7 @@ namespace GUI_I2G
             tB_aproxy.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
             tB_aproxy.Name = "tB_aproxy";
             tB_aproxy.RightToLeft = RightToLeft.No;
-            tB_aproxy.Size = new Size(110, 30);
+            tB_aproxy.Size = new Size(110, 25);
             tB_aproxy.TabIndex = 21;
             tB_aproxy.TextAlign = HorizontalAlignment.Center;
             tB_aproxy.UpDownAlign = LeftRightAlignment.Left;
@@ -414,25 +435,6 @@ namespace GUI_I2G
             btnLogo.TabIndex = 19;
             btnLogo.UseVisualStyleBackColor = true;
             btnLogo.Click += btnLogo_Click;
-            // 
-            // btn_ContLösch
-            // 
-            btn_ContLösch.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btn_ContLösch.BackColor = Color.DarkCyan;
-            btn_ContLösch.BackgroundImageLayout = ImageLayout.Center;
-            btn_ContLösch.FlatAppearance.BorderSize = 0;
-            btn_ContLösch.FlatStyle = FlatStyle.Flat;
-            btn_ContLösch.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btn_ContLösch.ForeColor = SystemColors.ButtonHighlight;
-            btn_ContLösch.Location = new Point(26, 41);
-            btn_ContLösch.Margin = new Padding(3, 2, 3, 2);
-            btn_ContLösch.Name = "btn_ContLösch";
-            btn_ContLösch.Size = new Size(169, 31);
-            btn_ContLösch.TabIndex = 25;
-            btn_ContLösch.Text = "Contour Löschen";
-            btn_ContLösch.UseVisualStyleBackColor = false;
-            btn_ContLösch.Visible = false;
-            btn_ContLösch.Click += btn_ContLösch_Click;
             // 
             // I2Gcode
             // 
@@ -490,5 +492,6 @@ namespace GUI_I2G
         private ListBox ContourListBox;
         private CheckBox checkBox1;
         private Button btn_ContLösch;
+        private ToolTip AproxyToolTip;
     }
 }
