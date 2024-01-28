@@ -373,11 +373,10 @@ namespace GUI_I2G
         {
             if (ImageLocationhold != "" && ImageLocationhold != null)
             {
-                pB_DragDrop.ImageLocation ??= ImageLocationhold;
+                CurrentProject.imagePath ??= ImageLocationhold;
             }
-            if (pB_DragDrop.ImageLocation != null)
+            if (CurrentProject.imagePath != null)
             {
-                ImageLocationhold = pB_DragDrop.ImageLocation;
                 ContourArrAndDraw();
                 pB_DragDrop.ImageLocation = null;
             }
