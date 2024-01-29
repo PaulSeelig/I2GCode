@@ -62,7 +62,7 @@ namespace GUI_I2G
             AproxyToolTip.SetToolTip(tB_aproxy, "Veränderungen dieses Wertes verändern wie die Konturen Erfasst werden");
             HistoryDisplayBox.Columns.Add("Project Name", HistoryDisplayBox.Width * 3 / 5);
             HistoryDisplayBox.Columns.Add("Last Opened", (int)(HistoryDisplayBox.Width * 1.6 / 5));
-
+            tB_advises.Visible = HistoryDisplayBox.Items.Count == 0;
             // allows to drop pictures into the PictureBox 
             pB_DragDrop.AllowDrop = true;
             // this Eventhandler is used if one hovers over the PictureBox
@@ -210,8 +210,7 @@ namespace GUI_I2G
             ContourListBox.Items.Clear();
             for (int i = 0; i < CurrentGCode.GetAllContours().Count - 1; i++)
             {
-                ListViewItem item = new($"Contour {i}");
-                ContourListBox.Items.Add(item);
+                ContourListBox.Items.Add($"Contour {i}");
             }
         }
         public void DrawOnPicBox(int index = -1)

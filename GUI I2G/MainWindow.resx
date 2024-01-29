@@ -2919,6 +2919,19 @@
   <metadata name="AproxyToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="tB_advises.Text" xml:space="preserve">
+    <value>Hello there,
+Here're some advises for use:
+
+1: After you createded a saved projects, they'll be displayed In the right-top-corner, you can open them with double-click
+
+2: You can add an image to your current-project by draggin it into this field, the image is then instantly redrawn, with the extracted contours
+
+3: You have to save your project, before open another or closing the program or it will be lost!!!
+
+4: ...
+</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAkAEBAAAAEAIABoBAAAlgAAABgYAAABACAAiAkAAP4EAAAgIAAAAQAgAKgQAACGDgAAMDAAAAEA
