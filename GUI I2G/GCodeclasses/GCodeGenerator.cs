@@ -24,7 +24,7 @@ namespace GUI_I2G.GCodeclasses
         {
             GCode gcode = new(ListOfContArrays); // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
-            Parameter.SetScaleFactor(gcode.GetAllContours()[^1], ref p);
+            p.SetScaleFactor(gcode.GetAllContours()[^1]);
             //DummyGenerateMaterial(ref GLinesList, p);
             foreach (Contour[] CGroup in gcode.GetAllContours().SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
             {

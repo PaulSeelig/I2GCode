@@ -57,7 +57,7 @@ namespace GUI_I2G.Contures
         {
             Image<Gray, System.Byte> imggray = rgbimage.Convert<Gray,System.Byte>();            
 
-            double otsuSchwellenwert = CvInvoke.Threshold(imggray, imggray, 0, 255, ThresholdType.Otsu);
+            CvInvoke.Threshold(imggray, imggray, 0, 255, ThresholdType.Otsu);
 
             VectorOfVectorOfPoint contours = new();
 
@@ -83,13 +83,13 @@ namespace GUI_I2G.Contures
                 konturen[i]=aprox.ToArray();
 
                 List<Contour> contour = new();
-                for (int j = 0; j < konturen[i].Length -1; j++)
+                for (int j = 0; j < konturen[i].Length - 1; j++)
                 {
-                    if (contour.Count > 0 && OnVector((Line)contour.Last(), konturen[i][j + 1]))
-                    {
-                        contour.Last().EndPoint = konturen[i][j + 1];
-                    }
-                    else if (konturen[i].Length > 1)
+                    //if (contour.Count > 0 && OnVector((Line)contour.Last(), konturen[i][j + 1]))
+                    //{
+                    //    contour.Last().EndPoint = konturen[i][j + 1];
+                    //}
+                    if (konturen[i].Length > 1)
                     {
 
                         Line line = new(konturen[i][j], konturen[i][j + 1]);
@@ -110,7 +110,7 @@ namespace GUI_I2G.Contures
             return new Exception("Border is touched by other Contours!");
         }
 
-
+        [Obsolete("Old, we Prob'll not need it")]
         private static bool OnVector(Line l, Point p)
         {
             if (l.StartPoint.X == l.EndPoint.X)

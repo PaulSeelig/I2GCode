@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -39,9 +40,9 @@ namespace GUI_I2G
 
         private Parameter p = new();
 
-        private Pen Normal { get; set; } = new(Color.Black);
+        private Pen Normal { get; set; } = new(Color.Black, 10);
 
-        private Pen HighLight { get; set; } = new(Color.White);
+        private Pen HighLight { get; set; } = new(Color.White, 10);
 
         private GCode CurrentGCode = new();
 
@@ -77,7 +78,7 @@ namespace GUI_I2G
         {
             if ((!double.TryParse(textBox.Text, out value)) || value <= 0)
             {
-                throw new FormatException($"bitte geben Sie in '{textBox.AccessibleName}' nur Zahlen größer als Null ein");
+                throw new FormatException($"bitte geben Sie in '{textBox.AccessibleName}' nur (positive) Zahlen ein");
             }
         }
         private void CheckInput(System.Windows.Forms.TextBox textBox, out double value, double max)
@@ -86,15 +87,22 @@ namespace GUI_I2G
             if (value > max)
                 throw new FormatException("Please choose an CuttingDepth, that is less or equal than the chosen Z/Height of the material");
         }
+        private void CheckInput(double min, System.Windows.Forms.TextBox textBox, out double value)
+        {
+            CheckInput(textBox, out value);
+            if (value < min)
+                throw new FormatException($"Please choose a value for {textBox.AccessibleName}, that is higher than {min}");
+        }
 
         // Downloads the GCode as .txt file to MyDocuments
         public void DownloadGcode()
         {
             try
             {
-                if (string.IsNullOrEmpty(tB_showGCode.Text) || tB_showGCode.Text.Any(Char.IsWhiteSpace))
-                    throw (new FormatException("Bitte Werte eingeben vor dem Speichern"));
-                ProjectSaveButton_Click(null, null);
+                if (string.IsNullOrEmpty(tB_showGCode.Text))
+                    throw (new FormatException("Bitte Werte eingeben vor dem Downloaden"));
+                if(string.IsNullOrEmpty(CurrentProjectName))
+                    ProjectSaveButton_Click(null, null);
                 // takes the GCode from the TextBox
                 string GCodeVorschau = tB_showGCode.Text;
                 // takes the folder path to MyDocuments
@@ -130,8 +138,8 @@ namespace GUI_I2G
         {
             try
             {
-                CheckInput(tB_X, out double xkoo1);
-                CheckInput(tB_Y, out double ykoo1);
+                CheckInput(50, tB_X, out double xkoo1);
+                CheckInput(50, tB_Y, out double ykoo1);
                 CheckInput(tB_Z, out double zkoo1);
                 CheckInput(tB_depth, out depth, zkoo1);
                 if (pB_DragDrop.Image == null)
@@ -213,13 +221,23 @@ namespace GUI_I2G
                 ContourListBox.Items.Add($"Contour {i}");
             }
         }
-        public void DrawOnPicBox(int index = -1)
+        public void DrawOnPicBox(int index = -1, bool clear = false)
         {
-            List<Contour[]> Arr = CurrentGCode.GetAllContours();
-            int H = CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
-            int W = CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
-            Bitmap Drawnimage = new(W, H);
+            List<Contour[]> Arr = new();
 
+            int H = pB_DragDrop.Height * 10;// CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
+            int W = pB_DragDrop.Width * 10;// CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
+            Bitmap Drawnimage = new(W, H);
+            double ScaleY = 0;
+            double ScaleX = 0;
+            double Scalea = 0;
+            if (!clear)
+            {
+                Arr = CurrentGCode.GetAllContours();
+                ScaleY = H / Arr[^1][0].EndPoint.Y;
+                ScaleX = W / Arr[^1][^1].EndPoint.X;
+                Scalea = ScaleY < ScaleX ? ScaleY : ScaleX;
+            }
             // Erstellen eines Graphics-Objekts aus der erstellten Bitmap
             using (Graphics g = Graphics.FromImage(Drawnimage))
             {
@@ -248,7 +266,7 @@ namespace GUI_I2G
                         Pen currentPen = index == pArrInd ? HighLight : Normal;
                         for (int i = 0; i < pArr.Length - 1; i++)
                         {
-                            g.DrawLine(currentPen, pArr[i], pArr[i + 1]);
+                            g.DrawLine(currentPen, new((int)(pArr[i].X * Scalea), (int)(pArr[i].Y * Scalea)), new((int)(pArr[i + 1].X * Scalea), (int)(pArr[i + 1].Y * Scalea)));
                             //g.DrawLines(new(Color.Black), pArr);
                         }
                     }
@@ -294,6 +312,16 @@ namespace GUI_I2G
             tB_Z.Text = null;
             tB_depth.Text = null;
             tB_aproxy.Text = "1";
+            HistoryDisplayBox.SelectedItems.Clear();
+            ContourListBox.Items.Clear();
+            DrawOnPicBox(-1, true);
+            CurrentProjectName = null;
+            //using (Graphics g = pB_DragDrop.CreateGraphics())
+            //{
+
+            //    g.Clear(Color.Gray);
+            //}
+            lbl_DragDrop.Visible = true;
         }
         private void UpdateHistory()
         {
@@ -312,7 +340,7 @@ namespace GUI_I2G
             HistoryDisplayBox.Refresh();
         }
 
-        private void HistoryDisplayBox_Enter(object? sender, EventArgs? e)
+        private void HistoryDisplayBox_Enter(object sender, EventArgs e)
         {
             // Check if any item is selected
             if (HistoryDisplayBox.SelectedItems.Count > 0)
@@ -331,7 +359,7 @@ namespace GUI_I2G
 
                 tB_depth.Text = CurrentProject.parameter.CuttingDepth.ToString();
 
-                tB_aproxy.Text = CurrentProject.parameter.AproxValue.ToString();
+                tB_aproxy.Text = $"{CurrentProject.parameter.AproxValue*10}";
 
                 tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
                 imagepath = CurrentProject.imagePath;
@@ -340,7 +368,7 @@ namespace GUI_I2G
             }
         }
 
-        private void ProjectSaveButton_Click(object sender, EventArgs e)
+        private void ProjectSaveButton_Click(object? sender, EventArgs? e)
         {
             string Instruction;
             if (CurrentProjectName != null)
@@ -385,6 +413,7 @@ namespace GUI_I2G
             {
                 history.DeleteGcodeProject(HistoryDisplayBox.FocusedItem.Index);
                 UpdateHistory();
+                button2_Click(sender, e);
             }
         }
 
@@ -411,11 +440,41 @@ namespace GUI_I2G
             ContourListBox.Visible = checkBox1.Checked;
             btn_ContLösch.Visible = checkBox1.Checked;
             btnLogo.Visible = !checkBox1.Checked;
+            if (checkBox1.Checked)
+                Settings.Visible = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // URL der NC Viewer-API
+                string apiUrl = "https://ncviewer.com";
 
+                // Der G-Code, den du senden möchtest
+                string gCode = CurrentGCode.GCodeLines.ToString();
+
+                // Erstelle einen WebClient
+                using (WebClient client = new WebClient())
+                {
+                    // Erstelle die Anfrage-Daten
+                    var requestData = new System.Collections.Specialized.NameValueCollection();
+                    requestData["code"] = gCode;
+
+                    // Sende die POST-Anfrage an die API
+                    byte[] responseBytes = client.UploadValues(apiUrl, "POST", requestData);
+
+                    // Konvertiere die Antwort in einen String
+                    string responseBody = System.Text.Encoding.UTF8.GetString(responseBytes);
+
+                    // Gib die Antwort aus (z.B. die URL zur Anzeige des G-Codes)
+                    //Console.WriteLine("Response from NC Viewer API:");
+                    //Console.WriteLine(responseBody);
+                }
+
+            }
+            catch (Exception)
+            { }
         }
 
         private void btn_ContLösch_Click(object sender, EventArgs e)
@@ -424,11 +483,54 @@ namespace GUI_I2G
             {
                 List<Contour[]> a = CurrentGCode.GetAllContours();
                 a.RemoveAt(ContourListBox.SelectedIndex);
+                int i = ContourListBox.SelectedIndex;
                 CurrentGCode.SetAllContours(a);
                 DrawOnPicBox();
                 FillContourListBox();
+                ContourListBox.SelectedIndex = i;
             }
             catch (Exception) { }
+        }
+        private void Btn_Setting_Click(object sender, EventArgs e)
+        {
+            btnLogo.Visible = true;
+            //(btnLogo.Visible, Settings.Visible) = (Settings.Visible, btnLogo.Visible);
+            Settings.Visible = !Settings.Visible;
+            checkBox1.Checked = false;
+        }
+
+        private void ContourListBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //if(e.KeyCode == '\u007F')
+            //    btn_ContLösch_Click(sender, e);
+        }
+
+        private void ContourListBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (sender == HistoryDisplayBox)
+                    DeleteButton_Click(this, EventArgs.Empty);
+                else
+                    btn_ContLösch_Click(sender, e);
+            }
+        }
+
+        private void btn_ShowAdvises_Click(object sender, EventArgs e)
+        {
+            tB_advises.Visible = !tB_advises.Visible;
+            lbl_DragDrop.Visible = !tB_advises.Visible;
+            if (pB_DragDrop.Image != null) { lbl_DragDrop.Visible = false; }
+        }
+
+        private void tB_advises_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void HistoryDisplayBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }
