@@ -198,7 +198,7 @@ namespace GUI_I2G
                     //pB_DragDrop.Image = Image.FromFile(files);
                     imagepath = files;
                 }
-               
+
                 ImageLocationhold = pB_DragDrop.ImageLocation;
                 ContourArrAndDraw();
                 pB_DragDrop.ImageLocation = null;
@@ -236,7 +236,7 @@ namespace GUI_I2G
             List<Contour[]> Arr = new();
 
             // This sets the resolution of the drawn Image, but also influences the scaling for the Drawn Contour
-            int H = (int)((double.TryParse(tB_Y.Text, out double valueY) && valueY != 0? valueY : pB_DragDrop.Height));
+            int H = (int)((double.TryParse(tB_Y.Text, out double valueY) && valueY != 0 ? valueY : pB_DragDrop.Height));
             int W = (int)((double.TryParse(tB_X.Text, out double valueX) && valueX != 0 ? valueX : pB_DragDrop.Width));
 
             // Just to make sure, it won't draw comlete pixelart
@@ -268,7 +268,7 @@ namespace GUI_I2G
                 Scalea = Math.Min(ScaleX, ScaleY); //better readablility //thanks
             }
 
-            Normal.Width = (float)((H < W ? H :W )* 0.002);
+            Normal.Width = (float)((H < W ? H : W) * 0.002);
             HighLight.Width = Normal.Width;
             //Erstellen eines Graphics - Objekts aus der erstellten Bitmap
             using (Graphics g = Graphics.FromImage(Drawnimage))
@@ -538,18 +538,6 @@ namespace GUI_I2G
             //if(e.KeyCode == '\u007F')
             //    btn_ContLösch_Click(sender, e);
         }
-
-        private void ContourListBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                if (sender == HistoryDisplayBox)
-                    DeleteButton_Click(this, EventArgs.Empty);
-                else
-                    btn_ContLösch_Click(sender, e);
-            }
-        }
-
         private void btn_ShowAdvises_Click(object sender, EventArgs e)
         {
             tB_advises.Visible = !tB_advises.Visible;
@@ -557,5 +545,9 @@ namespace GUI_I2G
             if (pB_DragDrop.Image != null) { lbl_DragDrop.Visible = false; }
         }
 
+        private void tB_X_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

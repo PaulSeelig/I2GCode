@@ -2968,13 +2968,14 @@ Here's some advise for use:
 
 4: In the ContourList, you may select and delete Contours, Highlighted in the Picture. (You can go throug them with up- and down Arrows and delete them fast with the Deletekey)
 
+5: You can use this Progam without Mouse or Touchpad, just use 'Tab' to switch to the next textfield or Button (or 'ctrl + tab' to switch in the other direction), 'Enter' to activate Buttons and 'up-/downArrorws' to navigate in Lists
 
 </value>
   </data>
   <data name="btn_ShowAdvises.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAAWhJREFUSEvt1r8rRlEcx/FLbMJgEPmVyWAgBpskZXvKYGQUhf9AUlajCaOyKKKU
+        vAAADrwBlbxySQAAAWhJREFUSEvt1r8rRlEcx/FLbMJgEPmVyWAgBpskZXvKYGQUhf9AUlajCaOyKKKU
         HyllktEkk8FCkUni/bmeU8fp3nQuXxl86lXP+dY93+ee59zz3CQyFWhAO+pUsEglBnGMB7x5XrGNCfxI
         GrEDTX6PAxzhuVzzXaILhVOPCzxhrjz2s4SwqVagE4WyAk2ynI6y4+7ed4jo1EJLqAn6VMjJAsKGok0V
         lQG4i3tVyImW+Q5+MxlFVIbgLp5RISdVWITfTEqIir65u1gbIe+Z03MZPioSvaTKKtwEUypkpBov8Jvt
