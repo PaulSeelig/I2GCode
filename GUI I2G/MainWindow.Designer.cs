@@ -769,7 +769,6 @@ namespace GUI_I2G
             tB_advises.TabIndex = 20;
             tB_advises.Text = resources.GetString("tB_advises.Text");
             tB_advises.Visible = false;
-            tB_advises.TextChanged += tB_advises_TextChanged;
             // 
             // panel2
             // 

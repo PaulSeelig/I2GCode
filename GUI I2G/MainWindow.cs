@@ -40,9 +40,9 @@ namespace GUI_I2G
 
         private Parameter p = new();
 
-        private Pen Normal { get; set; } = new(Color.Black, 10);
+        private Pen Normal { get; set; } = new(Color.Black, 1); //Die dicke solltw vlt auch adjusted werden
 
-        private Pen HighLight { get; set; } = new(Color.White, 10);
+        private Pen HighLight { get; set; } = new(Color.White, 1);
 
         private GCode CurrentGCode = new();
 
@@ -101,7 +101,7 @@ namespace GUI_I2G
             {
                 if (string.IsNullOrEmpty(tB_showGCode.Text))
                     throw (new FormatException("Bitte Werte eingeben vor dem Downloaden"));
-                if(string.IsNullOrEmpty(CurrentProjectName))
+                if (string.IsNullOrEmpty(CurrentProjectName))
                     ProjectSaveButton_Click(null, null);
                 // takes the GCode from the TextBox
                 string GCodeVorschau = tB_showGCode.Text;
@@ -194,6 +194,7 @@ namespace GUI_I2G
                 if (files != null && files.Length > 0)
                 {
                     pB_DragDrop.ImageLocation = files;
+                    //pB_DragDrop.Image = Image.FromFile(files);
                     imagepath = files;
                 }
                 ImageLocationhold = pB_DragDrop.ImageLocation;
@@ -225,20 +226,23 @@ namespace GUI_I2G
         {
             List<Contour[]> Arr = new();
 
-            int H = pB_DragDrop.Height * 10;// CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
-            int W = pB_DragDrop.Width * 10;// CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
+            //Vlt liegt es hierran??
+            int H = pB_DragDrop.Height; //*10; //CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
+            int W = pB_DragDrop.Width;//*10; //CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
             Bitmap Drawnimage = new(W, H);
-            double ScaleY = 0;
+            double ScaleY = 0; //Was tun die
             double ScaleX = 0;
             double Scalea = 0;
+
             if (!clear)
             {
                 Arr = CurrentGCode.GetAllContours();
-                ScaleY = H / Arr[^1][0].EndPoint.Y;
-                ScaleX = W / Arr[^1][^1].EndPoint.X;
-                Scalea = ScaleY < ScaleX ? ScaleY : ScaleX;
+                //Du musst das Bild wahrscheinlich mit dem Orginalen bild auf die Picturebox ascalieren und nicht random mal 10
+                ScaleY = H / Arr[^1][0].EndPoint.Y; //Image.FromFile(imagepath).Height;
+                ScaleX = W / Arr[^1][^1].StartPoint.X; //Image.FromFile(imagepath).Width;
+                Scalea = Math.Min(ScaleX, ScaleY); //better readablility
             }
-            // Erstellen eines Graphics-Objekts aus der erstellten Bitmap
+            //Erstellen eines Graphics - Objekts aus der erstellten Bitmap
             using (Graphics g = Graphics.FromImage(Drawnimage))
             {
                 //Pen pen = new(Color.Red, 3);
@@ -263,10 +267,11 @@ namespace GUI_I2G
                 {
                     if (pArr.Length > 1)
                     {
-                        Pen currentPen = index == pArrInd ? HighLight : Normal;
+                        Pen currentPen = index == pArrInd ? HighLight : Normal; //This Highlights the contours??
                         for (int i = 0; i < pArr.Length - 1; i++)
                         {
                             g.DrawLine(currentPen, new((int)(pArr[i].X * Scalea), (int)(pArr[i].Y * Scalea)), new((int)(pArr[i + 1].X * Scalea), (int)(pArr[i + 1].Y * Scalea)));
+                            //g.DrawLine(currentPen, pArr[i], pArr[i + 1]);
                             //g.DrawLines(new(Color.Black), pArr);
                         }
                     }
@@ -359,10 +364,11 @@ namespace GUI_I2G
 
                 tB_depth.Text = CurrentProject.parameter.CuttingDepth.ToString();
 
-                tB_aproxy.Text = $"{CurrentProject.parameter.AproxValue*10}";
+                tB_aproxy.Text = $"{CurrentProject.parameter.AproxValue * 10}";
 
                 tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
                 imagepath = CurrentProject.imagePath;
+                //pB_DragDrop.Image = Image.FromFile(imagepath);
                 ContourArrAndDraw();
                 lbl_DragDrop.Visible = false;
             }
@@ -523,14 +529,5 @@ namespace GUI_I2G
             if (pB_DragDrop.Image != null) { lbl_DragDrop.Visible = false; }
         }
 
-        private void tB_advises_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void HistoryDisplayBox_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
     }
 }
