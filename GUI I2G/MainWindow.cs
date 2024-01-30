@@ -145,7 +145,7 @@ namespace GUI_I2G
                 CheckInput(tB_depth, out depth, zkoo1);
                 if (pB_DragDrop.Image == null)
                     throw new FormatException("Sie müssen ein Bild per drag and drop in das mittlere Feld eingeben");
-
+                p.SetScaleFactor(Image.FromFile(imagepath).Width, Image.FromFile(imagepath).Height);
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
@@ -198,7 +198,7 @@ namespace GUI_I2G
                     //pB_DragDrop.Image = Image.FromFile(files);
                     imagepath = files;
                 }
-                p.SetScaleFactor(Image.FromFile(imagepath).Width, Image.FromFile(imagepath).Height);
+               
                 ImageLocationhold = pB_DragDrop.ImageLocation;
                 ContourArrAndDraw();
                 pB_DragDrop.ImageLocation = null;
