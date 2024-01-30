@@ -76,6 +76,7 @@ namespace GUI_I2G
         /// </summary>
         public double DDFactor {  get; set; } = 0.05; //idk the correct value, so for now I imamgine it to be 6 mm down per 10 mm in Distance
 
+        [Obsolete("Wenn die andere Überladung funktioniert, wird diese entfernt")]
         public void SetScaleFactor(Contour[] pArrArray)
         {
             double pArrayXLength = pArrArray[1].EndPoint.X - pArrArray[0].StartPoint.X;
@@ -85,6 +86,12 @@ namespace GUI_I2G
             ScaleFactor = scaleFactorX <= scaleFactorY ? scaleFactorX : scaleFactorY;
             AddPosX = ((Eckpunkt[0] - ScaleFactor * pArrayXLength) * 0.5) - pArrArray[0].StartPoint.X;
             AddPosY = ((Eckpunkt[1] - ScaleFactor * pArrayYLength) * 0.5) - pArrArray[0].StartPoint.Y;
+        }
+        public void SetScaleFactor(int width, int height)
+        {
+            double scaleFactorX = (double)Eckpunkt[0] / width;
+            double scaleFactorY = Eckpunkt[1] / height;
+            ScaleFactor = Math.Min(scaleFactorX, scaleFactorY);
         }
         /// <summary>
         /// sets the required values for the GCode, any additional values either have a default or can be set individually

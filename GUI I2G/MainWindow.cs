@@ -7,6 +7,7 @@ using Microsoft.VisualBasic;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Net;
@@ -197,6 +198,7 @@ namespace GUI_I2G
                     //pB_DragDrop.Image = Image.FromFile(files);
                     imagepath = files;
                 }
+                p.SetScaleFactor(Image.FromFile(imagepath).Width, Image.FromFile(imagepath).Height);
                 ImageLocationhold = pB_DragDrop.ImageLocation;
                 ContourArrAndDraw();
                 pB_DragDrop.ImageLocation = null;
@@ -222,26 +224,52 @@ namespace GUI_I2G
                 ContourListBox.Items.Add($"Contour {i}");
             }
         }
+        /// <summary>
+        /// Takes the Contours from CurrentGCode.GetAllContours() and draws them onto the Big DragAndDropArea
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="clear"></param>
         public void DrawOnPicBox(int index = -1, bool clear = false)
         {
+            // This Method is also used, to  clear the DragAndDropArea. Therefor this List<C...> is always used, but only
+            // filled if the bool clear param isn't changed to true
             List<Contour[]> Arr = new();
 
-            //Vlt liegt es hierran??
-            int H = pB_DragDrop.Height; //*10; //CurrentGCode.GetAllContours()[^1][0].EndPoint.Y;
-            int W = pB_DragDrop.Width;//*10; //CurrentGCode.GetAllContours()[^1][^1].StartPoint.X;
-            Bitmap Drawnimage = new(W, H);
-            double ScaleY = 0; //scaling ->
-            double ScaleX = 0;
+            // This sets the resolution of the drawn Image, but also influences the scaling for the Drawn Contour
+            int H = (int)((double.TryParse(tB_Y.Text, out double valueY) && valueY != 0? valueY : pB_DragDrop.Height));
+            int W = (int)((double.TryParse(tB_X.Text, out double valueX) && valueX != 0 ? valueX : pB_DragDrop.Width));
+
+            // Just to make sure, it won't draw comlete pixelart
+            while (H < 1000 && W < 1000)
+            {
+                H *= 10;
+                W *= 10;
+            }
+            // And to stop the Bitmap wasting your RAM
+            while (H > 4000 && W > 4000)
+            {
+                H /= 2;
+                W /= 2;
+            }
+
+
+            Bitmap Drawnimage = new(W, H); //Creating the new Bitmap with the seted Width - W and Height - H
+
+
+            double ScaleY;
+            double ScaleX;
             double Scalea = 0;
 
             if (!clear)
             {
                 Arr = CurrentGCode.GetAllContours();
-                //Du musst das Bild wahrscheinlich mit dem Orginalen bild auf die Picturebox ascalieren und nicht random mal 10
-                ScaleY = H / Arr[^1][0].EndPoint.Y; //Image.FromFile(imagepath).Height; //mal sehen (Pierre)
-                ScaleX = W / Arr[^1][^1].StartPoint.X; //Image.FromFile(imagepath).Width;
-                Scalea = Math.Min(ScaleX, ScaleY); //better readablility
+                ScaleY = H / Image.FromFile(imagepath).Height;
+                ScaleX = W / Image.FromFile(imagepath).Width;
+                Scalea = Math.Min(ScaleX, ScaleY); //better readablility //thanks
             }
+
+            Normal.Width = (float)((H < W ? H :W )* 0.002);
+            HighLight.Width = Normal.Width;
             //Erstellen eines Graphics - Objekts aus der erstellten Bitmap
             using (Graphics g = Graphics.FromImage(Drawnimage))
             {
