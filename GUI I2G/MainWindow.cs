@@ -235,7 +235,7 @@ namespace GUI_I2G
             {
                 Arr = CurrentGCode.GetAllContours();
                 ScaleY = H / Arr[^1][0].EndPoint.Y;
-                ScaleX = W / Arr[^1][^1].EndPoint.X;
+                ScaleX = W / Arr[^1][^1].StartPoint.X;
                 Scalea = ScaleY < ScaleX ? ScaleY : ScaleX;
             }
             // Erstellen eines Graphics-Objekts aus der erstellten Bitmap
@@ -249,7 +249,7 @@ namespace GUI_I2G
                 Point[][] pArrArr = new Point[Arr.Count][];
                 for (int i = 0; i < Arr.Count; i++)
                 {
-                    Point[] pArr = new Point[Arr[i].Length];
+                    Point[] pArr = new Point[Arr[i].Length + 1];
                     for (int j = 0; j < Arr[i].Length; j++)
                     {
                         pArr[j] = Arr[i][j].StartPoint;
