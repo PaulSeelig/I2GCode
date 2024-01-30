@@ -13,7 +13,7 @@ namespace GUI_I2G.GCodeclasses
 {
     public class GCode
     {
-        public string[] GCodeLines { get; set; }
+        public List<string> GCodeLines { get; set; } = new();
 
         public List<Tuple<int, Contour>> AllLines { get; set; } = new();
         public void SetConcreteLists()

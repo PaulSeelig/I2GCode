@@ -9,6 +9,7 @@ using Emgu.CV;
 using System.Windows.Forms.Design;
 using GUI_I2G.Dummys;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace GUI_I2G.GCodeclasses
 {
@@ -24,16 +25,21 @@ namespace GUI_I2G.GCodeclasses
         {
             GCode gcode = new(ListOfContArrays); // If we find errors/not working GCode, we can analyse the origin of it and change specific parts of it; here;
             List<string> GLinesList = Start(); //List and not array, because ContourImage.Length != GLineslist so the resulting Array.Length is unknown till the process finished,... also the code is easier to handle with the List.
-            //p.SetScaleFactor(gcode.GetAllContours()[^1]);
+
+            p.SetScaleFactor(gcode.GetAllContours()[^1]);
             //DummyGenerateMaterial(ref GLinesList, p);
-            foreach (Contour[] CGroup in gcode.GetAllContours().SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
+            foreach (Contour[] CGroup in gcode.GetAllContours().SkipLast(2)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
             {
+                gcode.GCodeLines.AddRange(GLinesList);
+                //GLinesList = null;
+                GLinesList.TrimExcess();
+                GLinesList = new(CGroup.Length);
                 CurrentMillDepth = 0;
                 GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, p.MaterialDepth, p));
                 GeneratePerRound(ref GLinesList, CGroup, p, p.CutDepthPerRound);
+
             }
-            GLinesList.Add(End());
-            gcode.GCodeLines = GLinesList.ToArray();
+            gcode.GCodeLines.Add(End());
             return gcode;
         } 
         

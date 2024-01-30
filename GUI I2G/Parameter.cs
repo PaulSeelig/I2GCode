@@ -74,9 +74,9 @@ namespace GUI_I2G
         /// e.g the tool can go 6mm on the z achsis down, on a distance of 10mm on the xy-plane
         /// It is mandatory to know, which angle is supported, while the milling tool dives into the material!
         /// </summary>
-        public double DDFactor {  get; set; } = 0.05; //idk the correct value, so for now I imamgine it to be 6 mm down per 10 mm in Distance
+        public double DDFactor {  get; set; } = 0.5; //idk the correct value, so for now I imamgine it to be 6 mm down per 10 mm in Distance
 
-        [Obsolete("Wenn die andere Überladung funktioniert, wird diese entfernt")]
+        [Obsolete("Wenn die andere Überladung funktioniert, wird diese entfernt...Scheint aber nicht zu funktionieren")]
         public void SetScaleFactor(Contour[] pArrArray)
         {
             double pArrayXLength = pArrArray[1].EndPoint.X - pArrArray[0].StartPoint.X;

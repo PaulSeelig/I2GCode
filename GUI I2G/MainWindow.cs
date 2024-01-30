@@ -145,7 +145,7 @@ namespace GUI_I2G
                 CheckInput(tB_depth, out depth, zkoo1);
                 if (pB_DragDrop.Image == null)
                     throw new FormatException("Sie müssen ein Bild per drag and drop in das mittlere Feld eingeben");
-                p.SetScaleFactor(Image.FromFile(imagepath).Width, Image.FromFile(imagepath).Height);
+                //p.SetScaleFactor(Image.FromFile(imagepath).Width, Image.FromFile(imagepath).Height);
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
@@ -167,7 +167,7 @@ namespace GUI_I2G
 
 
                 CurrentProject.parameter = p;
-                tB_showGCode.Lines = CurrentGCode.GCodeLines;
+                tB_showGCode.Lines = CurrentGCode.GCodeLines.ToArray();
                 CurrentProject.Gcode = CurrentGCode;
             }
             catch (FormatException ex)
@@ -246,7 +246,7 @@ namespace GUI_I2G
                 W *= 10;
             }
             // And to stop the Bitmap wasting your RAM
-            while (H > 4000 && W > 4000)
+            while (H > 3000 && W > 3000)
             {
                 H /= 2;
                 W /= 2;
@@ -394,7 +394,7 @@ namespace GUI_I2G
 
                 tB_aproxy.Text = $"{CurrentProject.parameter.AproxValue * 10}";
 
-                tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines;
+                tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines.ToArray();
                 imagepath = CurrentProject.imagePath;
                 //pB_DragDrop.Image = Image.FromFile(imagepath);
                 ContourArrAndDraw();

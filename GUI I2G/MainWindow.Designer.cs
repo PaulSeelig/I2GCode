@@ -320,7 +320,7 @@ namespace GUI_I2G
             HistoryDisplayBox.View = View.Details;
             HistoryDisplayBox.DoubleClick += HistoryDisplayBox_Enter;
             HistoryDisplayBox.Enter += HistoryDisplayBox_Enter;
-            HistoryDisplayBox.KeyDown += this.ContourListBox_KeyDown;
+            HistoryDisplayBox.KeyDown += ContourListBox_KeyDown;
             // 
             // ProjectSaveButton
             // 
@@ -510,7 +510,7 @@ namespace GUI_I2G
             ContourListBox.TabStop = false;
             ContourListBox.Visible = false;
             ContourListBox.SelectedIndexChanged += listBox1_Click;
-            ContourListBox.KeyDown += this.ContourListBox_KeyDown;
+            ContourListBox.KeyDown += ContourListBox_KeyDown;
             ContourListBox.KeyPress += ContourListBox_KeyPress;
             // 
             // Settings
@@ -820,7 +820,6 @@ namespace GUI_I2G
         private Label lbl_Y;
         private Label lbl_Z;
         private Label lbl_depth;
-        private TextBox tB_showGCode;
         private Label label1;
         private ListView HistoryDisplayBox;
         private Button Btn_Setting;
@@ -854,5 +853,6 @@ namespace GUI_I2G
         private ToolTip AproxyToolTip;
         private TextBox tB_advises;
         private Button btn_ShowAdvises;
+        public TextBox tB_showGCode;
     }
 }
