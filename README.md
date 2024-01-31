@@ -7,7 +7,10 @@ Das Programm wandelt die Konturen eines PNG-Bildes in GCode für CNC-Maschinen u
 Das Programm befindet sich in einem halbfertigen Zustand.
 
 ## Installation
-Die Installation ist noch in Arbeit (WIP). 
+1. Release Tab auswählen
+2. Actuelle Version auswählen/Downloaden
+3. an passenden Ort extrahieren
+4. Verknüpfung auf Desktop erstellen
 
 ## Verwendung
 1. Ziehen Sie ein PNG-Bild per Drag-and-Drop in das Programm.
