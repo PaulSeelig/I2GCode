@@ -217,7 +217,7 @@ namespace GUI_I2G
                     string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
                     CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
                 }
-                catch(Exception ex) 
+                catch (Exception ex)
                 { MessageBox.Show(ex.Message); }
             }
         }
@@ -245,19 +245,19 @@ namespace GUI_I2G
             int W = (int)((double.TryParse(tB_X.Text, out double valueX) && valueX != 0 ? valueX : pB_DragDrop.Width));
 
             // Just to make sure, it won't draw comlete pixelart
-            while (H < 1000 && W < 1000)
+            while (H < 1500 && W < 1500)
             {
                 H *= 10;
                 W *= 10;
             }
             // And to stop the Bitmap wasting your RAM
-            while (H > 3000 && W > 3000)
+            while (H > 2500 || W > 2500)
             {
                 H /= 2;
                 W /= 2;
             }
 
-
+            ContentAlignment contentAlignment = ContentAlignment.MiddleCenter;
             Bitmap Drawnimage = new(W, H); //Creating the new Bitmap with the seted Width - W and Height - H
 
 
@@ -310,6 +310,8 @@ namespace GUI_I2G
                     }
                     pArrInd++;
                 }
+                
+                //pB_DragDrop.Location = new Point( pB_DragDrop.Image.Width, 0);
             }
         }
         private void pB_DragDrop_Scale()

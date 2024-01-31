@@ -2969,6 +2969,8 @@ Here's some advise for use:
 4: In the ContourList, you may select and delete Contours, Highlighted in the Picture. (You can go throug them with up- and down Arrows and delete them fast with the Deletekey)
 
 5: You can use this Progam without Mouse or Touchpad, just use 'Tab' to switch to the next textfield or Button (or 'ctrl + tab' to switch in the other direction), 'Enter' to activate Buttons and 'up-/downArrorws' to navigate in Lists
+ 
+6: The Picture is displayed in the best way, if the Materialproperties are those of your Picture, but for your GCode you have to use the correct materialproperties for obviously reasons
 
 </value>
   </data>

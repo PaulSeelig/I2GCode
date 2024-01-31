@@ -773,7 +773,7 @@ namespace GUI_I2G
             tB_advises.Multiline = true;
             tB_advises.Name = "tB_advises";
             tB_advises.RightToLeft = RightToLeft.No;
-            tB_advises.Size = new Size(638, 684);
+            tB_advises.Size = new Size(645, 684);
             tB_advises.TabIndex = 20;
             tB_advises.TabStop = false;
             tB_advises.Text = resources.GetString("tB_advises.Text");
@@ -791,6 +791,7 @@ namespace GUI_I2G
             // 
             // btn_ShowAdvises
             // 
+            btn_ShowAdvises.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_ShowAdvises.BackColor = Color.Gray;
             btn_ShowAdvises.FlatAppearance.BorderColor = Color.FromArgb(128, 128, 255);
             btn_ShowAdvises.FlatAppearance.BorderSize = 0;
