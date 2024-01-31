@@ -570,6 +570,7 @@ namespace GUI_I2G
                 if (double.TryParse(num_MinLength.Text, out double d))
                 {
                     //CreateContourArr();
+                    CreateContourArr();
                     CurrentGCode.RemoveAllCArr(d);
                     DrawOnPicBox();
                     FillContourListBox();
