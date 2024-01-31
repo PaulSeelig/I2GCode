@@ -104,6 +104,14 @@ namespace GUI_I2G.Contures
                         contour.Add(line);
                     }
                 }
+                //Line lin = new(contour[0].StartPoint, contour[^1].EndPoint);
+                //if(lin.Length < GetArrLength(contour.ToArray()) * 0.02)
+                //{
+                //    int px = (contour[0].StartPoint.X + contour[^1].EndPoint.X) / 2;
+                //    int py = (contour[0].StartPoint.Y + contour[^1].EndPoint.Y) / 2;
+                //    contour[0].StartPoint = new(px, py);
+                //    contour[^1].EndPoint = new(px, py);
+                //}
                 if (contour.Count > 0)
                     contours.Add(contour.ToArray());
             }    

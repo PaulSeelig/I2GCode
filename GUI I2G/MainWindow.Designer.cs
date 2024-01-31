@@ -50,8 +50,7 @@ namespace GUI_I2G
             ProjectSaveButton = new Button();
             panelSideBar = new Panel();
             panel_ContoursList = new Panel();
-            tB_maxLengthDeleteRange = new TextBox();
-            btn_RangeDelete = new Button();
+            num_MinLength = new NumericUpDown();
             ContourListBox = new ListBox();
             btn_ContLösch = new Button();
             checkBox1 = new CheckBox();
@@ -84,6 +83,7 @@ namespace GUI_I2G
             ((System.ComponentModel.ISupportInitialize)pB_DragDrop).BeginInit();
             panelSideBar.SuspendLayout();
             panel_ContoursList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)num_MinLength).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tB_aproxy).BeginInit();
             Settings.SuspendLayout();
             panel2.SuspendLayout();
@@ -237,7 +237,6 @@ namespace GUI_I2G
             tB_X.Size = new Size(110, 27);
             tB_X.TabIndex = 7;
             tB_X.TextAlign = HorizontalAlignment.Center;
-            tB_X.KeyDown += tB_X_KeyDown;
             // 
             // lbl_Y
             // 
@@ -290,7 +289,6 @@ namespace GUI_I2G
             tB_showGCode.ScrollBars = ScrollBars.Vertical;
             tB_showGCode.Size = new Size(313, 477);
             tB_showGCode.TabIndex = 13;
-            tB_showGCode.TextChanged += tB_showGCode_TextChanged;
             // 
             // label1
             // 
@@ -377,8 +375,7 @@ namespace GUI_I2G
             // 
             // panel_ContoursList
             // 
-            panel_ContoursList.Controls.Add(tB_maxLengthDeleteRange);
-            panel_ContoursList.Controls.Add(btn_RangeDelete);
+            panel_ContoursList.Controls.Add(num_MinLength);
             panel_ContoursList.Controls.Add(ContourListBox);
             panel_ContoursList.Controls.Add(btn_ContLösch);
             panel_ContoursList.Location = new Point(11, 47);
@@ -387,37 +384,25 @@ namespace GUI_I2G
             panel_ContoursList.TabIndex = 21;
             panel_ContoursList.Visible = false;
             // 
-            // tB_maxLengthDeleteRange
+            // num_MinLength
             // 
-            tB_maxLengthDeleteRange.AccessibleName = "Breite (X) ihres Materials";
-            tB_maxLengthDeleteRange.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            tB_maxLengthDeleteRange.BackColor = SystemColors.InactiveCaptionText;
-            tB_maxLengthDeleteRange.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            tB_maxLengthDeleteRange.ForeColor = Color.White;
-            tB_maxLengthDeleteRange.Location = new Point(42, 183);
-            tB_maxLengthDeleteRange.MaximumSize = new Size(110, 27);
-            tB_maxLengthDeleteRange.Name = "tB_maxLengthDeleteRange";
-            tB_maxLengthDeleteRange.RightToLeft = RightToLeft.No;
-            tB_maxLengthDeleteRange.Size = new Size(110, 27);
-            tB_maxLengthDeleteRange.TabIndex = 55;
-            tB_maxLengthDeleteRange.TextAlign = HorizontalAlignment.Center;
-            // 
-            // btn_RangeDelete
-            // 
-            btn_RangeDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btn_RangeDelete.BackColor = Color.DarkCyan;
-            btn_RangeDelete.BackgroundImageLayout = ImageLayout.Center;
-            btn_RangeDelete.FlatAppearance.BorderSize = 0;
-            btn_RangeDelete.FlatStyle = FlatStyle.Flat;
-            btn_RangeDelete.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            btn_RangeDelete.ForeColor = SystemColors.ButtonHighlight;
-            btn_RangeDelete.Location = new Point(22, 142);
-            btn_RangeDelete.Name = "btn_RangeDelete";
-            btn_RangeDelete.Size = new Size(169, 31);
-            btn_RangeDelete.TabIndex = 54;
-            btn_RangeDelete.Text = "delete range";
-            btn_RangeDelete.UseVisualStyleBackColor = false;
-            btn_RangeDelete.Click += btn_RangeDelete_Click;
+            num_MinLength.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            num_MinLength.BackColor = SystemColors.InactiveCaptionText;
+            num_MinLength.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            num_MinLength.ForeColor = Color.White;
+            num_MinLength.ImeMode = ImeMode.On;
+            num_MinLength.Increment = new decimal(new int[] { 5, 0, 0, 0 });
+            num_MinLength.Location = new Point(61, 174);
+            num_MinLength.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
+            num_MinLength.MaximumSize = new Size(110, 0);
+            num_MinLength.Name = "num_MinLength";
+            num_MinLength.RightToLeft = RightToLeft.No;
+            num_MinLength.Size = new Size(110, 30);
+            num_MinLength.TabIndex = 44;
+            num_MinLength.TextAlign = HorizontalAlignment.Center;
+            num_MinLength.UpDownAlign = LeftRightAlignment.Left;
+            num_MinLength.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            num_MinLength.ValueChanged += numMinLength_ValueChanged;
             // 
             // ContourListBox
             // 
@@ -433,7 +418,6 @@ namespace GUI_I2G
             ContourListBox.TabStop = false;
             ContourListBox.SelectedIndexChanged += listBox1_Click;
             ContourListBox.KeyDown += ContourListBox_KeyDown;
-            ContourListBox.KeyPress += ContourListBox_KeyPress;
             // 
             // btn_ContLösch
             // 
@@ -476,6 +460,7 @@ namespace GUI_I2G
             tB_aproxy.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             tB_aproxy.ForeColor = Color.White;
             tB_aproxy.ImeMode = ImeMode.On;
+            tB_aproxy.Increment = new decimal(new int[] { 2, 0, 0, 0 });
             tB_aproxy.Location = new Point(218, 501);
             tB_aproxy.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
             tB_aproxy.MaximumSize = new Size(110, 0);
@@ -843,7 +828,7 @@ namespace GUI_I2G
             panelSideBar.ResumeLayout(false);
             panelSideBar.PerformLayout();
             panel_ContoursList.ResumeLayout(false);
-            panel_ContoursList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)num_MinLength).EndInit();
             ((System.ComponentModel.ISupportInitialize)tB_aproxy).EndInit();
             Settings.ResumeLayout(false);
             Settings.PerformLayout();
@@ -901,8 +886,7 @@ namespace GUI_I2G
         private TextBox tB_advises;
         private Button btn_ShowAdvises;
         public TextBox tB_showGCode;
-        private TextBox tB_maxLengthDeleteRange;
-        private Button btn_RangeDelete;
         private Panel panel_ContoursList;
+        private NumericUpDown num_MinLength;
     }
 }

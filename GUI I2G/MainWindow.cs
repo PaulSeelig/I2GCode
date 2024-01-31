@@ -200,20 +200,25 @@ namespace GUI_I2G
                 }
 
                 ImageLocationhold = pB_DragDrop.ImageLocation;
-                ContourArrAndDraw();
+                CreateContourArr();
+                DrawOnPicBox();
+                FillContourListBox();
                 pB_DragDrop.ImageLocation = null;
             }
         }
-        private void ContourArrAndDraw()
+        private void CreateContourArr()
         {
             if (!string.IsNullOrEmpty(imagepath))
             {
-                epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value * 0.1 : 3;
-                rgbimage = new(imagepath); //hier wird das rgbimage erstellt
-                string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
-                CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
-                DrawOnPicBox();
-                FillContourListBox();
+                try
+                {
+                    epsilon = double.TryParse(tB_aproxy.Text, out double value) && value > 0 ? value * 0.1 : 3;
+                    rgbimage = new(imagepath); //hier wird das rgbimage erstellt
+                    string name = Path.GetFileName(imagepath); //damit man die Bilder speichern kann unter den namen
+                    CurrentGCode.SetAllContours(Contour.ContourExtractor(Contour.Konturfinder(rgbimage), epsilon));
+                }
+                catch(Exception ex) 
+                { MessageBox.Show(ex.Message); }
             }
         }
         private void FillContourListBox()
@@ -382,6 +387,7 @@ namespace GUI_I2G
                 ListViewItem selectedItem = HistoryDisplayBox.SelectedItems[0];
 
                 CurrentProject = history.GetEntryByName(selectedItem.SubItems[0].Text);
+                CurrentGCode = CurrentProject.Gcode;
 
                 CurrentProjectName = CurrentProject.projectName;
 
@@ -389,6 +395,7 @@ namespace GUI_I2G
                 tB_X.Text = CurrentProject.parameter.Eckpunkt[0].ToString();
                 tB_Y.Text = CurrentProject.parameter.Eckpunkt[1].ToString();
                 tB_Z.Text = CurrentProject.parameter.Eckpunkt[2].ToString();
+                num_MinLength.Text = CurrentGCode.MinLengthSave.ToString();
 
                 tB_depth.Text = CurrentProject.parameter.CuttingDepth.ToString();
 
@@ -397,8 +404,10 @@ namespace GUI_I2G
                 tB_showGCode.Lines = CurrentProject.Gcode.GCodeLines.ToArray();
                 imagepath = CurrentProject.imagePath;
                 //pB_DragDrop.Image = Image.FromFile(imagepath);
-                ContourArrAndDraw();
+
+                CreateContourArr();
                 lbl_DragDrop.Visible = false;
+                numMinLength_ValueChanged(sender, e);
             }
         }
 
@@ -453,13 +462,14 @@ namespace GUI_I2G
 
         private void tB_aproxy_TextChanged(object sender, EventArgs e)
         {
-            if (ImageLocationhold != "" && ImageLocationhold != null)
+            //if (ImageLocationhold != "" && ImageLocationhold != null)
+            //{
+            //    imagepath ??= ImageLocationhold;
+            //}
+            if (imagepath != null)
             {
-                CurrentProject.imagePath ??= ImageLocationhold;
-            }
-            if (CurrentProject.imagePath != null)
-            {
-                ContourArrAndDraw();
+                CreateContourArr();
+                numMinLength_ValueChanged(sender, e);
                 pB_DragDrop.ImageLocation = null;
             }
         }
@@ -472,10 +482,6 @@ namespace GUI_I2G
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             panel_ContoursList.Visible = checkBox1.Checked;
-            //btn_ContLösch.Visible = checkBox1.Checked;
-            //btnLogo.Visible = !checkBox1.Checked;
-            //if (checkBox1.Checked)
-            //    Settings.Visible = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -532,12 +538,6 @@ namespace GUI_I2G
             Settings.Visible = !Settings.Visible;
             checkBox1.Checked = false;
         }
-
-        private void ContourListBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            //if(e.KeyCode == '\u007F')
-            //    btn_ContLösch_Click(sender, e);
-        }
         private void btn_ShowAdvises_Click(object sender, EventArgs e)
         {
             tB_advises.Visible = !tB_advises.Visible;
@@ -545,26 +545,42 @@ namespace GUI_I2G
             if (pB_DragDrop.Image != null) { lbl_DragDrop.Visible = false; }
         }
 
-        private void tB_X_KeyDown(object sender, KeyEventArgs e)
+        private void ContourListBox_KeyDown(object sender, KeyEventArgs e)
         {
-
-        }
-
-        private void tB_showGCode_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_RangeDelete_Click(object sender, EventArgs e)
-        {
-            if (double.TryParse(tB_maxLengthDeleteRange.Text, out double d))
+            if (e.KeyCode == Keys.Delete)
             {
-                CurrentGCode.RemoveAllCArr(d);
-                DrawOnPicBox();
-                FillContourListBox();
+                if (sender == HistoryDisplayBox)
+                    DeleteButton_Click(this, EventArgs.Empty);
+                else
+                    btn_ContLösch_Click(sender, e);
             }
-            else
-                MessageBox.Show("please type in a valid double");
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (sender == HistoryDisplayBox)
+                {
+                    HistoryDisplayBox_Enter(sender, e);
+                }
+            }
+        }
+
+        private void numMinLength_ValueChanged(object sender, EventArgs e)
+        {
+            if (imagepath != null)
+            {
+                if (double.TryParse(num_MinLength.Text, out double d))
+                {
+                    //CreateContourArr();
+                    CurrentGCode.RemoveAllCArr(d);
+                    DrawOnPicBox();
+                    FillContourListBox();
+                }
+                else
+                    MessageBox.Show("please type in a valid double");
+            }
+        }
+
+        private void tB_maxLengthDeleteRange_TextChanged(object sender, EventArgs e)
+        {
         }
     }
 }

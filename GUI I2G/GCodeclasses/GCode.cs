@@ -35,8 +35,19 @@ namespace GUI_I2G.GCodeclasses
                 }
             }
         }
+        /// <summary>
+        /// Is needed for the IEnumerable.RemoveAll(). returns if the summed up Length of a Contour[] is shorter
+        /// than the given value MinLength
+        /// </summary>
         private readonly Predicate<Contour[]> AreSmaller = delegate (Contour[] cArr) { return Contour.GetArrLength(cArr) < MinLength; };
+        /// <summary>
+        /// The Predicate I'm using, needs a static value for comparison,.. Idk why.
+        /// </summary>
         private static double MinLength { get; set; }
+        /// <summary>
+        /// only for json_save
+        /// </summary>
+        public double MinLengthSave { get; set; }
         /// <summary>
         /// Removes all Contour[] from AllContours that cummulated Length, is shorter than the given double min
         /// </summary>
@@ -44,6 +55,7 @@ namespace GUI_I2G.GCodeclasses
         public void RemoveAllCArr(double min = 1) 
         {
             MinLength = min;
+            MinLengthSave = min;
             AllContours.RemoveAll(AreSmaller);
         }
         public void SetAllContoursFromConcreteLists() 
