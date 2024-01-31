@@ -20,6 +20,14 @@ namespace GUI_I2G.Contures
 
         public double EndDepth { get; set; } = 0;
         public abstract double Length { get;}
+
+        public static double GetArrLength(Contour[] cArr)
+        {
+            double erg = 0;
+            foreach(Contour c in cArr)
+                erg += c.Length;
+            return erg;
+        }
         /// <summary>
         /// Tests if the maschine can continue in rounds, or rather has to make an one eighty
         /// </summary>

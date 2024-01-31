@@ -471,11 +471,11 @@ namespace GUI_I2G
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            ContourListBox.Visible = checkBox1.Checked;
-            btn_ContLösch.Visible = checkBox1.Checked;
-            btnLogo.Visible = !checkBox1.Checked;
-            if (checkBox1.Checked)
-                Settings.Visible = false;
+            panel_ContoursList.Visible = checkBox1.Checked;
+            //btn_ContLösch.Visible = checkBox1.Checked;
+            //btnLogo.Visible = !checkBox1.Checked;
+            //if (checkBox1.Checked)
+            //    Settings.Visible = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -548,6 +548,23 @@ namespace GUI_I2G
         private void tB_X_KeyDown(object sender, KeyEventArgs e)
         {
 
+        }
+
+        private void tB_showGCode_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_RangeDelete_Click(object sender, EventArgs e)
+        {
+            if (double.TryParse(tB_maxLengthDeleteRange.Text, out double d))
+            {
+                CurrentGCode.RemoveAllCArr(d);
+                DrawOnPicBox();
+                FillContourListBox();
+            }
+            else
+                MessageBox.Show("please type in a valid double");
         }
     }
 }

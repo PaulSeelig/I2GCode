@@ -28,18 +28,15 @@ namespace GUI_I2G.GCodeclasses
 
             p.SetScaleFactor(gcode.GetAllContours()[^1]);
             //DummyGenerateMaterial(ref GLinesList, p);
-            foreach (Contour[] CGroup in gcode.GetAllContours().SkipLast(2)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
+            foreach (Contour[] CGroup in gcode.GetAllContours().SkipLast(1)) // all ContourGroups are gone through, except the last... because thats the border/frame of the image
             {
-                gcode.GCodeLines.AddRange(GLinesList);
-                //GLinesList = null;
-                GLinesList.TrimExcess();
-                GLinesList = new(CGroup.Length);
                 CurrentMillDepth = 0;
                 GLinesList.AddRange(MoveTo(CGroup[0].StartPoint, p.MaterialDepth, p));
                 GeneratePerRound(ref GLinesList, CGroup, p, p.CutDepthPerRound);
-
             }
+            gcode.GCodeLines.AddRange(GLinesList.ToArray());
             gcode.GCodeLines.Add(End());
+
             return gcode;
         } 
         

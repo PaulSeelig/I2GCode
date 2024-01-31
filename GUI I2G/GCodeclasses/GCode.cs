@@ -35,6 +35,17 @@ namespace GUI_I2G.GCodeclasses
                 }
             }
         }
+        private readonly Predicate<Contour[]> AreSmaller = delegate (Contour[] cArr) { return Contour.GetArrLength(cArr) < MinLength; };
+        private static double MinLength { get; set; }
+        /// <summary>
+        /// Removes all Contour[] from AllContours that cummulated Length, is shorter than the given double min
+        /// </summary>
+        /// <param name="min"></param>
+        public void RemoveAllCArr(double min = 1) 
+        {
+            MinLength = min;
+            AllContours.RemoveAll(AreSmaller);
+        }
         public void SetAllContoursFromConcreteLists() 
         {
             List<Tuple<int, Contour>> AllContsToMerge = new();
