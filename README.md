@@ -29,6 +29,13 @@ Der generierte GCode kann mit https://ncviewer.com/ visualisiert werden.
 - Das Bild ist möglicherweise nicht zentriert oder dauert lange zum Malen.
 - Probleme bei der Verarbeitung von runden Konturen.
 
+## Zukünftige Implementierungen
+- Erkennung von runden Konturen
+- Einstellung und Speichern von eigenen Maschinen (Eigenschaften) und Tools
+- Auswahl zwischen mehreren Bohrer und Fräsen
+- Spline Implementierungen (unwahrscheinlich, aber geplant)
+
+
 
 
 
