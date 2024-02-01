@@ -109,7 +109,7 @@ namespace GUI_I2G
                 // takes the folder path to MyDocuments
                 string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 // puts a file named "GCode .txt" at the destinaetd folderpath
-                string filePath = Path.Combine(folderPath, CurrentProjectName);
+                string filePath = Path.Combine(folderPath, CurrentProjectName) + ".txt";
                 // writes the GCode into the file
                 File.WriteAllText(filePath, GCodeVorschau);
                 // opens the explorer and selects the saved file
