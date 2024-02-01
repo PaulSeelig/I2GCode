@@ -145,7 +145,7 @@ namespace GUI_I2G
                 CheckInput(tB_depth, out depth, zkoo1);
                 if (pB_DragDrop.Image == null)
                     throw new FormatException("Sie müssen ein Bild per drag and drop in das mittlere Feld eingeben");
-                
+
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
@@ -410,16 +410,17 @@ namespace GUI_I2G
             {
                 if (inputDialog.ShowDialog() == DialogResult.OK)
                 {
-                    CurrentProject.imagePath = imagepath;
                     CurrentProject.UpdateLastOpened();
                     if (CurrentProjectName == inputDialog.UserInput)
                     {
+                        CurrentProject.imagePath = imagepath;
                         history.SaveGcodeProject(CurrentProject);
                     }
                     else
                     {
                         HistoryEntry ToSafe = new(CurrentProject);
                         ToSafe.projectName = inputDialog.UserInput;
+                        ToSafe.imagePath = imagepath;
                         CurrentProjectName = inputDialog.UserInput;
                         history.SaveGcodeProject(ToSafe);
                     }

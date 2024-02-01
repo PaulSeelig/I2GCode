@@ -392,8 +392,8 @@ namespace GUI_I2G
             num_MinLength.ForeColor = Color.White;
             num_MinLength.ImeMode = ImeMode.On;
             num_MinLength.Increment = new decimal(new int[] { 5, 0, 0, 0 });
-            num_MinLength.Location = new Point(61, 174);
-            num_MinLength.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
+            num_MinLength.Location = new Point(55, 174);
+            num_MinLength.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             num_MinLength.MaximumSize = new Size(110, 0);
             num_MinLength.Name = "num_MinLength";
             num_MinLength.RightToLeft = RightToLeft.No;
@@ -401,7 +401,6 @@ namespace GUI_I2G
             num_MinLength.TabIndex = 44;
             num_MinLength.TextAlign = HorizontalAlignment.Center;
             num_MinLength.UpDownAlign = LeftRightAlignment.Left;
-            num_MinLength.Value = new decimal(new int[] { 1, 0, 0, 0 });
             num_MinLength.ValueChanged += numMinLength_ValueChanged;
             // 
             // ContourListBox

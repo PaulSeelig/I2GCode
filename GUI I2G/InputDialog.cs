@@ -28,7 +28,7 @@ namespace GUI_I2G
             UserInput = InputTextBox.Text;
             if (UserInput == "")
                 MessageBox.Show("Bitte einen Namen eingeben!");
-            else if(UserInput.Length > 20) 
+            else if (UserInput.Length > 20)
                 MessageBox.Show("Bitte Namen mit weniger Charakteren eingeben!");
             else if (UserInput.Any(Char.IsWhiteSpace))
                 MessageBox.Show("Bitte Namen ohne Leerzeichen eingeben!");
@@ -37,7 +37,7 @@ namespace GUI_I2G
                 DialogResult = DialogResult.OK;
                 Close();
             }
-            
+
         }
     }
 }

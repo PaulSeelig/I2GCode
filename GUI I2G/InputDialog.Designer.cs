@@ -36,42 +36,57 @@
             // 
             // InputTextBox
             // 
-            InputTextBox.Location = new Point(130, 47);
+            InputTextBox.Location = new Point(139, 63);
+            InputTextBox.Margin = new Padding(3, 4, 3, 4);
             InputTextBox.Name = "InputTextBox";
-            InputTextBox.Size = new Size(304, 23);
+            InputTextBox.Size = new Size(347, 27);
             InputTextBox.TabIndex = 0;
             // 
             // Confirm
             // 
-            Confirm.Location = new Point(232, 76);
+            Confirm.BackColor = Color.DarkCyan;
+            Confirm.FlatAppearance.BorderColor = Color.FromArgb(0, 64, 64);
+            Confirm.FlatAppearance.MouseDownBackColor = Color.Teal;
+            Confirm.FlatStyle = FlatStyle.Flat;
+            Confirm.Location = new Point(266, 110);
+            Confirm.Margin = new Padding(3, 4, 3, 4);
             Confirm.Name = "Confirm";
-            Confirm.Size = new Size(97, 23);
+            Confirm.Size = new Size(111, 31);
             Confirm.TabIndex = 1;
             Confirm.Text = "Confirm";
-            Confirm.UseVisualStyleBackColor = true;
+            Confirm.UseVisualStyleBackColor = false;
             Confirm.Click += Confirm_Click;
             // 
             // Dialog_Label
             // 
             Dialog_Label.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             Dialog_Label.AutoSize = true;
-            Dialog_Label.Location = new Point(228, 19);
+            Dialog_Label.ForeColor = Color.White;
+            Dialog_Label.Location = new Point(139, 28);
             Dialog_Label.Name = "Dialog_Label";
-            Dialog_Label.Size = new Size(101, 15);
+            Dialog_Label.Size = new Size(126, 20);
             Dialog_Label.TabIndex = 2;
             Dialog_Label.Text = "Name Thy Project";
             Dialog_Label.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // InputDialog
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(541, 120);
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BackColor = Color.FromArgb(64, 64, 64);
+            ClientSize = new Size(618, 160);
             Controls.Add(Dialog_Label);
             Controls.Add(Confirm);
             Controls.Add(InputTextBox);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "InputDialog";
+            ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Save";
             ResumeLayout(false);
