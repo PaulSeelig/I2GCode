@@ -145,26 +145,14 @@ namespace GUI_I2G
                 CheckInput(tB_depth, out depth, zkoo1);
                 if (pB_DragDrop.Image == null)
                     throw new FormatException("Sie müssen ein Bild per drag and drop in das mittlere Feld eingeben");
-                //p.SetScaleFactor(Image.FromFile(imagepath).Width, Image.FromFile(imagepath).Height);
+                
                 p.Eckpunkt[0] = xkoo1;
                 p.Eckpunkt[1] = ykoo1;
                 p.Eckpunkt[2] = zkoo1;
                 p.CuttingDepth = depth;
                 p.AproxValue = epsilon;
 
-
-                //MessageBox.Show("Ihre Eingaben, waren korrekt, Ihr G-Code wird nun generiert, dies könnte einige Zeit in Anspruch nehmen!");
-
-
-
-                //CvInvoke.DrawContours(rgbimage, Contour.Konturfinder(rgbimage), -1, new MCvScalar(200, 45, 45), 2);//hier werden die konturen auf ein rgb bild gemalt
-
-                //CvInvoke.Imwrite("draw" + name, rgbimage);//um das Bild mit den Konturen zuspeichern + das konvertieren von emgu image zum draw image
-                //Image save = Image.FromFile("draw" + name);//keine schöne methode (fürs konvertieren) habe aber nichts auf die schnelle gefunden werde das nachträglich machen                
-
-                //pB_DragDrop.Image = save;
                 CurrentGCode = GCodeGenerator.GenerateGCode(CurrentGCode.GetAllContours(), p);
-
 
                 CurrentProject.parameter = p;
                 tB_showGCode.Lines = CurrentGCode.GCodeLines.ToArray();
@@ -195,7 +183,6 @@ namespace GUI_I2G
                 if (files != null && files.Length > 0)
                 {
                     pB_DragDrop.ImageLocation = files;
-                    //pB_DragDrop.Image = Image.FromFile(files);
                     imagepath = files;
                 }
 
@@ -278,11 +265,9 @@ namespace GUI_I2G
             //Erstellen eines Graphics - Objekts aus der erstellten Bitmap
             using (Graphics g = Graphics.FromImage(Drawnimage))
             {
-                //Pen pen = new(Color.Red, 3);
-                //DrawOnPicBox(CurrentGCode.GetAllContours(), g);
+                Pen MaterialBorderPen = new(Color.Blue, Normal.Width);
 
                 pB_DragDrop.Image = Drawnimage;
-                // graphics = pB_DragDrop.CreateGraphics();
                 Point[][] pArrArr = new Point[Arr.Count][];
                 for (int i = 0; i < Arr.Count; i++)
                 {
@@ -300,18 +285,15 @@ namespace GUI_I2G
                 {
                     if (pArr.Length > 1)
                     {
-                        Pen currentPen = index == pArrInd ? HighLight : Normal; //This Highlights the contours?? //yes
+                        Pen currentPen = index == pArrInd ? HighLight : Normal; //This Highlights the contours
                         for (int i = 0; i < pArr.Length - 1; i++)
                         {
                             g.DrawLine(currentPen, new((int)(pArr[i].X * Scalea), (int)(pArr[i].Y * Scalea)), new((int)(pArr[i + 1].X * Scalea), (int)(pArr[i + 1].Y * Scalea)));
-                            //g.DrawLine(currentPen, pArr[i], pArr[i + 1]);
-                            //g.DrawLines(new(Color.Black), pArr);
                         }
                     }
                     pArrInd++;
                 }
-                
-                //pB_DragDrop.Location = new Point( pB_DragDrop.Image.Width, 0);
+                //g.DrawLines(MaterialBorderPen, new Point[]{ new(0, 0), new(0, H), new(W, H), new(W, 0), new(0,0)});
             }
         }
         private void pB_DragDrop_Scale()

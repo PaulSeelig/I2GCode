@@ -13,8 +13,9 @@ using System.Runtime.CompilerServices;
 
 namespace GUI_I2G.GCodeclasses
 {
+    [Obsolete("This Class will be implemented in the Class GCode. This will uncomplify the functions and oversight")]
     public static partial class GCodeGenerator
-    {
+    { 
         private static double CurrentMillDepth {  get; set; }
         /// <summary>
         /// Generates GCode.string[]  with a given List<Contour[]>
